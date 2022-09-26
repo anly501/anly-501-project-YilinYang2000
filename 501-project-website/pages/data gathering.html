@@ -3,7 +3,7 @@
 <head><meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>data-gathering1</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>data gathering</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 
 
 
@@ -14579,8 +14579,259 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Twitter API</p>
-<p>Python: I used twitter API to scratch mutiple keywords:"media" "internet influencers" "consumers" "data" to gather comments from twiter about their opinion about the wemedia. I use these data to analyze the positive and negative opinion. I can detect the internet users' attitudes to consumers' privacy. I can also use this datasets to define the relationship between data and media. The keywords may not clear enough for me to analysis but I will adjust it later for future research. I used for loop to search over 600 tweets in order to make comprehensive datasets. I will collect more in the future to scratch over 2000 tweets in order to make sure my results are accurate. I plan to detect the frequency of words to gain a plot. More than this, I plan to use Naive Bytes to give each tweet a positive or negative attitude.</p>
+<h2 id="Modified-data">Modified data<a class="anchor-link" href="#Modified-data">&#182;</a></h2><p>Instagram is one of the most popular and famous platforms for users to network, post their daily lives. There are a lot of famous internet influencers here. Instagram is also one of the important parts for wemedia to develop. Users can create channels to post their daily lives, show their abilities, post some fun videos in order to attract more fans. Ad sellers also analyze their business value to contact instagram influencers to promote their products in order to gain more benefits.</p>
+<p>In this dataset, it clearly shows followers'number, average likes each post, country etc. I would like to use this dataset to deeper analyze the trend of internet influencers followers. Country distribution of these influencers. More than this, I would like to use other datasets to locate the fields which these inernet influencers focus to further analyze factors of these internet influencers. What makes them success.</p>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>channel info: Username in instagram</p>
+<p>influence score: It is calculated based on their popularity.</p>
+<p>posts: total posts they have</p>
+<p>followers: total followers they have</p>
+<p>avg_likes: average likes of their total posts</p>
+<p>60_days_eng_rate: 60 days of engagement rate</p>
+<p>new_post_avg_like: a calculation of the average likes they gained from new posts.</p>
+<p>total_likes: total likes of their posts in instagram.</p>
+<p>country: users' origin. What countries they from?</p>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+ <span class="n">instagram_infl</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;/Users/yangyilin/Desktop/2022-fall-anly/501/project/top_insta_influencers_data.csv&quot;</span><span class="p">)</span>
+ <span class="n">instagram_infl</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[&nbsp;]:</div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>rank</th>
+      <th>channel_info</th>
+      <th>influence_score</th>
+      <th>posts</th>
+      <th>followers</th>
+      <th>avg_likes</th>
+      <th>60_day_eng_rate</th>
+      <th>new_post_avg_like</th>
+      <th>total_likes</th>
+      <th>country</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>cristiano</td>
+      <td>92</td>
+      <td>3.3k</td>
+      <td>475.8m</td>
+      <td>8.7m</td>
+      <td>1.39%</td>
+      <td>6.5m</td>
+      <td>29.0b</td>
+      <td>Spain</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>kyliejenner</td>
+      <td>91</td>
+      <td>6.9k</td>
+      <td>366.2m</td>
+      <td>8.3m</td>
+      <td>1.62%</td>
+      <td>5.9m</td>
+      <td>57.4b</td>
+      <td>United States</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>leomessi</td>
+      <td>90</td>
+      <td>0.89k</td>
+      <td>357.3m</td>
+      <td>6.8m</td>
+      <td>1.24%</td>
+      <td>4.4m</td>
+      <td>6.0b</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>selenagomez</td>
+      <td>93</td>
+      <td>1.8k</td>
+      <td>342.7m</td>
+      <td>6.2m</td>
+      <td>0.97%</td>
+      <td>3.3m</td>
+      <td>11.5b</td>
+      <td>United States</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>therock</td>
+      <td>91</td>
+      <td>6.8k</td>
+      <td>334.1m</td>
+      <td>1.9m</td>
+      <td>0.20%</td>
+      <td>665.3k</td>
+      <td>12.5b</td>
+      <td>United States</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>195</th>
+      <td>196</td>
+      <td>iambeckyg</td>
+      <td>71</td>
+      <td>2.3k</td>
+      <td>33.2m</td>
+      <td>623.8k</td>
+      <td>1.40%</td>
+      <td>464.7k</td>
+      <td>1.4b</td>
+      <td>United States</td>
+    </tr>
+    <tr>
+      <th>196</th>
+      <td>197</td>
+      <td>nancyajram</td>
+      <td>81</td>
+      <td>3.8k</td>
+      <td>33.2m</td>
+      <td>390.4k</td>
+      <td>0.64%</td>
+      <td>208.0k</td>
+      <td>1.5b</td>
+      <td>France</td>
+    </tr>
+    <tr>
+      <th>197</th>
+      <td>198</td>
+      <td>luansantana</td>
+      <td>79</td>
+      <td>0.77k</td>
+      <td>33.2m</td>
+      <td>193.3k</td>
+      <td>0.26%</td>
+      <td>82.6k</td>
+      <td>149.2m</td>
+      <td>Brazil</td>
+    </tr>
+    <tr>
+      <th>198</th>
+      <td>199</td>
+      <td>nickjonas</td>
+      <td>78</td>
+      <td>2.3k</td>
+      <td>33.0m</td>
+      <td>719.6k</td>
+      <td>1.42%</td>
+      <td>467.7k</td>
+      <td>1.7b</td>
+      <td>United States</td>
+    </tr>
+    <tr>
+      <th>199</th>
+      <td>200</td>
+      <td>raisa6690</td>
+      <td>80</td>
+      <td>4.2k</td>
+      <td>32.8m</td>
+      <td>232.2k</td>
+      <td>0.30%</td>
+      <td>97.4k</td>
+      <td>969.1m</td>
+      <td>Indonesia</td>
+    </tr>
+  </tbody>
+</table>
+<p>200 rows × 10 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Twitter-API">Twitter API<a class="anchor-link" href="#Twitter-API">&#182;</a></h2><p>Python: I used twitter API to scratch mutiple keywords:"media" "internet influencers" "consumers" "data" to gather comments from twiter about their opinion about the wemedia. I use these data to analyze the positive and negative opinion. I can detect the internet users' attitudes to consumers' privacy. I can also use this datasets to define the relationship between data and media. The keywords may not clear enough for me to analysis but I will adjust it later for future research. I used for loop to search over 600 tweets in order to make comprehensive datasets. I will collect more in the future to scratch over 2000 tweets in order to make sure my results are accurate. I plan to detect the frequency of words to gain a plot. More than this, I plan to use Naive Bytes to give each tweet a positive or negative attitude.</p>
 
 </div>
 </div>
@@ -14621,6 +14872,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">tweepy</span>
+<span class="kn">import</span> <span class="nn">requests</span>
 <span class="c1"># Set up Connection</span>
 <span class="n">auth</span> <span class="o">=</span> <span class="n">tweepy</span><span class="o">.</span><span class="n">OAuthHandler</span><span class="p">(</span><span class="n">consumer_key</span><span class="p">,</span> <span class="n">consumer_secret</span><span class="p">)</span>
 <span class="n">auth</span><span class="o">.</span><span class="n">set_access_token</span><span class="p">(</span><span class="n">access_token</span><span class="p">,</span> <span class="n">access_token_secret</span><span class="p">)</span>
@@ -14817,53 +15069,53 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>lang</th>
+      <th>author_id</th>
       <th>id</th>
+      <th>lang</th>
       <th>text</th>
       <th>created_at</th>
-      <th>author_id</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>0</th>
+      <td>1498696759308013570</td>
+      <td>1574434179143544832</td>
       <td>en</td>
-      <td>1569873208131690497</td>
-      <td>RT @KarlBode: also for the fiftieth time the s...</td>
-      <td>2022-09-14T02:18:34.000Z</td>
-      <td>40095360</td>
+      <td>Facebook agrees to settle Cambridge Analytica ...</td>
+      <td>2022-09-26T16:22:14.000Z</td>
     </tr>
     <tr>
       <th>1</th>
+      <td>63521934</td>
+      <td>1574432214976282625</td>
       <td>en</td>
-      <td>1569865425084874754</td>
-      <td>"We recommended that Congress consider compreh...</td>
-      <td>2022-09-14T01:47:38.000Z</td>
-      <td>21878488</td>
+      <td>RT @MoFoLLP: How can #tech companies take step...</td>
+      <td>2022-09-26T16:14:26.000Z</td>
     </tr>
     <tr>
       <th>2</th>
+      <td>1055266101628674049</td>
+      <td>1574432101952167941</td>
       <td>en</td>
-      <td>1569854136023404546</td>
-      <td>@philw1982 @garry_knight @PaulThomasrn @jprnyc...</td>
-      <td>2022-09-14T01:02:47.000Z</td>
-      <td>1007838595</td>
+      <td>RT @deanhager: Welcome @ZecOps to the @JamfSof...</td>
+      <td>2022-09-26T16:13:59.000Z</td>
     </tr>
     <tr>
       <th>3</th>
+      <td>26046495</td>
+      <td>1574431927020331008</td>
       <td>en</td>
-      <td>1569843507082428417</td>
-      <td>@OMGTheMess 20. Price point is still way too h...</td>
-      <td>2022-09-14T00:20:33.000Z</td>
-      <td>1365809989</td>
+      <td>RT @deanhager: Welcome @ZecOps to the @JamfSof...</td>
+      <td>2022-09-26T16:13:17.000Z</td>
     </tr>
     <tr>
       <th>4</th>
+      <td>126388704</td>
+      <td>1574429889050050560</td>
       <td>en</td>
-      <td>1569831407173906434</td>
-      <td>RT @kelrobi11: Watching @emilychangtv on Bloom...</td>
-      <td>2022-09-13T23:32:28.000Z</td>
-      <td>787053906966618112</td>
+      <td>RT @MoFoLLP: How can #tech companies take step...</td>
+      <td>2022-09-26T16:05:11.000Z</td>
     </tr>
     <tr>
       <th>...</th>
@@ -14874,48 +15126,48 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
       <td>...</td>
     </tr>
     <tr>
-      <th>95</th>
+      <th>94</th>
+      <td>500669196</td>
+      <td>1573976500092555264</td>
       <td>en</td>
-      <td>1569657195393912833</td>
-      <td>RT @Corix_JC: Consumer #data is the next virtu...</td>
-      <td>2022-09-13T12:00:12.000Z</td>
-      <td>357356770</td>
+      <td>#Rootconf is hosting a Twitter spaces session ...</td>
+      <td>2022-09-25T10:03:35.000Z</td>
+    </tr>
+    <tr>
+      <th>95</th>
+      <td>1497465815381073922</td>
+      <td>1573971406185897984</td>
+      <td>en</td>
+      <td>RT @DuckDuckGo: Consumer groups in 8 countries...</td>
+      <td>2022-09-25T09:43:20.000Z</td>
     </tr>
     <tr>
       <th>96</th>
+      <td>1497465815381073922</td>
+      <td>1573971090690347008</td>
       <td>en</td>
-      <td>1569657066494500867</td>
-      <td>RT @Corix_JC: Consumer #data is the next virtu...</td>
-      <td>2022-09-13T11:59:42.000Z</td>
-      <td>19729690</td>
+      <td>RT @DuckDuckGo: Sephora has started respecting...</td>
+      <td>2022-09-25T09:42:05.000Z</td>
     </tr>
     <tr>
       <th>97</th>
+      <td>1572979604348096512</td>
+      <td>1573969644117184512</td>
       <td>en</td>
-      <td>1569655901581180930</td>
-      <td>Well, here we have it, not 2 weeks after our l...</td>
-      <td>2022-09-13T11:55:04.000Z</td>
-      <td>401773333</td>
+      <td>@HP @HPSupport I have no privacy to it ,you pe...</td>
+      <td>2022-09-25T09:36:20.000Z</td>
     </tr>
     <tr>
       <th>98</th>
+      <td>14536408</td>
+      <td>1573964467649404928</td>
       <td>en</td>
-      <td>1569655006642728961</td>
-      <td>RT @Vmeta3Official: VMeta3 will change how bra...</td>
-      <td>2022-09-13T11:51:31.000Z</td>
-      <td>1498038919027630081</td>
-    </tr>
-    <tr>
-      <th>99</th>
-      <td>en</td>
-      <td>1569644488741605376</td>
-      <td>RT @SophicCapital: Read about current and prop...</td>
-      <td>2022-09-13T11:09:43.000Z</td>
-      <td>892508433315921924</td>
+      <td>RT @_TimOBrien: I've shared a few thoughts wit...</td>
+      <td>2022-09-25T09:15:46.000Z</td>
     </tr>
   </tbody>
 </table>
-<p>600 rows × 5 columns</p>
+<p>594 rows × 5 columns</p>
 </div>
 </div>
 
