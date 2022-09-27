@@ -14615,12 +14615,12 @@ At this time, I will use countVectorizer to generate a bag of words and count fr
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">CountVectorizer</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">svm</span>
-<span class="kn">import</span> <span class="nn">nltk</span>
-<span class="n">pytt</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;/Users/yangyilin/Desktop/anly-501-project-YilinYang2000-1/data/00-raw-data/twitterpython.csv&quot;</span><span class="p">)</span>
+<div class=" highlight hl-r"><pre><span></span><span class="n">import</span> <span class="n">pandas</span> <span class="n">as</span> <span class="n">pd</span>
+<span class="n">from</span> <span class="n">sklearn.feature_extraction.text</span> <span class="n">import</span> <span class="n">CountVectorizer</span>
+<span class="n">import</span> <span class="n">numpy</span> <span class="n">as</span> <span class="n">np</span>
+<span class="n">from</span> <span class="n">sklearn</span> <span class="n">import</span> <span class="n">svm</span>
+<span class="n">import</span> <span class="n">nltk</span>
+<span class="n">pytt</span> <span class="o">=</span> <span class="nf">pd.read_csv</span><span class="p">(</span><span class="s">&quot;/Users/yangyilin/Desktop/anly-501-project-YilinYang2000-1/data/00-raw-data/twitterpython.csv&quot;</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -14647,7 +14647,7 @@ At this time, I will use countVectorizer to generate a bag of words and count fr
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pytt</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span>
+<div class=" highlight hl-r"><pre><span></span><span class="nf">pytt.isnull</span><span class="p">()</span><span class="n">.sum</span>
 </pre></div>
 
      </div>
@@ -14701,7 +14701,7 @@ At this time, I will use countVectorizer to generate a bag of words and count fr
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pytt</span> <span class="o">=</span> <span class="n">pytt</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+<div class=" highlight hl-r"><pre><span></span><span class="n">pytt</span> <span class="o">=</span> <span class="nf">pytt.dropna</span><span class="p">()</span>
 </pre></div>
 
      </div>
@@ -14740,43 +14740,43 @@ At this time, I will use countVectorizer to generate a bag of words and count fr
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">re</span>
-<span class="kn">import</span> <span class="nn">spacy</span>
-<span class="kn">from</span> <span class="nn">spacy.language</span> <span class="kn">import</span> <span class="n">Language</span>
+<div class=" highlight hl-r"><pre><span></span><span class="n">import</span> <span class="n">re</span>
+<span class="n">import</span> <span class="n">spacy</span>
+<span class="n">from</span> <span class="n">spacy.language</span> <span class="n">import</span> <span class="n">Language</span>
 
 
-<span class="n">pipeline</span> <span class="o">=</span> <span class="n">spacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;en_core_web_sm&#39;</span><span class="p">)</span>
+<span class="n">pipeline</span> <span class="o">=</span> <span class="nf">spacy.load</span><span class="p">(</span><span class="s">&#39;en_core_web_sm&#39;</span><span class="p">)</span>
 
 <span class="c1"># http://emailregex.com/</span>
-<span class="n">email_re</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;&quot;&quot;(?:[a-z0-9!#$%&amp;&#39;*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&amp;&#39;*+/=?^_`{|}~-]+)*|&quot;(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*&quot;)@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.)</span><span class="si">{3}</span><span class="s2">(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])&quot;&quot;&quot;</span>
+<span class="n">email_re</span> <span class="o">=</span> <span class="n">r</span><span class="s">&quot;&quot;&quot;(?:[a-z0-9!#$%&amp;&#39;*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&amp;&#39;*+/=?^_`{|}~-]+)*|&quot;</span><span class="p">(</span><span class="o">?:</span><span class="p">[</span>\<span class="n">x01</span><span class="o">-</span>\<span class="n">x08</span>\<span class="n">x0b</span>\<span class="n">x0c</span>\<span class="n">x0e</span><span class="o">-</span>\<span class="n">x1f</span>\<span class="n">x21</span>\<span class="n">x23</span><span class="o">-</span>\<span class="n">x5b</span>\<span class="n">x5d</span><span class="o">-</span>\<span class="n">x7f</span><span class="p">]</span><span class="o">|</span>\\<span class="p">[</span>\<span class="n">x01</span><span class="o">-</span>\<span class="n">x09</span>\<span class="n">x0b</span>\<span class="n">x0c</span>\<span class="n">x0e</span><span class="o">-</span>\<span class="n">x7f</span><span class="p">])</span><span class="o">*</span><span class="s">&quot;)@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])&quot;&quot;&quot;</span>
 
 <span class="c1"># replace = [ (pattern-to-replace, replacement),  ...]</span>
 <span class="n">replace</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">(</span><span class="sa">r</span><span class="s2">&quot;&lt;a[^&gt;]*&gt;(.*?)&lt;/a&gt;&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;\1&quot;</span><span class="p">),</span>  <span class="c1"># Matches most URLs</span>
-    <span class="p">(</span><span class="n">email_re</span><span class="p">,</span> <span class="s2">&quot;email&quot;</span><span class="p">),</span>            <span class="c1"># Matches emails</span>
-    <span class="p">(</span><span class="sa">r</span><span class="s2">&quot;(?&lt;=\d),(?=\d)&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>        <span class="c1"># Remove commas in numbers</span>
-    <span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\d+&quot;</span><span class="p">,</span> <span class="s2">&quot;number&quot;</span><span class="p">),</span>              <span class="c1"># Map digits to special token &lt;numbr&gt;</span>
-    <span class="p">(</span><span class="sa">r</span><span class="s2">&quot;[\t\n\r\*\.\@\,\-\/]&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">),</span> <span class="c1"># Punctuation and other junk</span>
-    <span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\s+&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">)</span>                   <span class="c1"># Stips extra whitespace</span>
+    <span class="p">(</span><span class="n">r</span><span class="s">&quot;&lt;a[^&gt;]*&gt;(.*?)&lt;/a&gt;&quot;</span><span class="p">,</span> <span class="n">r</span><span class="s">&quot;\1&quot;</span><span class="p">),</span>  <span class="c1"># Matches most URLs</span>
+    <span class="p">(</span><span class="n">email_re</span><span class="p">,</span> <span class="s">&quot;email&quot;</span><span class="p">),</span>            <span class="c1"># Matches emails</span>
+    <span class="p">(</span><span class="n">r</span><span class="s">&quot;(?&lt;=\d),(?=\d)&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">),</span>        <span class="c1"># Remove commas in numbers</span>
+    <span class="p">(</span><span class="n">r</span><span class="s">&quot;\d+&quot;</span><span class="p">,</span> <span class="s">&quot;number&quot;</span><span class="p">),</span>              <span class="c1"># Map digits to special token &lt;numbr&gt;</span>
+    <span class="p">(</span><span class="n">r</span><span class="s">&quot;[\t\n\r\*\.\@\,\-\/]&quot;</span><span class="p">,</span> <span class="s">&quot; &quot;</span><span class="p">),</span> <span class="c1"># Punctuation and other junk</span>
+    <span class="p">(</span><span class="n">r</span><span class="s">&quot;\s+&quot;</span><span class="p">,</span> <span class="s">&quot; &quot;</span><span class="p">)</span>                   <span class="c1"># Stips extra whitespace</span>
 <span class="p">]</span>
 
 <span class="n">twitter_sentences</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">pytt</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">]):</span>
-    <span class="k">for</span> <span class="n">repl</span> <span class="ow">in</span> <span class="n">replace</span><span class="p">:</span>
-        <span class="n">d</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="n">repl</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">repl</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">d</span><span class="p">)</span>
-    <span class="n">twitter_sentences</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+<span class="n">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">d</span> <span class="n">in</span> <span class="nf">enumerate</span><span class="p">(</span><span class="n">pytt</span><span class="p">[</span><span class="s">&#39;text&#39;</span><span class="p">])</span><span class="o">:</span>
+    <span class="n">for</span> <span class="n">repl</span> <span class="n">in</span> <span class="n">replace</span><span class="o">:</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="nf">re.sub</span><span class="p">(</span><span class="n">repl</span><span class="p">[</span><span class="m">0</span><span class="p">],</span> <span class="n">repl</span><span class="p">[</span><span class="m">1</span><span class="p">],</span> <span class="n">d</span><span class="p">)</span>
+    <span class="nf">twitter_sentences.append</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
 
 
-<span class="nd">@Language</span><span class="o">.</span><span class="n">component</span><span class="p">(</span><span class="s2">&quot;pyttPreprocessor&quot;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">ng20_preprocess</span><span class="p">(</span><span class="n">doc</span><span class="p">):</span>
-    <span class="n">tokens</span> <span class="o">=</span> <span class="p">[</span><span class="n">token</span> <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">doc</span> 
-              <span class="k">if</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">((</span><span class="n">token</span><span class="o">.</span><span class="n">is_stop</span><span class="p">,</span> <span class="n">token</span><span class="o">.</span><span class="n">is_punct</span><span class="p">))]</span>
-    <span class="n">tokens</span> <span class="o">=</span> <span class="p">[</span><span class="n">token</span><span class="o">.</span><span class="n">lemma_</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">tokens</span><span class="p">]</span>
-    <span class="n">tokens</span> <span class="o">=</span> <span class="p">[</span><span class="n">token</span> <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">tokens</span> <span class="k">if</span> <span class="n">token</span><span class="p">]</span>
-    <span class="k">return</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tokens</span><span class="p">)</span>
+<span class="o">@</span><span class="nf">Language.component</span><span class="p">(</span><span class="s">&quot;pyttPreprocessor&quot;</span><span class="p">)</span>
+<span class="n">def</span> <span class="nf">ng20_preprocess</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span><span class="o">:</span>
+    <span class="n">tokens</span> <span class="o">=</span> <span class="p">[</span><span class="n">token</span> <span class="n">for</span> <span class="n">token</span> <span class="n">in</span> <span class="n">doc</span> 
+              <span class="n">if</span> <span class="n">not</span> <span class="nf">any</span><span class="p">((</span><span class="n">token.is_stop</span><span class="p">,</span> <span class="n">token.is_punct</span><span class="p">))]</span>
+    <span class="n">tokens</span> <span class="o">=</span> <span class="p">[</span><span class="nf">token.lemma_.lower</span><span class="p">()</span><span class="nf">.strip</span><span class="p">()</span> <span class="n">for</span> <span class="n">token</span> <span class="n">in</span> <span class="n">tokens</span><span class="p">]</span>
+    <span class="n">tokens</span> <span class="o">=</span> <span class="p">[</span><span class="n">token</span> <span class="n">for</span> <span class="n">token</span> <span class="n">in</span> <span class="n">tokens</span> <span class="n">if</span> <span class="n">token</span><span class="p">]</span>
+    <span class="n">return</span> <span class="s">&quot; &quot;</span><span class="nf">.join</span><span class="p">(</span><span class="n">tokens</span><span class="p">)</span>
 
 
-<span class="n">pipeline</span><span class="o">.</span><span class="n">add_pipe</span><span class="p">(</span><span class="s2">&quot;pyttPreprocessor&quot;</span><span class="p">)</span>
+<span class="nf">pipeline.add_pipe</span><span class="p">(</span><span class="s">&quot;pyttPreprocessor&quot;</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -14843,9 +14843,9 @@ To enable them in other operations, rebuild TensorFlow with the appropriate comp
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">docs</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="k">for</span> <span class="n">sent</span> <span class="ow">in</span> <span class="n">twitter_sentences</span><span class="p">:</span>
-    <span class="n">docs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pipeline</span><span class="p">(</span><span class="n">sent</span><span class="p">))</span>
+<div class=" highlight hl-r"><pre><span></span><span class="n">docs</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">for</span> <span class="n">sent</span> <span class="n">in</span> <span class="n">twitter_sentences</span><span class="o">:</span>
+    <span class="nf">docs.append</span><span class="p">(</span><span class="nf">pipeline</span><span class="p">(</span><span class="n">sent</span><span class="p">))</span>
 </pre></div>
 
      </div>
@@ -14884,11 +14884,11 @@ To enable them in other operations, rebuild TensorFlow with the appropriate comp
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">countvectorizer</span> <span class="o">=</span> <span class="n">CountVectorizer</span><span class="p">()</span>
-<span class="n">ttbow</span> <span class="o">=</span> <span class="n">countvectorizer</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">docs</span><span class="p">)</span>
-<span class="n">features</span> <span class="o">=</span> <span class="n">ttbow</span><span class="o">.</span><span class="n">vocabulary_</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
-<span class="n">counts</span> <span class="o">=</span> <span class="n">ttbow</span><span class="o">.</span><span class="n">vocabulary_</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
-<span class="n">ttbow</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;words&#39;</span><span class="p">:</span><span class="n">features</span><span class="p">,</span><span class="s1">&#39;counts&#39;</span><span class="p">:</span><span class="n">counts</span><span class="p">})</span>
+<div class=" highlight hl-r"><pre><span></span><span class="n">countvectorizer</span> <span class="o">=</span> <span class="nf">CountVectorizer</span><span class="p">()</span>
+<span class="n">ttbow</span> <span class="o">=</span> <span class="nf">countvectorizer.fit</span><span class="p">(</span><span class="n">docs</span><span class="p">)</span>
+<span class="n">features</span> <span class="o">=</span> <span class="nf">ttbow.vocabulary_.keys</span><span class="p">()</span>
+<span class="n">counts</span> <span class="o">=</span> <span class="nf">ttbow.vocabulary_.values</span><span class="p">()</span>
+<span class="n">ttbow</span><span class="o">=</span><span class="nf">pd.DataFrame</span><span class="p">({</span><span class="s">&#39;words&#39;</span><span class="o">:</span><span class="n">features</span><span class="p">,</span><span class="s">&#39;counts&#39;</span><span class="o">:</span><span class="n">counts</span><span class="p">})</span>
 </pre></div>
 
      </div>
@@ -14904,7 +14904,7 @@ To enable them in other operations, rebuild TensorFlow with the appropriate comp
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">ttbow</span> <span class="o">=</span> <span class="n">ttbow</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;counts&#39;</span><span class="p">],</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<div class=" highlight hl-r"><pre><span></span><span class="n">ttbow</span> <span class="o">=</span> <span class="nf">ttbow.sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;counts&#39;</span><span class="p">],</span><span class="n">ascending</span><span class="o">=</span><span class="n">False</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -14920,7 +14920,7 @@ To enable them in other operations, rebuild TensorFlow with the appropriate comp
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">ttbow</span>
+<div class=" highlight hl-r"><pre><span></span><span class="n">ttbow</span>
 </pre></div>
 
      </div>
@@ -15066,7 +15066,7 @@ To enable them in other operations, rebuild TensorFlow with the appropriate comp
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">ttbow</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;/Users/yangyilin/Desktop/anly-501-project-YilinYang2000-1/data/00-raw-data/wordfreqpython.csv&quot;</span><span class="p">)</span>
+<div class=" highlight hl-r"><pre><span></span><span class="nf">ttbow.to_csv</span><span class="p">(</span><span class="s">&quot;/Users/yangyilin/Desktop/anly-501-project-YilinYang2000-1/data/00-raw-data/wordfreqpython.csv&quot;</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -15094,16 +15094,16 @@ To enable them in other operations, rebuild TensorFlow with the appropriate comp
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">nltk.sentiment</span> <span class="kn">import</span> <span class="n">SentimentIntensityAnalyzer</span>
-<span class="k">def</span> <span class="nf">getSentiments</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
-    <span class="n">sid</span> <span class="o">=</span> <span class="n">SentimentIntensityAnalyzer</span><span class="p">()</span>
-    <span class="n">tweet_str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+<div class=" highlight hl-r"><pre><span></span><span class="n">from</span> <span class="n">nltk.sentiment</span> <span class="n">import</span> <span class="n">SentimentIntensityAnalyzer</span>
+<span class="n">def</span> <span class="nf">getSentiments</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="o">:</span>
+    <span class="n">sid</span> <span class="o">=</span> <span class="nf">SentimentIntensityAnalyzer</span><span class="p">()</span>
+    <span class="n">tweet_str</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
     <span class="n">tweetscore</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">tweet</span> <span class="ow">in</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">]:</span>
-        <span class="n">tweet_str</span> <span class="o">=</span> <span class="n">tweet_str</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">tweet</span>
-        <span class="n">score</span> <span class="o">=</span> <span class="n">sid</span><span class="o">.</span><span class="n">polarity_scores</span><span class="p">(</span><span class="n">tweet_str</span><span class="p">)</span>
-        <span class="n">tweetscore</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">score</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">tweetscore</span>
+    <span class="n">for</span> <span class="n">tweet</span> <span class="n">in</span> <span class="n">df</span><span class="p">[</span><span class="s">&#39;text&#39;</span><span class="p">]</span><span class="o">:</span>
+        <span class="n">tweet_str</span> <span class="o">=</span> <span class="n">tweet_str</span> <span class="o">+</span> <span class="s">&quot; &quot;</span> <span class="o">+</span> <span class="n">tweet</span>
+        <span class="n">score</span> <span class="o">=</span> <span class="nf">sid.polarity_scores</span><span class="p">(</span><span class="n">tweet_str</span><span class="p">)</span>
+        <span class="nf">tweetscore.append</span><span class="p">(</span><span class="n">score</span><span class="p">)</span>
+    <span class="n">return</span> <span class="n">tweetscore</span>
 </pre></div>
 
      </div>
@@ -15130,7 +15130,7 @@ To enable them in other operations, rebuild TensorFlow with the appropriate comp
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sentiment</span> <span class="o">=</span> <span class="n">getSentiments</span><span class="p">(</span><span class="n">pytt</span><span class="p">)</span>
+<div class=" highlight hl-r"><pre><span></span><span class="n">sentiment</span> <span class="o">=</span> <span class="nf">getSentiments</span><span class="p">(</span><span class="n">pytt</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -15146,7 +15146,7 @@ To enable them in other operations, rebuild TensorFlow with the appropriate comp
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">texts</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">pytt</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+<div class=" highlight hl-r"><pre><span></span><span class="n">texts</span> <span class="o">=</span> <span class="nf">pd.DataFrame</span><span class="p">(</span><span class="n">pytt.text</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -15255,7 +15255,7 @@ To enable them in other operations, rebuild TensorFlow with the appropriate comp
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sentimentscore</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">sentiment</span><span class="p">)</span>
+<div class=" highlight hl-r"><pre><span></span><span class="n">sentimentscore</span> <span class="o">=</span> <span class="nf">pd.DataFrame.from_dict</span><span class="p">(</span><span class="n">sentiment</span><span class="p">)</span>
 <span class="n">sentimentscore</span>
 </pre></div>
 
@@ -15401,7 +15401,7 @@ To enable them in other operations, rebuild TensorFlow with the appropriate comp
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">tweetscore</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">texts</span><span class="p">,</span><span class="n">sentimentscore</span><span class="p">],</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<div class=" highlight hl-r"><pre><span></span><span class="n">tweetscore</span> <span class="o">=</span> <span class="nf">pd.concat</span><span class="p">([</span><span class="n">texts</span><span class="p">,</span><span class="n">sentimentscore</span><span class="p">],</span><span class="n">axis</span><span class="o">=</span><span class="m">1</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -15417,7 +15417,7 @@ To enable them in other operations, rebuild TensorFlow with the appropriate comp
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">tweetscore</span>
+<div class=" highlight hl-r"><pre><span></span><span class="n">tweetscore</span>
 </pre></div>
 
      </div>
@@ -15591,7 +15591,7 @@ To enable them in other operations, rebuild TensorFlow with the appropriate comp
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">tweetscore</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;/Users/yangyilin/Desktop/anly-501-project-YilinYang2000-1/data/00-raw-data/pytweetscore.csv&quot;</span><span class="p">)</span>
+<div class=" highlight hl-r"><pre><span></span><span class="nf">tweetscore.to_csv</span><span class="p">(</span><span class="s">&quot;/Users/yangyilin/Desktop/anly-501-project-YilinYang2000-1/data/00-raw-data/pytweetscore.csv&quot;</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -15630,19 +15630,19 @@ To enable them in other operations, rebuild TensorFlow with the appropriate comp
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">library</span><span class="p">(</span><span class="n">selectr</span><span class="p">)</span>
-<span class="n">library</span><span class="p">(</span><span class="n">rvest</span><span class="p">)</span>
-<span class="n">library</span><span class="p">(</span><span class="n">xml2</span><span class="p">)</span>
-<span class="n">library</span><span class="p">(</span><span class="n">wordcloud2</span><span class="p">)</span> <span class="c1"># for generating really cool looking wordclouds</span>
-<span class="n">library</span><span class="p">(</span><span class="n">tm</span><span class="p">)</span> <span class="c1"># for text minning</span>
-<span class="n">library</span><span class="p">(</span><span class="n">dplyr</span><span class="p">)</span> <span class="c1"># loads of fun stuff including piping</span>
-<span class="n">library</span><span class="p">(</span><span class="n">ROAuth</span><span class="p">)</span>
-<span class="n">library</span><span class="p">(</span><span class="n">jsonlite</span><span class="p">)</span>
-<span class="n">library</span><span class="p">(</span><span class="n">httpuv</span><span class="p">)</span>
-<span class="n">library</span><span class="p">(</span><span class="s2">&quot;tm&quot;</span><span class="p">)</span>
-<span class="n">library</span><span class="p">(</span><span class="s2">&quot;SnowballC&quot;</span><span class="p">)</span>
-<span class="n">library</span><span class="p">(</span><span class="s2">&quot;wordcloud&quot;</span><span class="p">)</span>
-<span class="n">library</span><span class="p">(</span><span class="s2">&quot;RColorBrewer&quot;</span><span class="p">)</span>
+<div class=" highlight hl-r"><pre><span></span><span class="nf">library</span><span class="p">(</span><span class="n">selectr</span><span class="p">)</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">rvest</span><span class="p">)</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">xml2</span><span class="p">)</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">wordcloud2</span><span class="p">)</span> <span class="c1"># for generating really cool looking wordclouds</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">tm</span><span class="p">)</span> <span class="c1"># for text minning</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">dplyr</span><span class="p">)</span> <span class="c1"># loads of fun stuff including piping</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">ROAuth</span><span class="p">)</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">jsonlite</span><span class="p">)</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">httpuv</span><span class="p">)</span>
+<span class="nf">library</span><span class="p">(</span><span class="s">&quot;tm&quot;</span><span class="p">)</span>
+<span class="nf">library</span><span class="p">(</span><span class="s">&quot;SnowballC&quot;</span><span class="p">)</span>
+<span class="nf">library</span><span class="p">(</span><span class="s">&quot;wordcloud&quot;</span><span class="p">)</span>
+<span class="nf">library</span><span class="p">(</span><span class="s">&quot;RColorBrewer&quot;</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -15698,7 +15698,7 @@ Loading required package: RColorBrewer
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">TweetsDF</span> <span class="o">&lt;-</span> <span class="n">read</span><span class="o">.</span><span class="n">csv</span><span class="p">(</span><span class="s2">&quot;/Users/yangyilin/Desktop/anly-501-project-YilinYang2000-1/data/00-raw-data/tweetinr.csv&quot;</span><span class="p">)</span>
+<div class=" highlight hl-r"><pre><span></span><span class="n">TweetsDF</span> <span class="o">&lt;-</span> <span class="nf">read.csv</span><span class="p">(</span><span class="s">&quot;/Users/yangyilin/Desktop/anly-501-project-YilinYang2000-1/data/00-raw-data/tweetinr.csv&quot;</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -15714,7 +15714,7 @@ Loading required package: RColorBrewer
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">na</span><span class="o">.</span><span class="n">om</span>
+<div class=" highlight hl-r"><pre><span></span><span class="n">na.om</span>
 </pre></div>
 
      </div>
@@ -15742,10 +15742,10 @@ Loading required package: RColorBrewer
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">FName</span> <span class="o">=</span> <span class="s2">&quot;~/Desktop/wemediaexample.txt&quot;</span>
-<span class="n">MyFile</span> <span class="o">&lt;-</span> <span class="n">file</span><span class="p">(</span><span class="n">FName</span><span class="p">)</span>
-<span class="n">cat</span><span class="p">(</span><span class="n">unlist</span><span class="p">(</span><span class="n">TweetsDF</span><span class="p">),</span> <span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">MyFile</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="n">close</span><span class="p">(</span><span class="n">MyFile</span><span class="p">)</span>
+<div class=" highlight hl-r"><pre><span></span><span class="n">FName</span> <span class="o">=</span> <span class="s">&quot;~/Desktop/wemediaexample.txt&quot;</span>
+<span class="n">MyFile</span> <span class="o">&lt;-</span> <span class="nf">file</span><span class="p">(</span><span class="n">FName</span><span class="p">)</span>
+<span class="nf">cat</span><span class="p">(</span><span class="nf">unlist</span><span class="p">(</span><span class="n">TweetsDF</span><span class="p">),</span> <span class="s">&quot; &quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">MyFile</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s">&quot;\n&quot;</span><span class="p">)</span>
+<span class="nf">close</span><span class="p">(</span><span class="n">MyFile</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -15761,19 +15761,19 @@ Loading required package: RColorBrewer
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">twittertext</span> <span class="o">=</span> <span class="n">Corpus</span><span class="p">(</span><span class="n">VectorSource</span><span class="p">(</span><span class="n">TweetsDF</span><span class="err">$</span><span class="n">text</span><span class="p">))</span>
-<span class="n">toSpace</span> <span class="o">=</span> <span class="n">content_transformer</span><span class="p">(</span>
-              <span class="n">function</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">pattern</span><span class="p">)</span>
-              <span class="n">gsub</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">))</span>
-<span class="n">twittertext1</span> <span class="o">=</span> <span class="n">tm_map</span><span class="p">(</span><span class="n">twittertext</span><span class="p">,</span> <span class="n">toSpace</span><span class="p">,</span> <span class="s2">&quot;/&quot;</span><span class="p">)</span>
-<span class="n">twittertext1</span> <span class="o">=</span> <span class="n">tm_map</span><span class="p">(</span><span class="n">twittertext</span><span class="p">,</span> <span class="n">toSpace</span><span class="p">,</span> <span class="s2">&quot;@&quot;</span><span class="p">)</span>
-<span class="n">twittertext1</span> <span class="o">=</span> <span class="n">tm_map</span><span class="p">(</span><span class="n">twittertext</span><span class="p">,</span> <span class="n">toSpace</span><span class="p">,</span> <span class="s2">&quot;#&quot;</span><span class="p">)</span>
-<span class="n">twittertext1</span> <span class="o">=</span> <span class="n">tm_map</span><span class="p">(</span><span class="n">twittertext1</span><span class="p">,</span> <span class="n">content_transformer</span><span class="p">(</span><span class="n">tolower</span><span class="p">))</span>
-<span class="n">twittertext1</span> <span class="o">=</span> <span class="n">tm_map</span><span class="p">(</span><span class="n">twittertext1</span><span class="p">,</span> <span class="n">removeNumbers</span><span class="p">)</span>
-<span class="n">twittertext1</span> <span class="o">=</span> <span class="n">tm_map</span><span class="p">(</span><span class="n">twittertext1</span><span class="p">,</span> <span class="n">stripWhitespace</span><span class="p">)</span>
-<span class="n">removeURL</span> <span class="o">&lt;-</span> <span class="n">function</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="n">gsub</span><span class="p">(</span><span class="s2">&quot;http[[:alnum:]]*&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
-<span class="n">twittertext1</span> <span class="o">=</span> <span class="n">tm_map</span><span class="p">(</span><span class="n">twittertext</span><span class="p">,</span> <span class="n">removeURL</span><span class="p">)</span>
-<span class="n">strwrap</span><span class="p">(</span><span class="n">twittertext1</span><span class="p">)</span>
+<div class=" highlight hl-r"><pre><span></span><span class="n">twittertext</span> <span class="o">=</span> <span class="nf">Corpus</span><span class="p">(</span><span class="nf">VectorSource</span><span class="p">(</span><span class="n">TweetsDF</span><span class="o">$</span><span class="n">text</span><span class="p">))</span>
+<span class="n">toSpace</span> <span class="o">=</span> <span class="nf">content_transformer</span><span class="p">(</span>
+              <span class="nf">function </span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">pattern</span><span class="p">)</span>
+              <span class="nf">gsub</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="s">&quot; &quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">))</span>
+<span class="n">twittertext1</span> <span class="o">=</span> <span class="nf">tm_map</span><span class="p">(</span><span class="n">twittertext</span><span class="p">,</span> <span class="n">toSpace</span><span class="p">,</span> <span class="s">&quot;/&quot;</span><span class="p">)</span>
+<span class="n">twittertext1</span> <span class="o">=</span> <span class="nf">tm_map</span><span class="p">(</span><span class="n">twittertext</span><span class="p">,</span> <span class="n">toSpace</span><span class="p">,</span> <span class="s">&quot;@&quot;</span><span class="p">)</span>
+<span class="n">twittertext1</span> <span class="o">=</span> <span class="nf">tm_map</span><span class="p">(</span><span class="n">twittertext</span><span class="p">,</span> <span class="n">toSpace</span><span class="p">,</span> <span class="s">&quot;#&quot;</span><span class="p">)</span>
+<span class="n">twittertext1</span> <span class="o">=</span> <span class="nf">tm_map</span><span class="p">(</span><span class="n">twittertext1</span><span class="p">,</span> <span class="nf">content_transformer</span><span class="p">(</span><span class="n">tolower</span><span class="p">))</span>
+<span class="n">twittertext1</span> <span class="o">=</span> <span class="nf">tm_map</span><span class="p">(</span><span class="n">twittertext1</span><span class="p">,</span> <span class="n">removeNumbers</span><span class="p">)</span>
+<span class="n">twittertext1</span> <span class="o">=</span> <span class="nf">tm_map</span><span class="p">(</span><span class="n">twittertext1</span><span class="p">,</span> <span class="n">stripWhitespace</span><span class="p">)</span>
+<span class="n">removeURL</span> <span class="o">&lt;-</span> <span class="nf">function</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="nf">gsub</span><span class="p">(</span><span class="s">&quot;http[[:alnum:]]*&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+<span class="n">twittertext1</span> <span class="o">=</span> <span class="nf">tm_map</span><span class="p">(</span><span class="n">twittertext</span><span class="p">,</span> <span class="n">removeURL</span><span class="p">)</span>
+<span class="nf">strwrap</span><span class="p">(</span><span class="n">twittertext1</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -15856,13 +15856,13 @@ Warning message in tm_map.SimpleCorpus(twittertext, removeURL):
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">twittertm</span> <span class="o">=</span> <span class="n">TermDocumentMatrix</span><span class="p">(</span><span class="n">twittertext1</span><span class="p">)</span>
-<span class="n">m</span> <span class="o">=</span> <span class="k">as</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="n">twittertm</span><span class="p">)</span>
-<span class="n">v</span> <span class="o">=</span> <span class="n">sort</span><span class="p">(</span><span class="n">rowSums</span><span class="p">(</span><span class="n">m</span><span class="p">),</span> 
-         <span class="n">decreasing</span> <span class="o">=</span> <span class="n">TRUE</span><span class="p">)</span>
-<span class="n">d</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">word</span> <span class="o">=</span> <span class="n">names</span><span class="p">(</span><span class="n">v</span><span class="p">),</span>
+<div class=" highlight hl-r"><pre><span></span><span class="n">twittertm</span> <span class="o">=</span> <span class="nf">TermDocumentMatrix</span><span class="p">(</span><span class="n">twittertext1</span><span class="p">)</span>
+<span class="n">m</span> <span class="o">=</span> <span class="nf">as.matrix</span><span class="p">(</span><span class="n">twittertm</span><span class="p">)</span>
+<span class="n">v</span> <span class="o">=</span> <span class="nf">sort</span><span class="p">(</span><span class="nf">rowSums</span><span class="p">(</span><span class="n">m</span><span class="p">),</span> 
+         <span class="n">decreasing</span> <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
+<span class="n">d</span> <span class="o">=</span> <span class="nf">data.frame</span><span class="p">(</span><span class="n">word</span> <span class="o">=</span> <span class="nf">names</span><span class="p">(</span><span class="n">v</span><span class="p">),</span>
                <span class="n">freq</span> <span class="o">=</span> <span class="n">v</span><span class="p">)</span>
-<span class="n">head</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="nf">head</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="m">10</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -15971,22 +15971,6 @@ Warning message in tm_map.SimpleCorpus(twittertext, removeURL):
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">instagram_infl</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;/Users/yangyilin/Desktop/anly-501-project-YilinYang2000-1/data/00-raw-data/top_insta_influencers_data.csv&quot;</span><span class="p">)</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
@@ -15995,7 +15979,10 @@ Warning message in tm_map.SimpleCorpus(twittertext, removeURL):
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">instagram_infl</span>
+<div class=" highlight hl-r"><pre><span></span><span class="nf">library</span><span class="p">(</span><span class="n">tidyverse</span><span class="p">)</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">dplyr</span><span class="p">)</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">reshape2</span><span class="p">)</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">tidyr</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -16013,189 +16000,543 @@ Warning message in tm_map.SimpleCorpus(twittertext, removeURL):
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[&nbsp;]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
+<pre>── <span class="ansi-bold">Attaching packages</span> ─────────────────────────────────────── tidyverse 1.3.2 ──
+<span class="ansi-green-fg">✔</span> <span class="ansi-blue-fg">ggplot2</span> 3.3.6      <span class="ansi-green-fg">✔</span> <span class="ansi-blue-fg">purrr  </span> 0.3.4 
+<span class="ansi-green-fg">✔</span> <span class="ansi-blue-fg">tibble </span> 3.1.8      <span class="ansi-green-fg">✔</span> <span class="ansi-blue-fg">dplyr  </span> 1.0.10
+<span class="ansi-green-fg">✔</span> <span class="ansi-blue-fg">tidyr  </span> 1.2.0      <span class="ansi-green-fg">✔</span> <span class="ansi-blue-fg">stringr</span> 1.4.1 
+<span class="ansi-green-fg">✔</span> <span class="ansi-blue-fg">readr  </span> 2.1.2      <span class="ansi-green-fg">✔</span> <span class="ansi-blue-fg">forcats</span> 0.5.2 
+── <span class="ansi-bold">Conflicts</span> ────────────────────────────────────────── tidyverse_conflicts() ──
+<span class="ansi-red-fg">✖</span> <span class="ansi-blue-fg">dplyr</span>::<span class="ansi-green-fg">filter()</span> masks <span class="ansi-blue-fg">stats</span>::filter()
+<span class="ansi-red-fg">✖</span> <span class="ansi-blue-fg">dplyr</span>::<span class="ansi-green-fg">lag()</span>    masks <span class="ansi-blue-fg">stats</span>::lag()
+
+Attaching package: ‘reshape2’
+
+
+The following object is masked from ‘package:tidyr’:
+
+    smiths
+
+
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-r"><pre><span></span><span class="n">instagram_infl</span> <span class="o">=</span> <span class="nf">read.csv</span><span class="p">(</span><span class="s">&quot;/Users/yangyilin/Desktop/anly-501-project-YilinYang2000-1/data/00-raw-data/top_insta_influencers_data.csv&quot;</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-r"><pre><span></span><span class="n">instagram_infl</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
 
-<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>rank</th>
-      <th>channel_info</th>
-      <th>influence_score</th>
-      <th>posts</th>
-      <th>followers</th>
-      <th>avg_likes</th>
-      <th>60_day_eng_rate</th>
-      <th>new_post_avg_like</th>
-      <th>total_likes</th>
-      <th>country</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>1</td>
-      <td>cristiano</td>
-      <td>92</td>
-      <td>3.3k</td>
-      <td>475.8m</td>
-      <td>8.7m</td>
-      <td>1.39%</td>
-      <td>6.5m</td>
-      <td>29.0b</td>
-      <td>Spain</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>2</td>
-      <td>kyliejenner</td>
-      <td>91</td>
-      <td>6.9k</td>
-      <td>366.2m</td>
-      <td>8.3m</td>
-      <td>1.62%</td>
-      <td>5.9m</td>
-      <td>57.4b</td>
-      <td>United States</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>3</td>
-      <td>leomessi</td>
-      <td>90</td>
-      <td>0.89k</td>
-      <td>357.3m</td>
-      <td>6.8m</td>
-      <td>1.24%</td>
-      <td>4.4m</td>
-      <td>6.0b</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>4</td>
-      <td>selenagomez</td>
-      <td>93</td>
-      <td>1.8k</td>
-      <td>342.7m</td>
-      <td>6.2m</td>
-      <td>0.97%</td>
-      <td>3.3m</td>
-      <td>11.5b</td>
-      <td>United States</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>5</td>
-      <td>therock</td>
-      <td>91</td>
-      <td>6.8k</td>
-      <td>334.1m</td>
-      <td>1.9m</td>
-      <td>0.20%</td>
-      <td>665.3k</td>
-      <td>12.5b</td>
-      <td>United States</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>195</th>
-      <td>196</td>
-      <td>iambeckyg</td>
-      <td>71</td>
-      <td>2.3k</td>
-      <td>33.2m</td>
-      <td>623.8k</td>
-      <td>1.40%</td>
-      <td>464.7k</td>
-      <td>1.4b</td>
-      <td>United States</td>
-    </tr>
-    <tr>
-      <th>196</th>
-      <td>197</td>
-      <td>nancyajram</td>
-      <td>81</td>
-      <td>3.8k</td>
-      <td>33.2m</td>
-      <td>390.4k</td>
-      <td>0.64%</td>
-      <td>208.0k</td>
-      <td>1.5b</td>
-      <td>France</td>
-    </tr>
-    <tr>
-      <th>197</th>
-      <td>198</td>
-      <td>luansantana</td>
-      <td>79</td>
-      <td>0.77k</td>
-      <td>33.2m</td>
-      <td>193.3k</td>
-      <td>0.26%</td>
-      <td>82.6k</td>
-      <td>149.2m</td>
-      <td>Brazil</td>
-    </tr>
-    <tr>
-      <th>198</th>
-      <td>199</td>
-      <td>nickjonas</td>
-      <td>78</td>
-      <td>2.3k</td>
-      <td>33.0m</td>
-      <td>719.6k</td>
-      <td>1.42%</td>
-      <td>467.7k</td>
-      <td>1.7b</td>
-      <td>United States</td>
-    </tr>
-    <tr>
-      <th>199</th>
-      <td>200</td>
-      <td>raisa6690</td>
-      <td>80</td>
-      <td>4.2k</td>
-      <td>32.8m</td>
-      <td>232.2k</td>
-      <td>0.30%</td>
-      <td>97.4k</td>
-      <td>969.1m</td>
-      <td>Indonesia</td>
-    </tr>
-  </tbody>
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output " data-mime-type="text/html">
+<table class="dataframe">
+<caption>A data.frame: 200 × 10</caption>
+<thead>
+	<tr><th scope=col>rank</th><th scope=col>channel_info</th><th scope=col>influence_score</th><th scope=col>posts</th><th scope=col>followers</th><th scope=col>avg_likes</th><th scope=col>X60_day_eng_rate</th><th scope=col>new_post_avg_like</th><th scope=col>total_likes</th><th scope=col>country</th></tr>
+	<tr><th scope=col>&lt;int&gt;</th><th scope=col>&lt;chr&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;chr&gt;</th><th scope=col>&lt;chr&gt;</th><th scope=col>&lt;chr&gt;</th><th scope=col>&lt;chr&gt;</th><th scope=col>&lt;chr&gt;</th><th scope=col>&lt;chr&gt;</th><th scope=col>&lt;chr&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><td> 1</td><td>cristiano      </td><td>92</td><td>3.3k </td><td>475.8m</td><td>8.7m  </td><td>1.39%</td><td>6.5m  </td><td>29.0b </td><td>Spain        </td></tr>
+	<tr><td> 2</td><td>kyliejenner    </td><td>91</td><td>6.9k </td><td>366.2m</td><td>8.3m  </td><td>1.62%</td><td>5.9m  </td><td>57.4b </td><td>United States</td></tr>
+	<tr><td> 3</td><td>leomessi       </td><td>90</td><td>0.89k</td><td>357.3m</td><td>6.8m  </td><td>1.24%</td><td>4.4m  </td><td>6.0b  </td><td>             </td></tr>
+	<tr><td> 4</td><td>selenagomez    </td><td>93</td><td>1.8k </td><td>342.7m</td><td>6.2m  </td><td>0.97%</td><td>3.3m  </td><td>11.5b </td><td>United States</td></tr>
+	<tr><td> 5</td><td>therock        </td><td>91</td><td>6.8k </td><td>334.1m</td><td>1.9m  </td><td>0.20%</td><td>665.3k</td><td>12.5b </td><td>United States</td></tr>
+	<tr><td> 6</td><td>kimkardashian  </td><td>91</td><td>5.6k </td><td>329.2m</td><td>3.5m  </td><td>0.88%</td><td>2.9m  </td><td>19.9b </td><td>United States</td></tr>
+	<tr><td> 7</td><td>arianagrande   </td><td>92</td><td>5.0k </td><td>327.7m</td><td>3.7m  </td><td>1.20%</td><td>3.9m  </td><td>18.4b </td><td>United States</td></tr>
+	<tr><td> 8</td><td>beyonce        </td><td>92</td><td>2.0k </td><td>272.8m</td><td>3.6m  </td><td>0.76%</td><td>2.0m  </td><td>7.4b  </td><td>United States</td></tr>
+	<tr><td> 9</td><td>khloekardashian</td><td>89</td><td>4.1k </td><td>268.3m</td><td>2.4m  </td><td>0.35%</td><td>926.9k</td><td>9.8b  </td><td>United States</td></tr>
+	<tr><td>10</td><td>justinbieber   </td><td>91</td><td>7.4k </td><td>254.5m</td><td>1.9m  </td><td>0.59%</td><td>1.5m  </td><td>13.9b </td><td>Canada       </td></tr>
+	<tr><td>11</td><td>kendalljenner  </td><td>90</td><td>0.66k</td><td>254.0m</td><td>5.5m  </td><td>2.04%</td><td>5.1m  </td><td>3.7b  </td><td>United States</td></tr>
+	<tr><td>12</td><td>natgeo         </td><td>91</td><td>10.0k</td><td>237.0m</td><td>302.2k</td><td>0.07%</td><td>159.3k</td><td>3.0b  </td><td>United States</td></tr>
+	<tr><td>13</td><td>nike           </td><td>90</td><td>0.95k</td><td>234.1m</td><td>329.0k</td><td>0.08%</td><td>181.8k</td><td>313.6m</td><td>United States</td></tr>
+	<tr><td>14</td><td>taylorswift    </td><td>91</td><td>0.53k</td><td>222.2m</td><td>2.4m  </td><td>1.01%</td><td>2.3m  </td><td>1.3b  </td><td>United States</td></tr>
+	<tr><td>15</td><td>jlo            </td><td>89</td><td>3.2k </td><td>220.4m</td><td>1.7m  </td><td>0.62%</td><td>1.4m  </td><td>5.3b  </td><td>United States</td></tr>
+	<tr><td>16</td><td>virat.kohli    </td><td>87</td><td>1.4k </td><td>211.8m</td><td>3.5m  </td><td>0.96%</td><td>2.0m  </td><td>4.9b  </td><td>             </td></tr>
+	<tr><td>17</td><td>nickiminaj     </td><td>90</td><td>6.4k </td><td>201.6m</td><td>2.1m  </td><td>0.53%</td><td>1.0m  </td><td>13.5b </td><td>United States</td></tr>
+	<tr><td>18</td><td>kourtneykardash</td><td>89</td><td>4.4k </td><td>195.2m</td><td>1.8m  </td><td>0.67%</td><td>1.3m  </td><td>7.7b  </td><td>United States</td></tr>
+	<tr><td>19</td><td>mileycyrus     </td><td>89</td><td>1.2k </td><td>181.5m</td><td>1.3m  </td><td>0.51%</td><td>913.6k</td><td>1.6b  </td><td>             </td></tr>
+	<tr><td>20</td><td>neymarjr       </td><td>90</td><td>5.3k </td><td>177.1m</td><td>2.7m  </td><td>1.09%</td><td>1.9m  </td><td>14.1b </td><td>Brazil       </td></tr>
+	<tr><td>21</td><td>katyperry      </td><td>92</td><td>2.0k </td><td>170.3m</td><td>715.0k</td><td>0.16%</td><td>265.1k</td><td>1.5b  </td><td>             </td></tr>
+	<tr><td>22</td><td>kevinhart4real </td><td>88</td><td>8.2k </td><td>152.0m</td><td>522.0k</td><td>0.08%</td><td>115.2k</td><td>4.3b  </td><td>United States</td></tr>
+	<tr><td>23</td><td>zendaya        </td><td>87</td><td>3.5k </td><td>150.7m</td><td>5.8m  </td><td>3.17%</td><td>4.8m  </td><td>20.6b </td><td>United States</td></tr>
+	<tr><td>24</td><td>iamcardib      </td><td>75</td><td>1.6k </td><td>140.5m</td><td>3.1m  </td><td>1.10%</td><td>1.5m  </td><td>5.0b  </td><td>United States</td></tr>
+	<tr><td>25</td><td>ddlovato       </td><td>88</td><td>0.08k</td><td>139.1m</td><td>1.1m  </td><td>0.27%</td><td>363.4k</td><td>91.3m </td><td>United States</td></tr>
+	<tr><td>26</td><td>badgalriri     </td><td>88</td><td>4.8k </td><td>135.3m</td><td>3.7m  </td><td>0.02%</td><td>0     </td><td>17.9b </td><td>United States</td></tr>
+	<tr><td>27</td><td>kingjames      </td><td>86</td><td>2.3k </td><td>130.9m</td><td>2.1m  </td><td>0.92%</td><td>1.2m  </td><td>4.9b  </td><td>             </td></tr>
+	<tr><td>28</td><td>theellenshow   </td><td>87</td><td>10.0k</td><td>125.1m</td><td>420.5k</td><td>0.07%</td><td>81.7k </td><td>4.2b  </td><td>United States</td></tr>
+	<tr><td>29</td><td>realmadrid     </td><td>90</td><td>6.9k </td><td>123.4m</td><td>996.2k</td><td>0.48%</td><td>588.3k</td><td>6.8b  </td><td>Spain        </td></tr>
+	<tr><td>30</td><td>champagnepapi  </td><td>85</td><td>5.2k </td><td>119.6m</td><td>1.7m  </td><td>1.10%</td><td>1.3m  </td><td>9.0b  </td><td>Netherlands  </td></tr>
+	<tr><td>⋮</td><td>⋮</td><td>⋮</td><td>⋮</td><td>⋮</td><td>⋮</td><td>⋮</td><td>⋮</td><td>⋮</td><td>⋮</td></tr>
+	<tr><td>171</td><td>gisel_la           </td><td>85</td><td>9.9k </td><td>36.5m</td><td>150.5k</td><td>0.10%</td><td>33.4k </td><td>1.5b  </td><td>                      </td></tr>
+	<tr><td>172</td><td>eminem             </td><td>84</td><td>0.66k</td><td>36.4m</td><td>1.1m  </td><td>2.69%</td><td>962.7k</td><td>730.1m</td><td>United States         </td></tr>
+	<tr><td>173</td><td>mercedesbenz       </td><td>77</td><td>10.0k</td><td>36.0m</td><td>197.9k</td><td>0.18%</td><td>64.6k </td><td>2.0b  </td><td>British Virgin Islands</td></tr>
+	<tr><td>174</td><td>colesprouse        </td><td>81</td><td>1.2k </td><td>35.9m</td><td>2.2m  </td><td>2.34%</td><td>834.5k</td><td>2.6b  </td><td>                      </td></tr>
+	<tr><td>175</td><td>nattinatasha       </td><td>47</td><td>0.03k</td><td>35.9m</td><td>518.1k</td><td>0.80%</td><td>285.9k</td><td>18.7m </td><td>Czech Republic        </td></tr>
+	<tr><td>176</td><td>shahidkapoor       </td><td>82</td><td>1.1k </td><td>35.6m</td><td>1.3m  </td><td>2.54%</td><td>780.0k</td><td>1.5b  </td><td>                      </td></tr>
+	<tr><td>177</td><td>tigerjackieshroff  </td><td>83</td><td>2.1k </td><td>35.6m</td><td>1.1m  </td><td>1.20%</td><td>422.9k</td><td>2.2b  </td><td>India                 </td></tr>
+	<tr><td>178</td><td>kimberly.loaiza    </td><td>78</td><td>0.59k</td><td>35.5m</td><td>2.6m  </td><td>5.23%</td><td>1.8m  </td><td>1.6b  </td><td>Mexico                </td></tr>
+	<tr><td>179</td><td>barackobama        </td><td>81</td><td>0.66k</td><td>35.4m</td><td>1.1m  </td><td>1.19%</td><td>411.5k</td><td>739.5m</td><td>United States         </td></tr>
+	<tr><td>180</td><td>sachintendulkar    </td><td>76</td><td>1.0k </td><td>35.3m</td><td>800.4k</td><td>2.03%</td><td>664.5k</td><td>810.0m</td><td>                      </td></tr>
+	<tr><td>181</td><td>simonemendes       </td><td>72</td><td>4.4k </td><td>35.0m</td><td>420.0k</td><td>0.65%</td><td>222.9k</td><td>1.9b  </td><td>Brazil                </td></tr>
+	<tr><td>182</td><td>ivetesangalo       </td><td>84</td><td>7.6k </td><td>34.8m</td><td>226.4k</td><td>0.36%</td><td>121.1k</td><td>1.7b  </td><td>Brazil                </td></tr>
+	<tr><td>183</td><td>lunamaya           </td><td>83</td><td>4.1k </td><td>34.8m</td><td>145.4k</td><td>0.17%</td><td>58.6k </td><td>589.6m</td><td>                      </td></tr>
+	<tr><td>184</td><td>toni.kr8s          </td><td>83</td><td>0.94k</td><td>34.7m</td><td>597.2k</td><td>1.68%</td><td>533.5k</td><td>561.3m</td><td>                      </td></tr>
+	<tr><td>185</td><td>dannapaola         </td><td>68</td><td>1.9k </td><td>34.7m</td><td>1.5m  </td><td>3.49%</td><td>1.2m  </td><td>2.8b  </td><td>Mexico                </td></tr>
+	<tr><td>186</td><td>paollaoliveirareal </td><td>84</td><td>4.6k </td><td>34.7m</td><td>367.8k</td><td>0.57%</td><td>192.3k</td><td>1.7b  </td><td>                      </td></tr>
+	<tr><td>187</td><td>blakelively        </td><td>80</td><td>0.11k</td><td>34.6m</td><td>3.1m  </td><td>0.02%</td><td>0     </td><td>350.9m</td><td>United States         </td></tr>
+	<tr><td>188</td><td>adidasoriginals    </td><td>83</td><td>0.15k</td><td>34.2m</td><td>136.2k</td><td>0.20%</td><td>66.8k </td><td>21.2m </td><td>                      </td></tr>
+	<tr><td>189</td><td>disney             </td><td>77</td><td>7.3k </td><td>34.2m</td><td>185.2k</td><td>0.44%</td><td>132.0k</td><td>1.4b  </td><td>United States         </td></tr>
+	<tr><td>190</td><td>shaymitchell       </td><td>83</td><td>6.3k </td><td>34.1m</td><td>732.4k</td><td>0.73%</td><td>247.5k</td><td>4.6b  </td><td>United States         </td></tr>
+	<tr><td>191</td><td>bmw                </td><td>79</td><td>9.3k </td><td>33.7m</td><td>231.3k</td><td>0.23%</td><td>76.5k </td><td>2.2b  </td><td>Germany               </td></tr>
+	<tr><td>192</td><td>danbilzerian       </td><td>84</td><td>1.4k </td><td>33.6m</td><td>2.0m  </td><td>3.58%</td><td>1.2m  </td><td>2.8b  </td><td>Canada                </td></tr>
+	<tr><td>193</td><td>khabib_nurmagomedov</td><td>63</td><td>4.5k </td><td>33.5m</td><td>685.1k</td><td>0.67%</td><td>220.7k</td><td>3.1b  </td><td>Russia                </td></tr>
+	<tr><td>194</td><td>zidane             </td><td>41</td><td>0.37k</td><td>33.5m</td><td>1.1m  </td><td>1.61%</td><td>532.7k</td><td>391.9m</td><td>France                </td></tr>
+	<tr><td>195</td><td>sonamkapoor        </td><td>75</td><td>4.8k </td><td>33.3m</td><td>264.7k</td><td>0.63%</td><td>209.2k</td><td>1.3b  </td><td>India                 </td></tr>
+	<tr><td>196</td><td>iambeckyg          </td><td>71</td><td>2.3k </td><td>33.2m</td><td>623.8k</td><td>1.40%</td><td>464.7k</td><td>1.4b  </td><td>United States         </td></tr>
+	<tr><td>197</td><td>nancyajram         </td><td>81</td><td>3.8k </td><td>33.2m</td><td>390.4k</td><td>0.64%</td><td>208.0k</td><td>1.5b  </td><td>France                </td></tr>
+	<tr><td>198</td><td>luansantana        </td><td>79</td><td>0.77k</td><td>33.2m</td><td>193.3k</td><td>0.26%</td><td>82.6k </td><td>149.2m</td><td>Brazil                </td></tr>
+	<tr><td>199</td><td>nickjonas          </td><td>78</td><td>2.3k </td><td>33.0m</td><td>719.6k</td><td>1.42%</td><td>467.7k</td><td>1.7b  </td><td>United States         </td></tr>
+	<tr><td>200</td><td>raisa6690          </td><td>80</td><td>4.2k </td><td>32.8m</td><td>232.2k</td><td>0.30%</td><td>97.4k </td><td>969.1m</td><td>Indonesia             </td></tr>
+</tbody>
 </table>
-<p>200 rows × 10 columns</p>
+
 </div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>As we noticed, the avg_likes column contains different unit, I want to expand it as the numeric instead of character in order to do the further visualization and comparison. Here is my code:</p>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">library</span><span class="p">(</span><span class="n">stringr</span><span class="p">)</span>
+<span class="n">instagram_infl</span><span class="o">$</span><span class="n">avg_likes1</span> <span class="o">&lt;-</span> <span class="nf">str_extract</span><span class="p">(</span><span class="n">instagram_infl</span><span class="o">$</span><span class="n">avg_likes</span><span class="p">,</span> <span class="s">&quot;\\d+\\.?\\d*&quot;</span><span class="p">)</span> <span class="c1">#extract number without units</span>
+<span class="n">instagram_infl</span><span class="o">$</span><span class="n">avg_likes1unit</span> <span class="o">&lt;-</span> <span class="nf">str_sub</span><span class="p">(</span><span class="n">instagram_infl</span><span class="o">$</span><span class="n">avg_likes</span><span class="p">,</span><span class="m">-1</span><span class="p">)</span> <span class="c1">#extract units since units are last words</span>
+<span class="n">instagram_infl</span><span class="o">$</span><span class="n">avg_likes1</span> <span class="o">&lt;-</span> <span class="nf">as.numeric</span><span class="p">(</span><span class="n">instagram_infl</span><span class="o">$</span><span class="n">avg_likes1</span><span class="p">)</span> <span class="c1">#change the new column datatype as num</span>
+<span class="n">instagram_infl</span><span class="o">$</span><span class="n">avg_likes1</span> <span class="o">&lt;-</span> <span class="nf">ifelse</span><span class="p">(</span><span class="n">instagram_infl</span><span class="o">$</span><span class="n">avg_likes1unit</span> <span class="o">==</span> <span class="s">&#39;m&#39;</span><span class="p">,</span> <span class="n">instagram_infl</span><span class="o">$</span><span class="n">avg_likes1</span><span class="o">*</span><span class="m">1000000</span><span class="p">,</span> <span class="n">instagram_infl</span><span class="o">$</span><span class="n">avg_likes1</span><span class="o">*</span><span class="m">1000</span><span class="p">)</span>
+<span class="c1">#Since the unit is different, I used the ifelse function to do the further calculation</span>
+<span class="n">instagram_infl</span> <span class="o">&lt;-</span> <span class="nf">select</span><span class="p">(</span><span class="n">instagram_infl</span><span class="p">,</span><span class="o">-</span><span class="nf">c</span><span class="p">(</span><span class="n">avg_likes</span><span class="p">,</span><span class="n">avg_likes1unit</span><span class="p">))</span><span class="c1">#Drop useless columns</span>
+<span class="nf">names</span><span class="p">(</span><span class="n">instagram_infl</span><span class="p">)[</span><span class="nf">names</span><span class="p">(</span><span class="n">instagram_infl</span><span class="p">)</span><span class="o">==</span><span class="s">&#39;avg_likes1&#39;</span><span class="p">]</span> <span class="o">&lt;-</span> <span class="s">&#39;avg_likes&#39;</span><span class="c1">#rename columns</span>
+<span class="n">instagram_infl</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output " data-mime-type="text/html">
+<table class="dataframe">
+<caption>A data.frame: 200 × 10</caption>
+<thead>
+	<tr><th scope=col>rank</th><th scope=col>channel_info</th><th scope=col>influence_score</th><th scope=col>posts</th><th scope=col>followers</th><th scope=col>X60_day_eng_rate</th><th scope=col>new_post_avg_like</th><th scope=col>total_likes</th><th scope=col>country</th><th scope=col>avg_likes</th></tr>
+	<tr><th scope=col>&lt;int&gt;</th><th scope=col>&lt;chr&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;chr&gt;</th><th scope=col>&lt;chr&gt;</th><th scope=col>&lt;chr&gt;</th><th scope=col>&lt;chr&gt;</th><th scope=col>&lt;chr&gt;</th><th scope=col>&lt;chr&gt;</th><th scope=col>&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><td> 1</td><td>cristiano      </td><td>92</td><td>3.3k </td><td>475.8m</td><td>1.39%</td><td>6.5m  </td><td>29.0b </td><td>Spain        </td><td>8700000</td></tr>
+	<tr><td> 2</td><td>kyliejenner    </td><td>91</td><td>6.9k </td><td>366.2m</td><td>1.62%</td><td>5.9m  </td><td>57.4b </td><td>United States</td><td>8300000</td></tr>
+	<tr><td> 3</td><td>leomessi       </td><td>90</td><td>0.89k</td><td>357.3m</td><td>1.24%</td><td>4.4m  </td><td>6.0b  </td><td>             </td><td>6800000</td></tr>
+	<tr><td> 4</td><td>selenagomez    </td><td>93</td><td>1.8k </td><td>342.7m</td><td>0.97%</td><td>3.3m  </td><td>11.5b </td><td>United States</td><td>6200000</td></tr>
+	<tr><td> 5</td><td>therock        </td><td>91</td><td>6.8k </td><td>334.1m</td><td>0.20%</td><td>665.3k</td><td>12.5b </td><td>United States</td><td>1900000</td></tr>
+	<tr><td> 6</td><td>kimkardashian  </td><td>91</td><td>5.6k </td><td>329.2m</td><td>0.88%</td><td>2.9m  </td><td>19.9b </td><td>United States</td><td>3500000</td></tr>
+	<tr><td> 7</td><td>arianagrande   </td><td>92</td><td>5.0k </td><td>327.7m</td><td>1.20%</td><td>3.9m  </td><td>18.4b </td><td>United States</td><td>3700000</td></tr>
+	<tr><td> 8</td><td>beyonce        </td><td>92</td><td>2.0k </td><td>272.8m</td><td>0.76%</td><td>2.0m  </td><td>7.4b  </td><td>United States</td><td>3600000</td></tr>
+	<tr><td> 9</td><td>khloekardashian</td><td>89</td><td>4.1k </td><td>268.3m</td><td>0.35%</td><td>926.9k</td><td>9.8b  </td><td>United States</td><td>2400000</td></tr>
+	<tr><td>10</td><td>justinbieber   </td><td>91</td><td>7.4k </td><td>254.5m</td><td>0.59%</td><td>1.5m  </td><td>13.9b </td><td>Canada       </td><td>1900000</td></tr>
+	<tr><td>11</td><td>kendalljenner  </td><td>90</td><td>0.66k</td><td>254.0m</td><td>2.04%</td><td>5.1m  </td><td>3.7b  </td><td>United States</td><td>5500000</td></tr>
+	<tr><td>12</td><td>natgeo         </td><td>91</td><td>10.0k</td><td>237.0m</td><td>0.07%</td><td>159.3k</td><td>3.0b  </td><td>United States</td><td> 302200</td></tr>
+	<tr><td>13</td><td>nike           </td><td>90</td><td>0.95k</td><td>234.1m</td><td>0.08%</td><td>181.8k</td><td>313.6m</td><td>United States</td><td> 329000</td></tr>
+	<tr><td>14</td><td>taylorswift    </td><td>91</td><td>0.53k</td><td>222.2m</td><td>1.01%</td><td>2.3m  </td><td>1.3b  </td><td>United States</td><td>2400000</td></tr>
+	<tr><td>15</td><td>jlo            </td><td>89</td><td>3.2k </td><td>220.4m</td><td>0.62%</td><td>1.4m  </td><td>5.3b  </td><td>United States</td><td>1700000</td></tr>
+	<tr><td>16</td><td>virat.kohli    </td><td>87</td><td>1.4k </td><td>211.8m</td><td>0.96%</td><td>2.0m  </td><td>4.9b  </td><td>             </td><td>3500000</td></tr>
+	<tr><td>17</td><td>nickiminaj     </td><td>90</td><td>6.4k </td><td>201.6m</td><td>0.53%</td><td>1.0m  </td><td>13.5b </td><td>United States</td><td>2100000</td></tr>
+	<tr><td>18</td><td>kourtneykardash</td><td>89</td><td>4.4k </td><td>195.2m</td><td>0.67%</td><td>1.3m  </td><td>7.7b  </td><td>United States</td><td>1800000</td></tr>
+	<tr><td>19</td><td>mileycyrus     </td><td>89</td><td>1.2k </td><td>181.5m</td><td>0.51%</td><td>913.6k</td><td>1.6b  </td><td>             </td><td>1300000</td></tr>
+	<tr><td>20</td><td>neymarjr       </td><td>90</td><td>5.3k </td><td>177.1m</td><td>1.09%</td><td>1.9m  </td><td>14.1b </td><td>Brazil       </td><td>2700000</td></tr>
+	<tr><td>21</td><td>katyperry      </td><td>92</td><td>2.0k </td><td>170.3m</td><td>0.16%</td><td>265.1k</td><td>1.5b  </td><td>             </td><td> 715000</td></tr>
+	<tr><td>22</td><td>kevinhart4real </td><td>88</td><td>8.2k </td><td>152.0m</td><td>0.08%</td><td>115.2k</td><td>4.3b  </td><td>United States</td><td> 522000</td></tr>
+	<tr><td>23</td><td>zendaya        </td><td>87</td><td>3.5k </td><td>150.7m</td><td>3.17%</td><td>4.8m  </td><td>20.6b </td><td>United States</td><td>5800000</td></tr>
+	<tr><td>24</td><td>iamcardib      </td><td>75</td><td>1.6k </td><td>140.5m</td><td>1.10%</td><td>1.5m  </td><td>5.0b  </td><td>United States</td><td>3100000</td></tr>
+	<tr><td>25</td><td>ddlovato       </td><td>88</td><td>0.08k</td><td>139.1m</td><td>0.27%</td><td>363.4k</td><td>91.3m </td><td>United States</td><td>1100000</td></tr>
+	<tr><td>26</td><td>badgalriri     </td><td>88</td><td>4.8k </td><td>135.3m</td><td>0.02%</td><td>0     </td><td>17.9b </td><td>United States</td><td>3700000</td></tr>
+	<tr><td>27</td><td>kingjames      </td><td>86</td><td>2.3k </td><td>130.9m</td><td>0.92%</td><td>1.2m  </td><td>4.9b  </td><td>             </td><td>2100000</td></tr>
+	<tr><td>28</td><td>theellenshow   </td><td>87</td><td>10.0k</td><td>125.1m</td><td>0.07%</td><td>81.7k </td><td>4.2b  </td><td>United States</td><td> 420500</td></tr>
+	<tr><td>29</td><td>realmadrid     </td><td>90</td><td>6.9k </td><td>123.4m</td><td>0.48%</td><td>588.3k</td><td>6.8b  </td><td>Spain        </td><td> 996200</td></tr>
+	<tr><td>30</td><td>champagnepapi  </td><td>85</td><td>5.2k </td><td>119.6m</td><td>1.10%</td><td>1.3m  </td><td>9.0b  </td><td>Netherlands  </td><td>1700000</td></tr>
+	<tr><td>⋮</td><td>⋮</td><td>⋮</td><td>⋮</td><td>⋮</td><td>⋮</td><td>⋮</td><td>⋮</td><td>⋮</td><td>⋮</td></tr>
+	<tr><td>171</td><td>gisel_la           </td><td>85</td><td>9.9k </td><td>36.5m</td><td>0.10%</td><td>33.4k </td><td>1.5b  </td><td>                      </td><td> 150500</td></tr>
+	<tr><td>172</td><td>eminem             </td><td>84</td><td>0.66k</td><td>36.4m</td><td>2.69%</td><td>962.7k</td><td>730.1m</td><td>United States         </td><td>1100000</td></tr>
+	<tr><td>173</td><td>mercedesbenz       </td><td>77</td><td>10.0k</td><td>36.0m</td><td>0.18%</td><td>64.6k </td><td>2.0b  </td><td>British Virgin Islands</td><td> 197900</td></tr>
+	<tr><td>174</td><td>colesprouse        </td><td>81</td><td>1.2k </td><td>35.9m</td><td>2.34%</td><td>834.5k</td><td>2.6b  </td><td>                      </td><td>2200000</td></tr>
+	<tr><td>175</td><td>nattinatasha       </td><td>47</td><td>0.03k</td><td>35.9m</td><td>0.80%</td><td>285.9k</td><td>18.7m </td><td>Czech Republic        </td><td> 518100</td></tr>
+	<tr><td>176</td><td>shahidkapoor       </td><td>82</td><td>1.1k </td><td>35.6m</td><td>2.54%</td><td>780.0k</td><td>1.5b  </td><td>                      </td><td>1300000</td></tr>
+	<tr><td>177</td><td>tigerjackieshroff  </td><td>83</td><td>2.1k </td><td>35.6m</td><td>1.20%</td><td>422.9k</td><td>2.2b  </td><td>India                 </td><td>1100000</td></tr>
+	<tr><td>178</td><td>kimberly.loaiza    </td><td>78</td><td>0.59k</td><td>35.5m</td><td>5.23%</td><td>1.8m  </td><td>1.6b  </td><td>Mexico                </td><td>2600000</td></tr>
+	<tr><td>179</td><td>barackobama        </td><td>81</td><td>0.66k</td><td>35.4m</td><td>1.19%</td><td>411.5k</td><td>739.5m</td><td>United States         </td><td>1100000</td></tr>
+	<tr><td>180</td><td>sachintendulkar    </td><td>76</td><td>1.0k </td><td>35.3m</td><td>2.03%</td><td>664.5k</td><td>810.0m</td><td>                      </td><td> 800400</td></tr>
+	<tr><td>181</td><td>simonemendes       </td><td>72</td><td>4.4k </td><td>35.0m</td><td>0.65%</td><td>222.9k</td><td>1.9b  </td><td>Brazil                </td><td> 420000</td></tr>
+	<tr><td>182</td><td>ivetesangalo       </td><td>84</td><td>7.6k </td><td>34.8m</td><td>0.36%</td><td>121.1k</td><td>1.7b  </td><td>Brazil                </td><td> 226400</td></tr>
+	<tr><td>183</td><td>lunamaya           </td><td>83</td><td>4.1k </td><td>34.8m</td><td>0.17%</td><td>58.6k </td><td>589.6m</td><td>                      </td><td> 145400</td></tr>
+	<tr><td>184</td><td>toni.kr8s          </td><td>83</td><td>0.94k</td><td>34.7m</td><td>1.68%</td><td>533.5k</td><td>561.3m</td><td>                      </td><td> 597200</td></tr>
+	<tr><td>185</td><td>dannapaola         </td><td>68</td><td>1.9k </td><td>34.7m</td><td>3.49%</td><td>1.2m  </td><td>2.8b  </td><td>Mexico                </td><td>1500000</td></tr>
+	<tr><td>186</td><td>paollaoliveirareal </td><td>84</td><td>4.6k </td><td>34.7m</td><td>0.57%</td><td>192.3k</td><td>1.7b  </td><td>                      </td><td> 367800</td></tr>
+	<tr><td>187</td><td>blakelively        </td><td>80</td><td>0.11k</td><td>34.6m</td><td>0.02%</td><td>0     </td><td>350.9m</td><td>United States         </td><td>3100000</td></tr>
+	<tr><td>188</td><td>adidasoriginals    </td><td>83</td><td>0.15k</td><td>34.2m</td><td>0.20%</td><td>66.8k </td><td>21.2m </td><td>                      </td><td> 136200</td></tr>
+	<tr><td>189</td><td>disney             </td><td>77</td><td>7.3k </td><td>34.2m</td><td>0.44%</td><td>132.0k</td><td>1.4b  </td><td>United States         </td><td> 185200</td></tr>
+	<tr><td>190</td><td>shaymitchell       </td><td>83</td><td>6.3k </td><td>34.1m</td><td>0.73%</td><td>247.5k</td><td>4.6b  </td><td>United States         </td><td> 732400</td></tr>
+	<tr><td>191</td><td>bmw                </td><td>79</td><td>9.3k </td><td>33.7m</td><td>0.23%</td><td>76.5k </td><td>2.2b  </td><td>Germany               </td><td> 231300</td></tr>
+	<tr><td>192</td><td>danbilzerian       </td><td>84</td><td>1.4k </td><td>33.6m</td><td>3.58%</td><td>1.2m  </td><td>2.8b  </td><td>Canada                </td><td>2000000</td></tr>
+	<tr><td>193</td><td>khabib_nurmagomedov</td><td>63</td><td>4.5k </td><td>33.5m</td><td>0.67%</td><td>220.7k</td><td>3.1b  </td><td>Russia                </td><td> 685100</td></tr>
+	<tr><td>194</td><td>zidane             </td><td>41</td><td>0.37k</td><td>33.5m</td><td>1.61%</td><td>532.7k</td><td>391.9m</td><td>France                </td><td>1100000</td></tr>
+	<tr><td>195</td><td>sonamkapoor        </td><td>75</td><td>4.8k </td><td>33.3m</td><td>0.63%</td><td>209.2k</td><td>1.3b  </td><td>India                 </td><td> 264700</td></tr>
+	<tr><td>196</td><td>iambeckyg          </td><td>71</td><td>2.3k </td><td>33.2m</td><td>1.40%</td><td>464.7k</td><td>1.4b  </td><td>United States         </td><td> 623800</td></tr>
+	<tr><td>197</td><td>nancyajram         </td><td>81</td><td>3.8k </td><td>33.2m</td><td>0.64%</td><td>208.0k</td><td>1.5b  </td><td>France                </td><td> 390400</td></tr>
+	<tr><td>198</td><td>luansantana        </td><td>79</td><td>0.77k</td><td>33.2m</td><td>0.26%</td><td>82.6k </td><td>149.2m</td><td>Brazil                </td><td> 193300</td></tr>
+	<tr><td>199</td><td>nickjonas          </td><td>78</td><td>2.3k </td><td>33.0m</td><td>1.42%</td><td>467.7k</td><td>1.7b  </td><td>United States         </td><td> 719600</td></tr>
+	<tr><td>200</td><td>raisa6690          </td><td>80</td><td>4.2k </td><td>32.8m</td><td>0.30%</td><td>97.4k </td><td>969.1m</td><td>Indonesia             </td><td> 232200</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>At that time, I used summary and want to know the median, mean, etc values of each numeric number, then I noticed that other columns like posts also cannot convert to numeric since the cells in the column have units. As a result, I decided to get rid of units in each columns and change the column type into numeric</p>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">print</span><span class="p">(</span><span class="nf">summary</span><span class="p">(</span><span class="n">instagram_infl</span><span class="p">))</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>      rank        channel_info       influence_score    posts          
+ Min.   :  1.00   Length:200         Min.   :22.00   Length:200        
+ 1st Qu.: 50.75   Class :character   1st Qu.:80.00   Class :character  
+ Median :100.50   Mode  :character   Median :84.00   Mode  :character  
+ Mean   :100.50                      Mean   :81.82                     
+ 3rd Qu.:150.25                      3rd Qu.:86.00                     
+ Max.   :200.00                      Max.   :93.00                     
+  followers         X60_day_eng_rate   new_post_avg_like  total_likes       
+ Length:200         Length:200         Length:200         Length:200        
+ Class :character   Class :character   Class :character   Class :character  
+ Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+                                                                            
+                                                                            
+                                                                            
+   country            avg_likes       
+ Length:200         Min.   :   65100  
+ Class :character   1st Qu.:  504400  
+ Mode  :character   Median : 1100000  
+                    Mean   : 1787104  
+                    3rd Qu.: 2100000  
+                    Max.   :15400000  
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-r"><pre><span></span><span class="n">instagram_infl</span><span class="o">$</span><span class="n">posts</span> <span class="o">=</span> <span class="nf">substr</span><span class="p">(</span><span class="n">instagram_infl</span><span class="o">$</span><span class="n">posts</span><span class="p">,</span><span class="m">1</span><span class="p">,</span><span class="nf">nchar</span><span class="p">(</span><span class="n">instagram_infl</span><span class="o">$</span><span class="n">posts</span><span class="p">)</span><span class="m">-1</span><span class="p">)</span>
+<span class="n">instagram_infl</span><span class="o">$</span><span class="n">posts</span> <span class="o">=</span> <span class="nf">as.numeric</span><span class="p">(</span><span class="n">instagram_infl</span><span class="o">$</span><span class="n">posts</span><span class="p">)</span>
+<span class="nf">names</span><span class="p">(</span><span class="n">instagram_infl</span><span class="p">)[</span><span class="nf">names</span><span class="p">(</span><span class="n">instagram_infl</span><span class="p">)</span><span class="o">==</span><span class="s">&#39;posts&#39;</span><span class="p">]</span> <span class="o">&lt;-</span> <span class="s">&#39;posts(k)&#39;</span>
+<span class="n">instagram_infl</span><span class="o">$</span><span class="n">followers</span> <span class="o">=</span> <span class="nf">substr</span><span class="p">(</span><span class="n">instagram_infl</span><span class="o">$</span><span class="n">followers</span><span class="p">,</span><span class="m">1</span><span class="p">,</span><span class="nf">nchar</span><span class="p">(</span><span class="n">instagram_infl</span><span class="o">$</span><span class="n">followers</span><span class="p">)</span><span class="m">-1</span><span class="p">)</span>
+<span class="n">instagram_infl</span><span class="o">$</span><span class="n">followers</span> <span class="o">=</span> <span class="nf">as.numeric</span><span class="p">(</span><span class="n">instagram_infl</span><span class="o">$</span><span class="n">followers</span><span class="p">)</span>
+<span class="nf">names</span><span class="p">(</span><span class="n">instagram_infl</span><span class="p">)[</span><span class="nf">names</span><span class="p">(</span><span class="n">instagram_infl</span><span class="p">)</span><span class="o">==</span><span class="s">&#39;followers&#39;</span><span class="p">]</span> <span class="o">&lt;-</span> <span class="s">&#39;followers(m)&#39;</span>
+<span class="n">instagram_infl</span><span class="o">$</span><span class="n">X60_day_eng_rate</span> <span class="o">=</span> <span class="nf">substr</span><span class="p">(</span><span class="n">instagram_infl</span><span class="o">$</span><span class="n">X60_day_eng_rate</span><span class="p">,</span><span class="m">1</span><span class="p">,</span><span class="nf">nchar</span><span class="p">(</span><span class="n">instagram_infl</span><span class="o">$</span><span class="n">X60_day_eng_rate</span><span class="p">)</span><span class="m">-1</span><span class="p">)</span>
+<span class="n">instagram_infl</span><span class="o">$</span><span class="n">X60_day_eng_rate</span> <span class="o">=</span> <span class="nf">as.numeric</span><span class="p">(</span><span class="n">instagram_infl</span><span class="o">$</span><span class="n">X60_day_eng_rate</span><span class="p">)</span>
+<span class="nf">names</span><span class="p">(</span><span class="n">instagram_infl</span><span class="p">)[</span><span class="nf">names</span><span class="p">(</span><span class="n">instagram_infl</span><span class="p">)</span><span class="o">==</span><span class="s">&#39;X60_day_eng_rate&#39;</span><span class="p">]</span> <span class="o">&lt;-</span> <span class="s">&#39;X60_day_eng_rate(%)&#39;</span>
+<span class="n">instagram_infl</span><span class="o">$</span><span class="n">new_post_avg_like</span> <span class="o">=</span> <span class="nf">substr</span><span class="p">(</span><span class="n">instagram_infl</span><span class="o">$</span><span class="n">new_post_avg_like</span><span class="p">,</span><span class="m">1</span><span class="p">,</span><span class="nf">nchar</span><span class="p">(</span><span class="n">instagram_infl</span><span class="o">$</span><span class="n">new_post_avg_like</span><span class="p">)</span><span class="m">-1</span><span class="p">)</span>
+<span class="n">instagram_infl</span><span class="o">$</span><span class="n">new_post_avg_like</span> <span class="o">=</span> <span class="nf">as.numeric</span><span class="p">(</span><span class="n">instagram_infl</span><span class="o">$</span><span class="n">new_post_avg_like</span><span class="p">)</span>
+<span class="nf">names</span><span class="p">(</span><span class="n">instagram_infl</span><span class="p">)[</span><span class="nf">names</span><span class="p">(</span><span class="n">instagram_infl</span><span class="p">)</span><span class="o">==</span><span class="s">&#39;new_post_avg_like&#39;</span><span class="p">]</span> <span class="o">&lt;-</span> <span class="s">&#39;new_post_avg_like(m)&#39;</span>
+<span class="n">instagram_infl</span><span class="o">$</span><span class="n">total_likes</span> <span class="o">=</span> <span class="nf">substr</span><span class="p">(</span><span class="n">instagram_infl</span><span class="o">$</span><span class="n">total_likes</span><span class="p">,</span><span class="m">1</span><span class="p">,</span><span class="nf">nchar</span><span class="p">(</span><span class="n">instagram_infl</span><span class="o">$</span><span class="n">total_likes</span><span class="p">)</span><span class="m">-1</span><span class="p">)</span>
+<span class="n">instagram_infl</span><span class="o">$</span><span class="n">total_likes</span> <span class="o">=</span> <span class="nf">as.numeric</span><span class="p">(</span><span class="n">instagram_infl</span><span class="o">$</span><span class="n">total_likes</span><span class="p">)</span>
+<span class="nf">names</span><span class="p">(</span><span class="n">instagram_infl</span><span class="p">)[</span><span class="nf">names</span><span class="p">(</span><span class="n">instagram_infl</span><span class="p">)</span><span class="o">==</span><span class="s">&#39;total_likes&#39;</span><span class="p">]</span> <span class="o">&lt;-</span> <span class="s">&#39;total_likes(b)&#39;</span>
+<span class="n">instagram_infl</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output " data-mime-type="text/html">
+<table class="dataframe">
+<caption>A data.frame: 200 × 10</caption>
+<thead>
+	<tr><th scope=col>rank</th><th scope=col>channel_info</th><th scope=col>influence_score</th><th scope=col>posts(k)</th><th scope=col>followers(m)</th><th scope=col>X60_day_eng_rate(%)</th><th scope=col>new_post_avg_like(m)</th><th scope=col>total_likes(b)</th><th scope=col>country</th><th scope=col>avg_likes</th></tr>
+	<tr><th scope=col>&lt;int&gt;</th><th scope=col>&lt;chr&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;chr&gt;</th><th scope=col>&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><td> 1</td><td>cristiano      </td><td>92</td><td> 3.30</td><td>475.8</td><td>1.39</td><td>  6.5</td><td> 29.0</td><td>Spain        </td><td>8700000</td></tr>
+	<tr><td> 2</td><td>kyliejenner    </td><td>91</td><td> 6.90</td><td>366.2</td><td>1.62</td><td>  5.9</td><td> 57.4</td><td>United States</td><td>8300000</td></tr>
+	<tr><td> 3</td><td>leomessi       </td><td>90</td><td> 0.89</td><td>357.3</td><td>1.24</td><td>  4.4</td><td>  6.0</td><td>             </td><td>6800000</td></tr>
+	<tr><td> 4</td><td>selenagomez    </td><td>93</td><td> 1.80</td><td>342.7</td><td>0.97</td><td>  3.3</td><td> 11.5</td><td>United States</td><td>6200000</td></tr>
+	<tr><td> 5</td><td>therock        </td><td>91</td><td> 6.80</td><td>334.1</td><td>0.20</td><td>665.3</td><td> 12.5</td><td>United States</td><td>1900000</td></tr>
+	<tr><td> 6</td><td>kimkardashian  </td><td>91</td><td> 5.60</td><td>329.2</td><td>0.88</td><td>  2.9</td><td> 19.9</td><td>United States</td><td>3500000</td></tr>
+	<tr><td> 7</td><td>arianagrande   </td><td>92</td><td> 5.00</td><td>327.7</td><td>1.20</td><td>  3.9</td><td> 18.4</td><td>United States</td><td>3700000</td></tr>
+	<tr><td> 8</td><td>beyonce        </td><td>92</td><td> 2.00</td><td>272.8</td><td>0.76</td><td>  2.0</td><td>  7.4</td><td>United States</td><td>3600000</td></tr>
+	<tr><td> 9</td><td>khloekardashian</td><td>89</td><td> 4.10</td><td>268.3</td><td>0.35</td><td>926.9</td><td>  9.8</td><td>United States</td><td>2400000</td></tr>
+	<tr><td>10</td><td>justinbieber   </td><td>91</td><td> 7.40</td><td>254.5</td><td>0.59</td><td>  1.5</td><td> 13.9</td><td>Canada       </td><td>1900000</td></tr>
+	<tr><td>11</td><td>kendalljenner  </td><td>90</td><td> 0.66</td><td>254.0</td><td>2.04</td><td>  5.1</td><td>  3.7</td><td>United States</td><td>5500000</td></tr>
+	<tr><td>12</td><td>natgeo         </td><td>91</td><td>10.00</td><td>237.0</td><td>0.07</td><td>159.3</td><td>  3.0</td><td>United States</td><td> 302200</td></tr>
+	<tr><td>13</td><td>nike           </td><td>90</td><td> 0.95</td><td>234.1</td><td>0.08</td><td>181.8</td><td>313.6</td><td>United States</td><td> 329000</td></tr>
+	<tr><td>14</td><td>taylorswift    </td><td>91</td><td> 0.53</td><td>222.2</td><td>1.01</td><td>  2.3</td><td>  1.3</td><td>United States</td><td>2400000</td></tr>
+	<tr><td>15</td><td>jlo            </td><td>89</td><td> 3.20</td><td>220.4</td><td>0.62</td><td>  1.4</td><td>  5.3</td><td>United States</td><td>1700000</td></tr>
+	<tr><td>16</td><td>virat.kohli    </td><td>87</td><td> 1.40</td><td>211.8</td><td>0.96</td><td>  2.0</td><td>  4.9</td><td>             </td><td>3500000</td></tr>
+	<tr><td>17</td><td>nickiminaj     </td><td>90</td><td> 6.40</td><td>201.6</td><td>0.53</td><td>  1.0</td><td> 13.5</td><td>United States</td><td>2100000</td></tr>
+	<tr><td>18</td><td>kourtneykardash</td><td>89</td><td> 4.40</td><td>195.2</td><td>0.67</td><td>  1.3</td><td>  7.7</td><td>United States</td><td>1800000</td></tr>
+	<tr><td>19</td><td>mileycyrus     </td><td>89</td><td> 1.20</td><td>181.5</td><td>0.51</td><td>913.6</td><td>  1.6</td><td>             </td><td>1300000</td></tr>
+	<tr><td>20</td><td>neymarjr       </td><td>90</td><td> 5.30</td><td>177.1</td><td>1.09</td><td>  1.9</td><td> 14.1</td><td>Brazil       </td><td>2700000</td></tr>
+	<tr><td>21</td><td>katyperry      </td><td>92</td><td> 2.00</td><td>170.3</td><td>0.16</td><td>265.1</td><td>  1.5</td><td>             </td><td> 715000</td></tr>
+	<tr><td>22</td><td>kevinhart4real </td><td>88</td><td> 8.20</td><td>152.0</td><td>0.08</td><td>115.2</td><td>  4.3</td><td>United States</td><td> 522000</td></tr>
+	<tr><td>23</td><td>zendaya        </td><td>87</td><td> 3.50</td><td>150.7</td><td>3.17</td><td>  4.8</td><td> 20.6</td><td>United States</td><td>5800000</td></tr>
+	<tr><td>24</td><td>iamcardib      </td><td>75</td><td> 1.60</td><td>140.5</td><td>1.10</td><td>  1.5</td><td>  5.0</td><td>United States</td><td>3100000</td></tr>
+	<tr><td>25</td><td>ddlovato       </td><td>88</td><td> 0.08</td><td>139.1</td><td>0.27</td><td>363.4</td><td> 91.3</td><td>United States</td><td>1100000</td></tr>
+	<tr><td>26</td><td>badgalriri     </td><td>88</td><td> 4.80</td><td>135.3</td><td>0.02</td><td>   NA</td><td> 17.9</td><td>United States</td><td>3700000</td></tr>
+	<tr><td>27</td><td>kingjames      </td><td>86</td><td> 2.30</td><td>130.9</td><td>0.92</td><td>  1.2</td><td>  4.9</td><td>             </td><td>2100000</td></tr>
+	<tr><td>28</td><td>theellenshow   </td><td>87</td><td>10.00</td><td>125.1</td><td>0.07</td><td> 81.7</td><td>  4.2</td><td>United States</td><td> 420500</td></tr>
+	<tr><td>29</td><td>realmadrid     </td><td>90</td><td> 6.90</td><td>123.4</td><td>0.48</td><td>588.3</td><td>  6.8</td><td>Spain        </td><td> 996200</td></tr>
+	<tr><td>30</td><td>champagnepapi  </td><td>85</td><td> 5.20</td><td>119.6</td><td>1.10</td><td>  1.3</td><td>  9.0</td><td>Netherlands  </td><td>1700000</td></tr>
+	<tr><td>⋮</td><td>⋮</td><td>⋮</td><td>⋮</td><td>⋮</td><td>⋮</td><td>⋮</td><td>⋮</td><td>⋮</td><td>⋮</td></tr>
+	<tr><td>171</td><td>gisel_la           </td><td>85</td><td> 9.90</td><td>36.5</td><td>0.10</td><td> 33.4</td><td>  1.5</td><td>                      </td><td> 150500</td></tr>
+	<tr><td>172</td><td>eminem             </td><td>84</td><td> 0.66</td><td>36.4</td><td>2.69</td><td>962.7</td><td>730.1</td><td>United States         </td><td>1100000</td></tr>
+	<tr><td>173</td><td>mercedesbenz       </td><td>77</td><td>10.00</td><td>36.0</td><td>0.18</td><td> 64.6</td><td>  2.0</td><td>British Virgin Islands</td><td> 197900</td></tr>
+	<tr><td>174</td><td>colesprouse        </td><td>81</td><td> 1.20</td><td>35.9</td><td>2.34</td><td>834.5</td><td>  2.6</td><td>                      </td><td>2200000</td></tr>
+	<tr><td>175</td><td>nattinatasha       </td><td>47</td><td> 0.03</td><td>35.9</td><td>0.80</td><td>285.9</td><td> 18.7</td><td>Czech Republic        </td><td> 518100</td></tr>
+	<tr><td>176</td><td>shahidkapoor       </td><td>82</td><td> 1.10</td><td>35.6</td><td>2.54</td><td>780.0</td><td>  1.5</td><td>                      </td><td>1300000</td></tr>
+	<tr><td>177</td><td>tigerjackieshroff  </td><td>83</td><td> 2.10</td><td>35.6</td><td>1.20</td><td>422.9</td><td>  2.2</td><td>India                 </td><td>1100000</td></tr>
+	<tr><td>178</td><td>kimberly.loaiza    </td><td>78</td><td> 0.59</td><td>35.5</td><td>5.23</td><td>  1.8</td><td>  1.6</td><td>Mexico                </td><td>2600000</td></tr>
+	<tr><td>179</td><td>barackobama        </td><td>81</td><td> 0.66</td><td>35.4</td><td>1.19</td><td>411.5</td><td>739.5</td><td>United States         </td><td>1100000</td></tr>
+	<tr><td>180</td><td>sachintendulkar    </td><td>76</td><td> 1.00</td><td>35.3</td><td>2.03</td><td>664.5</td><td>810.0</td><td>                      </td><td> 800400</td></tr>
+	<tr><td>181</td><td>simonemendes       </td><td>72</td><td> 4.40</td><td>35.0</td><td>0.65</td><td>222.9</td><td>  1.9</td><td>Brazil                </td><td> 420000</td></tr>
+	<tr><td>182</td><td>ivetesangalo       </td><td>84</td><td> 7.60</td><td>34.8</td><td>0.36</td><td>121.1</td><td>  1.7</td><td>Brazil                </td><td> 226400</td></tr>
+	<tr><td>183</td><td>lunamaya           </td><td>83</td><td> 4.10</td><td>34.8</td><td>0.17</td><td> 58.6</td><td>589.6</td><td>                      </td><td> 145400</td></tr>
+	<tr><td>184</td><td>toni.kr8s          </td><td>83</td><td> 0.94</td><td>34.7</td><td>1.68</td><td>533.5</td><td>561.3</td><td>                      </td><td> 597200</td></tr>
+	<tr><td>185</td><td>dannapaola         </td><td>68</td><td> 1.90</td><td>34.7</td><td>3.49</td><td>  1.2</td><td>  2.8</td><td>Mexico                </td><td>1500000</td></tr>
+	<tr><td>186</td><td>paollaoliveirareal </td><td>84</td><td> 4.60</td><td>34.7</td><td>0.57</td><td>192.3</td><td>  1.7</td><td>                      </td><td> 367800</td></tr>
+	<tr><td>187</td><td>blakelively        </td><td>80</td><td> 0.11</td><td>34.6</td><td>0.02</td><td>   NA</td><td>350.9</td><td>United States         </td><td>3100000</td></tr>
+	<tr><td>188</td><td>adidasoriginals    </td><td>83</td><td> 0.15</td><td>34.2</td><td>0.20</td><td> 66.8</td><td> 21.2</td><td>                      </td><td> 136200</td></tr>
+	<tr><td>189</td><td>disney             </td><td>77</td><td> 7.30</td><td>34.2</td><td>0.44</td><td>132.0</td><td>  1.4</td><td>United States         </td><td> 185200</td></tr>
+	<tr><td>190</td><td>shaymitchell       </td><td>83</td><td> 6.30</td><td>34.1</td><td>0.73</td><td>247.5</td><td>  4.6</td><td>United States         </td><td> 732400</td></tr>
+	<tr><td>191</td><td>bmw                </td><td>79</td><td> 9.30</td><td>33.7</td><td>0.23</td><td> 76.5</td><td>  2.2</td><td>Germany               </td><td> 231300</td></tr>
+	<tr><td>192</td><td>danbilzerian       </td><td>84</td><td> 1.40</td><td>33.6</td><td>3.58</td><td>  1.2</td><td>  2.8</td><td>Canada                </td><td>2000000</td></tr>
+	<tr><td>193</td><td>khabib_nurmagomedov</td><td>63</td><td> 4.50</td><td>33.5</td><td>0.67</td><td>220.7</td><td>  3.1</td><td>Russia                </td><td> 685100</td></tr>
+	<tr><td>194</td><td>zidane             </td><td>41</td><td> 0.37</td><td>33.5</td><td>1.61</td><td>532.7</td><td>391.9</td><td>France                </td><td>1100000</td></tr>
+	<tr><td>195</td><td>sonamkapoor        </td><td>75</td><td> 4.80</td><td>33.3</td><td>0.63</td><td>209.2</td><td>  1.3</td><td>India                 </td><td> 264700</td></tr>
+	<tr><td>196</td><td>iambeckyg          </td><td>71</td><td> 2.30</td><td>33.2</td><td>1.40</td><td>464.7</td><td>  1.4</td><td>United States         </td><td> 623800</td></tr>
+	<tr><td>197</td><td>nancyajram         </td><td>81</td><td> 3.80</td><td>33.2</td><td>0.64</td><td>208.0</td><td>  1.5</td><td>France                </td><td> 390400</td></tr>
+	<tr><td>198</td><td>luansantana        </td><td>79</td><td> 0.77</td><td>33.2</td><td>0.26</td><td> 82.6</td><td>149.2</td><td>Brazil                </td><td> 193300</td></tr>
+	<tr><td>199</td><td>nickjonas          </td><td>78</td><td> 2.30</td><td>33.0</td><td>1.42</td><td>467.7</td><td>  1.7</td><td>United States         </td><td> 719600</td></tr>
+	<tr><td>200</td><td>raisa6690          </td><td>80</td><td> 4.20</td><td>32.8</td><td>0.30</td><td> 97.4</td><td>969.1</td><td>Indonesia             </td><td> 232200</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">summary</span><span class="p">(</span><span class="n">instagram_infl</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+
+
+<div class="jp-RenderedText jp-OutputArea-output " data-mime-type="text/plain">
+<pre>      rank        channel_info       influence_score    posts(k)      
+ Min.   :  1.00   Length:200         Min.   :22.00   Min.   : 0.0100  
+ 1st Qu.: 50.75   Class :character   1st Qu.:80.00   1st Qu.: 0.9475  
+ Median :100.50   Mode  :character   Median :84.00   Median : 2.1000  
+ Mean   :100.50                      Mean   :81.82   Mean   : 3.4998  
+ 3rd Qu.:150.25                      3rd Qu.:86.00   3rd Qu.: 5.0250  
+ Max.   :200.00                      Max.   :93.00   Max.   :17.5000  
+                                                                      
+  followers(m)    X60_day_eng_rate(%) new_post_avg_like(m) total_likes(b)  
+ Min.   : 32.80   Min.   : 0.010      Min.   :  1.0        Min.   :  1.00  
+ 1st Qu.: 40.00   1st Qu.: 0.410      1st Qu.:  4.4        1st Qu.:  2.00  
+ Median : 50.05   Median : 0.880      Median :149.3        Median :  4.00  
+ Mean   : 77.41   Mean   : 1.902      Mean   :247.0        Mean   :142.13  
+ 3rd Qu.: 68.90   3rd Qu.: 2.035      3rd Qu.:412.3        3rd Qu.: 20.75  
+ Max.   :475.80   Max.   :26.410      Max.   :994.4        Max.   :987.40  
+                  NA&#39;s   :1           NA&#39;s   :8                            
+   country            avg_likes       
+ Length:200         Min.   :   65100  
+ Class :character   1st Qu.:  504400  
+ Mode  :character   Median : 1100000  
+                    Mean   : 1787104  
+                    3rd Qu.: 2100000  
+                    Max.   :15400000  
+                                      </pre>
 </div>
 
 </div>
@@ -16204,6 +16545,73 @@ Warning message in tm_map.SimpleCorpus(twittertext, removeURL):
 
 </div>
 
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-r"><pre><span></span><span class="nf">head</span><span class="p">(</span><span class="n">instagram_infl</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output " data-mime-type="text/html">
+<table class="dataframe">
+<caption>A data.frame: 6 × 10</caption>
+<thead>
+	<tr><th></th><th scope=col>rank</th><th scope=col>channel_info</th><th scope=col>influence_score</th><th scope=col>posts(k)</th><th scope=col>followers(m)</th><th scope=col>X60_day_eng_rate(%)</th><th scope=col>new_post_avg_like(m)</th><th scope=col>total_likes(b)</th><th scope=col>country</th><th scope=col>avg_likes</th></tr>
+	<tr><th></th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;chr&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;chr&gt;</th><th scope=col>&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><th scope=row>1</th><td>1</td><td>cristiano    </td><td>92</td><td>3.30</td><td>475.8</td><td>1.39</td><td>  6.5</td><td>29.0</td><td>Spain        </td><td>8700000</td></tr>
+	<tr><th scope=row>2</th><td>2</td><td>kyliejenner  </td><td>91</td><td>6.90</td><td>366.2</td><td>1.62</td><td>  5.9</td><td>57.4</td><td>United States</td><td>8300000</td></tr>
+	<tr><th scope=row>3</th><td>3</td><td>leomessi     </td><td>90</td><td>0.89</td><td>357.3</td><td>1.24</td><td>  4.4</td><td> 6.0</td><td>             </td><td>6800000</td></tr>
+	<tr><th scope=row>4</th><td>4</td><td>selenagomez  </td><td>93</td><td>1.80</td><td>342.7</td><td>0.97</td><td>  3.3</td><td>11.5</td><td>United States</td><td>6200000</td></tr>
+	<tr><th scope=row>5</th><td>5</td><td>therock      </td><td>91</td><td>6.80</td><td>334.1</td><td>0.20</td><td>665.3</td><td>12.5</td><td>United States</td><td>1900000</td></tr>
+	<tr><th scope=row>6</th><td>6</td><td>kimkardashian</td><td>91</td><td>5.60</td><td>329.2</td><td>0.88</td><td>  2.9</td><td>19.9</td><td>United States</td><td>3500000</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>Now the dataset is much clean now and it is easy for further calculation.</p>
+
+</div>
+</div>
+</div>
 </div>
 </body>
 
