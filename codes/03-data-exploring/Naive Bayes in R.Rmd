@@ -1,0 +1,140 @@
+---
+title: "Homework3"
+author: "Yilin Yang"
+date: "2022-10-04"
+output: html_document
+---
+
+
+##### In this section, I used Naive Bayes to identify the relationship between influence scores and different factors of being a instagram influencer. Naive Bayes is a classification method based on Bayes’ Theorem and the assumption of predictor independence. It performs well in the case of categorical input variables compared to the numerical variables. 
+```{r}
+#import required packages
+library(e1071)
+library(caTools)
+library(caret)
+library(plotly)
+library(dplyr)
+library(ggplot2)
+library(psych)
+
+```
+
+#### Import data
+```{r}
+#Load and split the dataset
+data = read.csv("/Users/yangyilin/Desktop/anly-501-project-YilinYang2000-1//data/00-raw-data/instagram_infl.csv")
+```
+
+```{r}
+head(data)
+```
+
+
+The dataset contains 11 columns. 
+
+influence score: It is calculated based on their popularity.
+
+posts: total posts they have
+
+followers: total followers they have
+
+avg_likes: average likes of their total posts
+
+60_days_eng_rate: 60 days of engagement rate
+
+new_post_avg_like: a calculation of the average likes they gained from new posts. 
+
+total_likes: total likes of their posts in instagram.
+
+country: users' origin. What countries they from?
+
+
+#### Identify frequencies
+At this time, I want to calculate the distribution of influence scores. 
+```{r}
+xtabs(~data$influence_score, data = data)
+```
+
+
+Because there are so many scores in this datasets, It is more workable to take them into different bins like 0-75, 70-100 to identify the influence scores are high or low
+
+
+```{r}
+data <- data %>% mutate(new_bin = cut(influence_score, breaks=c(0,77,84,100)))#cut influence scores into different bins
+data$new_bin <- as.character(data$new_bin)
+
+data$new_bin[data$new_bin=="(0,77]"]<-"low"
+data$new_bin[data$new_bin=="(77,84]"]<-"medium"
+data$new_bin[data$new_bin=="(84,100]"]<-"high"
+# Catergorized scores between 0-60 as low scores, 60-85 as medium scores,85-100 as high scores
+data$new_bin <- as.factor(data$new_bin) # Factorize the column new_bin for futher classification
+```
+
+
+#### Split dataset into train and test
+
+```{r}
+split <- sample.split(data, SplitRatio = 0.8)
+train <- subset(data, split == "TRUE")
+test <- subset(data, split == "FALSE")
+train <- subset(train,select = -c(X,channel_info,country,rank,influence_score)) #Drop columns which are not required
+test <- subset(test,select = -c(X,channel_info,country,rank,influence_score))
+
+```
+
+```{r}
+head(train)
+```
+
+```{r}
+pairs.panels(train[-1])
+```
+
+
+
+
+#### Naive Bayes Classification
+```{r}
+model <- naiveBayes(new_bin ~ ., data = train, usekernel = T) 
+```
+
+```{r}
+y_pred <- predict(model, newdata = test)
+conf_mat <- table(test$new_bin,y_pred) 
+confusionMatrix(conf_mat) 
+```
+
+
+
+#### Build a heatmap for visualization
+```{r}
+my_colors <- colorRampPalette(c("pink", "blue"))
+heatmap(conf_mat,col = my_colors(3))
+legend(x="right",legend = c("min", "med", "max"),fill = my_colors(3))
+
+```
+
+##### Conclusion
+As we can see in the confusion matrix, The accuracy is only low for prediction. At this time, Naive Bayes is not a good model for this dataset. In naive Bayes algorithm, we calculate the conditional probability of the events given class label. However in testing data, if some new event comes up then the conditional probability will be zero for the entire term. As a result, it is may be not useful for this dataset because other variables don't give a great prediction for influencers' scores. Influencer score may be not a independent variable. 
+
+
+##### Train another model in the same plots
+
+At this time, I want to total likes amount to train influence model too determine whether there are other interrupted variables lower the accuracy
+
+```{r}
+model <- naiveBayes(new_bin ~ total_likes.b., data = train, usekernel = T) 
+y_pred <- predict(model, newdata = test)
+conf_mat <- table(test$new_bin,y_pred) 
+confusionMatrix(conf_mat) 
+```
+```{r}
+my_colors <- colorRampPalette(c("pink", "blue"))
+heatmap(conf_mat,col = my_colors(3))
+legend(x="right",legend = c("min", "med", "max"),fill = my_colors(3))
+
+```
+
+
+##### Conclusion
+Because the accuracy is still low at this time, we can conclude that Naive Bayes is not suitable for this model. 
