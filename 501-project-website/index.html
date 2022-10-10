@@ -27,101 +27,215 @@
 
 
 <!-- HEADER BAR -->
-<ul>
-    <!-- link back to homepage -->
-    <li><a href="./index.html">About me</a></li>
-    
-    <!-- tab without dropdown  -->
-    <li><a href="./pages/introduction.html">introduction</a></li>
-    
-    <!-- tab with dropdown -->
-    <li class="dropdown">
-        <a href="https://github.com/anly501/anly-501-project-YilinYang2000" class="dropbtn">code</a>
+<body>
+
+    <!-- header_area_start -->
+    <header class="transparent_header header_area">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-xxl-3 col-md-2 col-6">
+                </div>
+                </div>
+                <div class="col-xxl-6 col-md-7 d-none d-lg-block">
+                    <div class="main_menu">
+                        <nav id="mobile-menu" class="mobile_menu">
+                            <ul>
+                                <li class="active"><a href="index.html">Home</a></li>
+                                <li><a href="./pages/introduction.html">Introduction</a>
+                                    <ul class="sub_menu">
+                                        <li class="menu-item-has-children menu-first-item"><a href="feature.html">Features</a></li>
+                                        <li class="menu-item-has-children"><a href="feature-details.html">Single Feature</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li><a href="https://github.com/anly501/anly-501-project-YilinYang2000">code</a></li>
+                                <li><a href="https://github.com/anly501/anly-501-project-YilinYang2000/tree/main/data">data</a></li>
+                                <li><a href="./pages/data gathering.html">Data Gathering</a>
+                                </li>
+                                <li><a href="./pages/data-cleaning.html">Data Cleaning</a>
+                                </li>
+                                <li><a href="./pages/data-exploring.html">Exploring Data</a>
+                                    <ul class="sub_menu">
+                                        <li class="menu-item-has-children menu-first-item"><a href="./pages/Naive-Bayes-in-R.html">Naive Bayes in R</a></li>
+                                        <li class="menu-item-has-children"><a href="./pages/Naive-Bayes-in-Python.html">Naive Bayes in Python</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+                </div>
+            </div>
         </div>
-    </li>
+    </header>
+
     
-    <!-- tab with dropdown -->
-    
-    <li class="dropdown">
-        <a href="https://github.com/anly501/anly-501-project-YilinYang2000/tree/main/data" class="dropbtn">data</a>
-    </li>
-    <!-- tab with dropdown -->
-    <li class="dropdown">
-        <a href="./pages/data gathering.html">Data Gathering</a>
-    </li>
-    <li class="dropdown">
-        <a href="./pages/data-cleaning.html">Data Cleaning</a>
-    </li>
-    <li class="dropdown">
-        <a href="./pages/data-exploring.html">Exploring Data</a>
-        <div class="dropdown-content">
-            <a href="./pages/Naive-Bayes-in-R.html">Naive Bayes in R</a>
-            <a href="./pages/Naive-Bayes-in-Python.html">Naive Bayes in Python</a>
-          </div>
-    </li>
-    </ul>
+<!-- main_area_start -->
+<main>
+    <!-- slider_area-start -->
+    <section class="slider_area fix">
+        <div class="swiper-container2 slider_active">
+            <div class="swiper-wrapper2">
+                <div class="swiper-slide2 slider_single slider_height">
+                    <div class="shape_circle horizontal_move100px"><img src="assets/img/hero/shape_circle.png" alt="shape"></div>
+                    <div class="shape_dots upward_movement200px d-none d-md-block"><img src="assets/img/hero/shape_dots.png" alt="shape"></div>
+                    <div class="shape_leftmiddle">
+                        <div class="width_visible d-inline-block"><img src="assets/img/hero/shape_leftmiddle.png" alt="shape"></div>
+                    </div>
+                    <div class="shape_topright fix d-none d-lg-block">
+                        <div class="shape_topright_inner top_right_visible"><img src="assets/img/hero/shape_topright.png" alt="shape"></div>
+                    </div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="slider_single_relative slider_height">
+
+                                    <div class="hero_woman">
+                                        <div class="hero_woman_inner_wrap horizontal_move50px">
+                                            <div class="hero_woman_inner fix circle-shape-change"><img src="images/About Me.png" alt="hero_img"></div>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="woman_illustration fix horizontal_move50px">
+                                        <div class="woman_illustration_inner scale-img-animation-right"><img src="assets/img/hero/illustration_woman.png" alt="hero_png"></div>
+                                    </div>
+
+                                    <div class="slider_content p-rel pt-150p pt-md-0">
+                                        <h2 class="slider_title">Hello <br>
+                                            I’m Yilin</h2>
+                                        <p class="has_border_left">I am a data science student in GU <br>
+                                            I am also a bakery lover and two cats' mom</p>
+                                        <a href="./pages/introduction.html" class="slider_btn i_right">See Projects<i class="fal fa-long-arrow-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- slider_area-end -->
+       <!-- feature_area-start -->
+       <div class="feature_area pt-120 pb-100">
+        <div class="container">
+            <div class="row">
+                <div class="col-xxl-12">
+                    <div class="section_title text-center mb-75">
+                        <h2 class="title_text">Academic Interest <br>
+                    </div>
+                </div>
+            </div>
+
+            <div class="feature_motu_section mb-90">
+                <div class="feature_wrapper">
+                    <div class="single_feature text-center mb-40">
+                        <span class="feature_icon">
+                            <i class="fal fa-gem"></i>
+                            
+                        </span>
+                        <h5 class="feature_title"><a href="feature-details.html">Web Design</a></h5>
+                    </div>
+                    <div class="single_feature text-center mb-40">
+                        <span class="feature_icon"><i class="fal fa-laptop-code"></i></span>
+                        <h5 class="feature_title"><a href="feature-details.html">NLP</a></h5>
+                    </div>
+                    <div class="single_feature text-center mb-40">
+                        <span class="feature_icon"><i class="fal fa-layer-group"></i></span>
+                        <h5 class="feature_title"><a href="feature-details.html">Product Design</a></h5>
+                    </div>
+                    <div class="single_feature text-center mb-40">
+                        <span class="feature_icon"><i class="fal fa-broadcast-tower"></i></span>
+                        <h5 class="feature_title"><a href="feature-details.html">Data Analysis</a></h5>
+                    </div>
+                    <div class="single_feature text-center mb-40">
+                        <span class="feature_icon"><i class="fal fa-bullhorn"></i></span>
+                        <h5 class="feature_title"><a href="feature-details.html">Marketing</a></h5>
+                    </div>
+                </div>
+            </div>
+
+            <div class="person_feature_area">
+                <div class="row align-items-center">
+                    <div class="col-xxl-7 col-lg-5">
+                        <div class="hero_woman_inner fix circle-shape-change">
+                            <img src="./images/About Me2.png" alt="img" class="feature_woman">
+                            <img src="./images/111.png" alt="img" class="two cats">
+                        </div>
+                    </div>
+                    <div class="col-xxl-5 col-lg-7">
+                        <div class="person_feature_content pl-55 mb-30">
+                            <div class="section_title mb-30">
+                                <h2 class="title_text">About Me</h2>
+                            </div>
+                            <p>Hi, my name is Yilin Yang. Glad to see you all! I am a new graduate student in DSAN. I was in Syracuse University during my under-graduated studies. I have chosen information management & technology and applied mathematics as my under-graduated major. I am from Nanjing, China. My hometown is a peaceful and beautiful city. Nanjing contains many historic sites. It has been six capital city in six dynasties in China. In my hometown, there are a lot of delicious food. Nanjing is famous for making duck-style food. Many people say that No duck can live to go out from Nanjing. 
+                                I am so interested in the data analytics in the WE media field. In DSAN, I would like to focus more on data visualization, NLP. I have learned a little about data visualization. When do some work about data analytics, data visualization and gather a story about data make me feel a sense of achievement and I have more energy to focus myself to devote into work. 
+                                in my under-graduated studies, I am very interested in this field. In the future, I plan to be a data analyst in companies like Bytedance, Netflix. In the long run, I decide to create my own team to do data analysis for internet influencers to help them locate their fields, promote their contents in order to attract more audiences. Media and data science are all my interest fields, I would like to devote myself into these fields to make more contributions
+                                I have taken introduction to machine learning and introduction to data visualization, these courses help me to locate what I really interested in and I want to choose this field as my future job.
+                                I have two lovely cats, I love them so much! It is very enjoyable when I come home and see my cats waiting for me. They are friendly and cute. My friends all like them and bring a lot of food and toys to them. In my free time, I like staying with my cats, watching movies, and hanging out with my friends. I enjoy trying all kinds of food to feel different culture difference among different countries, having dinner with my friends and finding out fancy restaurants are very enjoyable moments to me. Traveling is a enjoyable moments to me. I have visited different countries and had a lot of fun. In last summer, I have been to Miami and really had a good time here. We went sky diving and many water sports. I really appreciate these exciting moments to let me fully release myself. 
+                                I also like pastries. Making desserts also helps me to feel comfortable and calm. I like all kinds of things for me to concentrate my self. I think this means I truly love these things. I enjoy sharing my desserts with my friends. In the future, if I have the chance to have a pastry of my own, I will be so glad and try my best to make my desserts popular.</p>
+                            <ul class="feature_list mt-25">
+                                <li>2015:Nanjing Foreign Language School Xianlin Campus</li>
+                                <li>2018:Syracuse University</li>
+                                <li>2022:Georgetown University</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- feature_area-end -->
+    <!-- skills_area-start -->
+    <div class="skills_area pt-30">
+        <div class="container">
+            <div class="skill_wrapper pb-100 border_bottom">
+                <div class="row">
+                    <div class="col-xxl-6 col-lg-6">
+                        <div class="skill_info mb-30">
+                            <div class="section_title mb-30">
+                                <h2 class="title_text">Creative &amp; Professional <br>Skills Experience</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xxl-6 col-lg-6">
+                        <div class="skill_item_wrapper mb-30">
+                            <div class="skill_progress_single mb-50">
+                                <span>Data Analysis</span>
+                                <span class="progress_value">80%</span>
+                                <div class="progress skill_progress">
+                                    <div class="progress-bar wow slideInLeft theme-1" data-wow-duration="1s" data-wow-delay="0.5s" role="progressbar" data-width="80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                            <div class="skill_progress_single mb-50">
+                                <span>Visualization</span>
+                                <span class="progress_value">95%</span>
+                                <div class="progress skill_progress">
+                                    <div class="progress-bar wow slideInLeft theme-1" data-wow-duration="1s" data-wow-delay="0.6s" role="progressbar" data-width="95%" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                            <div class="skill_progress_single mb-50">
+                                <span>Natural Language Process</span>
+                                <span class="progress_value">73%</span>
+                                <div class="progress skill_progress">
+                                    <div class="progress-bar wow slideInLeft theme-1" data-wow-duration="1s" data-wow-delay="0.7s" role="progressbar" data-width="73%" aria-valuenow="73" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                            <div class="skill_progress_single">
+                                <span>Pastry Bakery</span>
+                                <span class="progress_value">83%</span>
+                                <div class="progress skill_progress">
+                                    <div class="progress-bar wow slideInLeft theme-1" data-wow-duration="1s" data-wow-delay="0.8s" role="progressbar" data-width="83%" aria-valuenow="83" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
 
 
-<!-- USE A TABLE TO ORGANIZE/FORMAT THE WEBPAGE -->
-<table>
-    <!--TABLE ROW-1-->
-   <tr>
-      <!--ROW-1 COL-1-->
-      <td>
-            <img src="images/IMG_2978.jpeg" width="320" height="480">
-      </td>
-      
-      <!--ROW-1 COL-2-->
-      <td>
-            
-        <h2 style="text-align:left; color:pink;">About me</h2>
-        
-        <p  style="font-size:12px;"> Hi, my name is Yilin Yang. Glad to see you all! I am a new graduate student in DSAN. I was in Syracuse University during my under-graduated studies. I have chosen information management & technology and applied mathematics as my under-graduated major. I am from Nanjing, China. My hometown is a peaceful and beautiful city. Nanjing contains many historic sites. It has been six capital city in six dynasties in China. In my hometown, there are a lot of delicious food. Nanjing is famous for making duck-style food. Many people say that No duck can live to go out from Nanjing. 
-            I am so interested in the data analytics in the WE media field. In DSAN, I would like to focus more on data visualization, NLP. I have learned a little about data visualization. When do some work about data analytics, data visualization and gather a story about data make me feel a sense of achievement and I have more energy to focus myself to devote into work. 
-            in my under-graduated studies, I am very interested in this field. In the future, I plan to be a data analyst in companies like Bytedance, Netflix. In the long run, I decide to create my own team to do data analysis for internet influencers to help them locate their fields, promote their contents in order to attract more audiences. Media and data science are all my interest fields, I would like to devote myself into these fields to make more contributions
-            I have taken introduction to machine learning and introduction to data visualization, these courses help me to locate what I really interested in and I want to choose this field as my future job.
-            I have two lovely cats, I love them so much! It is very enjoyable when I come home and see my cats waiting for me. They are friendly and cute. My friends all like them and bring a lot of food and toys to them. In my free time, I like staying with my cats, watching movies, and hanging out with my friends. I enjoy trying all kinds of food to feel different culture difference among different countries, having dinner with my friends and finding out fancy restaurants are very enjoyable moments to me. Traveling is a enjoyable moments to me. I have visited different countries and had a lot of fun. In last summer, I have been to Miami and really had a good time here. We went sky diving and many water sports. I really appreciate these exciting moments to let me fully release myself. 
-            I also like pastries. Making desserts also helps me to feel comfortable and calm. I like all kinds of things for me to concentrate my self. I think this means I truly love these things. I enjoy sharing my desserts with my friends. In the future, if I have the chance to have a pastry of my own, I will be so glad and try my best to make my desserts popular. </p>
-      <!--ROW-1 COL-3-->
-      <td>
-            <img src="images/111.png" width="320" height="480">
-      </td>
-      </td>
-         
-         
-   </tr>
 
-    <!--ROW-2-->
-   <tr>
-      <!--ROW-2 COL-1-->
-      <td>
-        
-
-        <h2 style="text-align:left; color:pink;">Academic Interests</h2>
-            
-        <p> - IMPORTANT NOTE: </p> 
-        <p> - DATA ANALYTICS in WE media </p> 
-        <p> - Data visualization </p> 
-        <p> - Natural Laguage process </p> 
-     
- 
-      </td>
-      
-      <!--ROW-2 COL-2-->
-      <td>
-
-         <h2 style="text-align:left; color:pink;">Education</h2>
-
-  <p>2022: Master degree: Georgetown University </p> 
-  <p>2018: Bachelor degree: Syracuse University </p> 
-  <p>2015: Nanjing Foreign Language School Xianlin Campus </p> 
-
-
-      </td>
-   </tr>
-   
-</table>
-
-
-</body>
-</html>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- skills_area-end -->
