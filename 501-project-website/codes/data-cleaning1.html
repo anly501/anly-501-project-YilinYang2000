@@ -120,13 +120,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<div class="cell" data-execution_count="1">
+<div class="cell" data-execution_count="3">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython <span class="im">import</span> display</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>display.Image(<span class="st">"../images/data_cleaning.jpeg"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="1">
+<div class="cell-output cell-output-display" data-execution_count="3">
 <p><img src="data-cleaning1_files/figure-html/cell-2-output-1.jpeg" class="img-fluid"></p>
 </div>
 </div>
@@ -153,13 +153,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </details>
 <section id="load-the-required-dataset" class="level5">
 <h5 class="anchored" data-anchor-id="load-the-required-dataset">Load the required dataset</h5>
-<div class="cell" data-execution_count="3">
+<div class="cell" data-execution_count="7">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>pytt <span class="op">=</span> pd.read_csv(<span class="st">"/Users/yangyilin/Desktop/anly-501-project-YilinYang2000-1/data/00-raw-data/twitterpython.csv"</span>)</span>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>pytt <span class="op">=</span> pd.read_csv(<span class="st">"../data/00-raw-data/twitterpython.csv"</span>)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>pytt.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="3">
+<div class="cell-output cell-output-display" data-execution_count="7">
 
 <div>
 
@@ -236,12 +236,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="find-the-dataset-has-the-na-value-or-not" class="level5">
 <h5 class="anchored" data-anchor-id="find-the-dataset-has-the-na-value-or-not">Find the dataset has the NA value or not</h5>
 <p>NA value can be messy data points that interrupt our results. Fortunately, As we can see below, there is no NA values in this dataset.</p>
-<div class="cell" data-execution_count="4">
+<div class="cell" data-execution_count="8">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>pytt.isnull().<span class="bu">sum</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="4">
+<div class="cell-output cell-output-display" data-execution_count="8">
 <pre><code>&lt;bound method NDFrame._add_numeric_operations.&lt;locals&gt;.sum of       Unnamed: 0  edit_history_tweet_ids   lang  created_at   text     id  \
 0          False                   False  False       False  False  False   
 1          False                   False  False       False  False  False   
@@ -276,18 +276,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h5 class="anchored" data-anchor-id="spacy-pipeline">spacy pipeline</h5>
 <p>Use spacy pipeline as I learned in ANLY580 to do text normalization and text preprocessing</p>
 <p>When you process data with natural language processing, spacy first tokenizes the text to generate a Doc object. The document is then processed in several different steps - this is also known as the processing pipeline. The figure below describes how spacy implements effective word processing</p>
-<div class="cell" data-execution_count="2">
+<div class="cell" data-execution_count="9">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython <span class="im">import</span> display</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>display.Image(<span class="st">"../images/spacy.png"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="2">
+<div class="cell-output cell-output-display" data-execution_count="9">
 <p><img src="data-cleaning1_files/figure-html/cell-7-output-1.png" class="img-fluid"></p>
 </div>
 </div>
 <p>Since there are a lot of useless puntuations, urls, commas, numbers, highercase, etc will affect our results of frequencies, I decided to remove them all by using pipeline in spacy.</p>
-<div class="cell" data-execution_count="6">
+<div class="cell" data-execution_count="10">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re</span>
@@ -328,14 +328,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a>pipeline.add_pipe(<span class="st">"pyttPreprocessor"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="6">
+<div class="cell-output cell-output-display" data-execution_count="10">
 <pre><code>&lt;function __main__.ng20_preprocess(doc)&gt;</code></pre>
 </div>
 </div>
 </section>
 <section id="pass-data-through-spacy-pipeline" class="level5">
 <h5 class="anchored" data-anchor-id="pass-data-through-spacy-pipeline">Pass data through spacy pipeline</h5>
-<div class="cell" data-execution_count="7">
+<div class="cell" data-execution_count="11">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>docs <span class="op">=</span> []</span>
@@ -344,7 +344,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>tweetresult <span class="op">=</span> pd.DataFrame(docs)</span>
 <span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>tweetresult.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="7">
+<div class="cell-output cell-output-display" data-execution_count="11">
 
 <div>
 
@@ -386,7 +386,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h5 class="anchored" data-anchor-id="export-this-dataset-to-csv">Export this dataset to csv</h5>
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>tweetresult.to_csv(<span class="st">"/Users/yangyilin/Desktop/anly-501-project-YilinYang2000-1/data/00-raw-data/tweetresult.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>tweetresult.to_csv(<span class="st">"../data/01-modified-data/tweetresult.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </section>
 <section id="generate-bow-and-count-the-word-frequencies" class="level5">
@@ -404,12 +404,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>According to this dataframe,</p>
 <p>words: name of the count words</p>
 <p>counts: frequencies that each word appears</p>
-<div class="cell" data-execution_count="10">
+<div class="cell" data-execution_count="14">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>ttbow</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="10">
+<div class="cell-output cell-output-display" data-execution_count="14">
 
 <div>
 
@@ -488,7 +488,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h5 class="anchored" data-anchor-id="export-dataframe-to-csv-file-for-further-use">Export dataframe to csv file for further use</h5>
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>ttbow.to_csv(<span class="st">"/Users/yangyilin/Desktop/anly-501-project-YilinYang2000-1/data/00-raw-data/wordfreqpython.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>ttbow.to_csv(<span class="st">"../data/01-modified-data/wordfreqpython.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </section>
 <section id="sentiment-analysis" class="level5">
@@ -517,7 +517,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>neutral: neural sentiment score</p>
 <p>pos: positive sentiment score</p>
 <p>compound: the overall scores</p>
-<div class="cell" data-execution_count="13">
+<div class="cell" data-execution_count="17">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>sentiment <span class="op">=</span> getSentiments(pytt)</span>
@@ -525,7 +525,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>sentimentscore <span class="op">=</span> pd.DataFrame.from_dict(sentiment)</span>
 <span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>sentimentscore.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="13">
+<div class="cell-output cell-output-display" data-execution_count="17">
 
 <div>
 
@@ -580,17 +580,79 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </div>
+<div class="cell" data-execution_count="19">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>tweetscore <span class="op">=</span> pd.concat([texts,sentimentscore],axis<span class="op">=</span><span class="dv">1</span>)</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>tweetscore.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
+<div class="cell-output cell-output-display" data-execution_count="19">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>text</th>
+      <th>neg</th>
+      <th>neu</th>
+      <th>pos</th>
+      <th>compound</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>A more memorable connection is one that respec...</td>
+      <td>0.000</td>
+      <td>0.846</td>
+      <td>0.154</td>
+      <td>0.4588</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>A more memorable connection is one that respec...</td>
+      <td>0.000</td>
+      <td>0.846</td>
+      <td>0.154</td>
+      <td>0.7184</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>RT @OkeyMor57: @jay_scherrer @muskQu0tes @elon...</td>
+      <td>0.081</td>
+      <td>0.796</td>
+      <td>0.123</td>
+      <td>0.0846</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>@jay_scherrer @muskQu0tes @elonmusk Elon Musk ...</td>
+      <td>0.102</td>
+      <td>0.766</td>
+      <td>0.132</td>
+      <td>-0.0881</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>@DanKnightMMA Dear Dan - you seem like an enga...</td>
+      <td>0.081</td>
+      <td>0.769</td>
+      <td>0.151</td>
+      <td>0.6461</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
 </section>
 <section id="export-dataframe-to-csv-file-for-further-use-1" class="level5">
 <h5 class="anchored" data-anchor-id="export-dataframe-to-csv-file-for-further-use-1">Export dataframe to csv file for further use</h5>
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>tweetscore.to_csv(<span class="st">"/Users/yangyilin/Desktop/anly-501-project-YilinYang2000-1/data/00-raw-data/pytweetscore.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>tweetscore.to_csv(<span class="st">"../data/01-modified-data/pytweetscore.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <p>More than this, I would like to define each tweet is negative, neural, positive with compound score in order to the further explorations of users’ attitude. At this time, I plan to first, make a definition code to define one sentence is positive, negative or neutural. Then I will use a for loop to bring each sentence a classification and store it in a dataframe.</p>
 <details>
@@ -626,16 +688,66 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>tweetresult.rename(columns<span class="op">=</span>{<span class="dv">0</span>:<span class="st">'result'</span>},inplace<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>tweetresult.rename(columns<span class="op">=</span>{<span class="dv">1</span>:<span class="st">'scores'</span>},inplace<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
+<div class="cell" data-execution_count="24">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>tweetresult.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
+<div class="cell-output cell-output-display" data-execution_count="24">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>text</th>
+      <th>result</th>
+      <th>scores</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>A more memorable connection is one that respec...</td>
+      <td>Positive</td>
+      <td>15.4</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>A more memorable connection is one that respec...</td>
+      <td>Positive</td>
+      <td>15.4</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>RT @OkeyMor57: @jay_scherrer @muskQu0tes @elon...</td>
+      <td>Negative</td>
+      <td>24.2</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>@jay_scherrer @muskQu0tes @elonmusk Elon Musk ...</td>
+      <td>Negative</td>
+      <td>14.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>@DanKnightMMA Dear Dan - you seem like an enga...</td>
+      <td>Positive</td>
+      <td>26.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
 </section>
 <section id="export-the-dataframe-to-csv-file" class="level5">
 <h5 class="anchored" data-anchor-id="export-the-dataframe-to-csv-file">Export the dataframe to csv file</h5>
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>tweetresult.to_csv(<span class="st">"/Users/yangyilin/Desktop/anly-501-project-YilinYang2000-1/data/00-raw-data/pytweetresult.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>tweetresult.to_csv(<span class="st">"../data/01-modified-data/pytweetresult.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </section>
 </section>
@@ -689,7 +801,7 @@ The following object is masked from ‘package:tidyr’:
 <div class="cell" data-execution_count="2">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>instagram_infl <span class="op">=</span> read.csv(<span class="st">"/Users/yangyilin/Desktop/anly-501-project-YilinYang2000-1/data/00-raw-data/top_insta_influencers_data.csv"</span>)</span>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>instagram_infl <span class="op">=</span> read.csv(<span class="st">"../data/00-raw-data/top_insta_influencers_data.csv"</span>)</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>head(instagram_infl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
@@ -910,7 +1022,7 @@ The following object is masked from ‘package:tidyr’:
 <h5 class="anchored" data-anchor-id="export-the-dataset-to-csv">Export the dataset to csv</h5>
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>write.csv(instagram_infl,<span class="st">"/Users/yangyilin/Desktop/anly-501-project-YilinYang2000-1/data/00-raw-data/instagram_infl.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>write.csv(instagram_infl,<span class="st">"../data/01-modified-data/instagram_infl.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </section>
 </section>
@@ -919,7 +1031,7 @@ The following object is masked from ‘package:tidyr’:
 <p>For R API, I used twitter API to scratch keywords like “instagram, tiktok, youtube, facebook” to scratch users’ attitudes about these platforms.</p>
 <section id="import-required-packages-1" class="level5">
 <h5 class="anchored" data-anchor-id="import-required-packages-1">Import required packages</h5>
-<div class="cell" data-execution_count="37">
+<div class="cell" data-execution_count="10">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>library(selectr)</span>
@@ -937,6 +1049,39 @@ The following object is masked from ‘package:tidyr’:
 <span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a>suppressWarnings(expr)<span class="co">#ignore warning</span></span>
 <span id="cb36-14"><a href="#cb36-14" aria-hidden="true" tabindex="-1"></a>options(warn<span class="op">=-</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: ‘rvest’
+
+
+The following object is masked from ‘package:readr’:
+
+    guess_encoding
+
+
+Loading required package: NLP
+
+
+Attaching package: ‘NLP’
+
+
+The following object is masked from ‘package:ggplot2’:
+
+    annotate
+
+
+
+Attaching package: ‘jsonlite’
+
+
+The following object is masked from ‘package:purrr’:
+
+    flatten
+
+
+Loading required package: RColorBrewer
+</code></pre>
+</div>
 <div class="cell-output cell-output-display">
 <pre class="language-r"><code>function (expr) 
 {
@@ -949,7 +1094,7 @@ The following object is masked from ‘package:tidyr’:
 <h5 class="anchored" data-anchor-id="load-the-required-dataset-2">Load the required dataset</h5>
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>TweetsDF <span class="op">&lt;-</span> read.csv(<span class="st">"/Users/yangyilin/Desktop/anly-501-project-YilinYang2000-1/data/00-raw-data/tweetinr.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>TweetsDF <span class="op">&lt;-</span> read.csv(<span class="st">"../data/00-raw-data/tweetinr.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </section>
 <section id="do-text-transformation-for-the-dataframe" class="level5">
@@ -957,27 +1102,27 @@ The following object is masked from ‘package:tidyr’:
 <p>Take a glimpse of the dataframe, there is a lot of punctuation that is totally not useful for me to count the future frequency. As a result, I used corpus() to normalizing and tokenizing the dataset, then I use tm_map to remove punctuations like “/”,“@”,etc. More than this, because there are a lot of urls, numbers, white space, and highercase in the text. I decided to remove them all because they will afffect my results. So I cleaned the data as below:</p>
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>FName <span class="op">=</span> <span class="st">"~/Desktop/wemediaexample.txt"</span></span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>MyFile <span class="op">&lt;-</span> <span class="bu">file</span>(FName)</span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>cat(unlist(TweetsDF), <span class="st">" "</span>, <span class="bu">file</span><span class="op">=</span>MyFile, sep<span class="op">=</span><span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
-<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>close(MyFile)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>FName <span class="op">=</span> <span class="st">"~/Desktop/wemediaexample.txt"</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>MyFile <span class="op">&lt;-</span> <span class="bu">file</span>(FName)</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>cat(unlist(TweetsDF), <span class="st">" "</span>, <span class="bu">file</span><span class="op">=</span>MyFile, sep<span class="op">=</span><span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>close(MyFile)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell" data-execution_count="56">
+<div class="cell" data-execution_count="14">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>twittertext <span class="op">=</span> Corpus(VectorSource(TweetsDF$text))</span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>toSpace <span class="op">=</span> content_transformer(</span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>              function (x, pattern)</span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>              gsub(pattern, <span class="st">" "</span>, x))</span>
-<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>twittertext1 <span class="op">=</span> tm_map(twittertext, toSpace, <span class="st">"/"</span>)</span>
-<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>twittertext1 <span class="op">=</span> tm_map(twittertext, toSpace, <span class="st">"@"</span>)</span>
-<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>twittertext1 <span class="op">=</span> tm_map(twittertext, toSpace, <span class="st">"#"</span>)</span>
-<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>twittertext1 <span class="op">=</span> tm_map(twittertext1, content_transformer(tolower))</span>
-<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>twittertext1 <span class="op">=</span> tm_map(twittertext1, removeNumbers)</span>
-<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>twittertext1 <span class="op">=</span> tm_map(twittertext1, stripWhitespace)</span>
-<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a>removeURL <span class="op">&lt;-</span> function(x) gsub(<span class="st">"http[[:alnum:]]*"</span>, <span class="st">""</span>, x)</span>
-<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a>twittertext1 <span class="op">=</span> tm_map(twittertext, removeURL)</span>
-<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a>head(twittertext1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>twittertext <span class="op">=</span> Corpus(VectorSource(TweetsDF$text))</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>toSpace <span class="op">=</span> content_transformer(</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>              function (x, pattern)</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>              gsub(pattern, <span class="st">" "</span>, x))</span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>twittertext1 <span class="op">=</span> tm_map(twittertext, toSpace, <span class="st">"/"</span>)</span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>twittertext1 <span class="op">=</span> tm_map(twittertext, toSpace, <span class="st">"@"</span>)</span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>twittertext1 <span class="op">=</span> tm_map(twittertext, toSpace, <span class="st">"#"</span>)</span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>twittertext1 <span class="op">=</span> tm_map(twittertext1, content_transformer(tolower))</span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>twittertext1 <span class="op">=</span> tm_map(twittertext1, removeNumbers)</span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>twittertext1 <span class="op">=</span> tm_map(twittertext1, stripWhitespace)</span>
+<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a>removeURL <span class="op">&lt;-</span> function(x) gsub(<span class="st">"http[[:alnum:]]*"</span>, <span class="st">""</span>, x)</span>
+<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a>twittertext1 <span class="op">=</span> tm_map(twittertext, removeURL)</span>
+<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a>head(twittertext1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 <pre><code>&lt;&lt;SimpleCorpus&gt;&gt;
@@ -992,16 +1137,16 @@ Content:  documents: 6</code></pre>
 <p>According to this dataframe,</p>
 <p>word: name of the count words</p>
 <p>freq: frequencies that each word appears</p>
-<div class="cell" data-execution_count="57">
+<div class="cell" data-execution_count="15">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>twittertm <span class="op">=</span> TermDocumentMatrix(twittertext1)</span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> <span class="im">as</span>.matrix(twittertm)</span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>v <span class="op">=</span> sort(rowSums(m), </span>
-<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>         decreasing <span class="op">=</span> TRUE)</span>
-<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>d <span class="op">=</span> data.frame(word <span class="op">=</span> names(v),</span>
-<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>               freq <span class="op">=</span> v)</span>
-<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>head(d, <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>twittertm <span class="op">=</span> TermDocumentMatrix(twittertext1)</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> <span class="im">as</span>.matrix(twittertm)</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>v <span class="op">=</span> sort(rowSums(m), </span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>         decreasing <span class="op">=</span> TRUE)</span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>d <span class="op">=</span> data.frame(word <span class="op">=</span> names(v),</span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>               freq <span class="op">=</span> v)</span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>head(d, <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 
@@ -1031,7 +1176,7 @@ Content:  documents: 6</code></pre>
 <h5 class="anchored" data-anchor-id="export-the-dataframe-to-csv">Export the dataframe to csv</h5>
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>write.csv(d,<span class="st">"/Users/yangyilin/Desktop/anly-501-project-YilinYang2000-1/data/00-raw-data/twittertm.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>write.csv(d,<span class="st">"../data/01-modified-data/twittertm.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </section>
 <section id="reference" class="level5">
