@@ -1,0 +1,1129 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-0.9.649">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Data Cleaning</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="data-cleaning1_files/libs/clipboard/clipboard.min.js"></script>
+<script src="data-cleaning1_files/libs/quarto-html/quarto.js"></script>
+<script src="data-cleaning1_files/libs/quarto-html/popper.min.js"></script>
+<script src="data-cleaning1_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="data-cleaning1_files/libs/quarto-html/anchor.min.js"></script>
+<link href="data-cleaning1_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="data-cleaning1_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="data-cleaning1_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="data-cleaning1_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="data-cleaning1_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Data Cleaning</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header>
+
+<div class="cell" data-execution_count="1">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython <span class="im">import</span> display</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>display.Image(<span class="st">"/Users/yangyilin/Desktop/anly-501-project-YilinYang2000-1/501-project-website/images/data_cleaning.jpeg"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="1">
+<p><img src="data-cleaning1_files/figure-html/cell-2-output-1.jpeg" class="img-fluid"></p>
+</div>
+</div>
+<section id="part-1-twitter-api-in-python" class="level2">
+<h2 class="anchored" data-anchor-id="part-1-twitter-api-in-python">Part 1 Twitter API in python</h2>
+<p>The consumers’ review is an important part of WEmedia development and it indicates the attitude of consumers’ attitude about the social media platforms and big data environment. From my project, I plan to use twitter API to scratch thousands of tweets from several keywords. Since I have gathered the tweets contained keywords like “‘media’,‘internet_influencer’,‘data’,‘consumer privacy’. I will do some data cleaning and data preprocess about this dataset.</p>
+<p>First of all, I would like to detect whether there are some NA values in the datasets.</p>
+<p>Then Since there are a lot of useless puntuations, urls, commas, numbers, highercase, etc will affect our results of frequencies, I decided to remove them all by using pipeline in spacy in order to remove stopwords. Through this steps, the datasets are got rid from many common words which are no use for our future calculation and the results gathering.</p>
+<p>Moreover, I would like to detect the frequency of words and gain a wordcloud plot. I will use countVectorizer to generate a bag of words and count frequency for the tweets I gained.</p>
+<p>More than this, since sentiment analysis is also an important part to analyze the consumes’ review. Then I will use nltk package to calculate the sentiment scores for each tweets in order to utilize this dataset to build future classification model and get a prediction model for more data.</p>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">##### Import required packages</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.feature_extraction.text <span class="im">import</span> CountVectorizer</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn <span class="im">import</span> svm</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> nltk</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> warnings</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>warnings.filterwarnings(<span class="st">'ignore'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<section id="load-the-required-dataset" class="level5">
+<h5 class="anchored" data-anchor-id="load-the-required-dataset">Load the required dataset</h5>
+<div class="cell" data-execution_count="3">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>pytt <span class="op">=</span> pd.read_csv(<span class="st">"/Users/yangyilin/Desktop/anly-501-project-YilinYang2000-1/data/00-raw-data/twitterpython.csv"</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>pytt.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="3">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Unnamed: 0</th>
+      <th>edit_history_tweet_ids</th>
+      <th>lang</th>
+      <th>created_at</th>
+      <th>text</th>
+      <th>id</th>
+      <th>author_id</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0</td>
+      <td>['1597702943347728385']</td>
+      <td>en</td>
+      <td>2022-11-29T21:24:00.000Z</td>
+      <td>A more memorable connection is one that respec...</td>
+      <td>1597702943347728385</td>
+      <td>17470121</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>['1597702691781746690']</td>
+      <td>en</td>
+      <td>2022-11-29T21:23:00.000Z</td>
+      <td>A more memorable connection is one that respec...</td>
+      <td>1597702691781746690</td>
+      <td>17470121</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2</td>
+      <td>['1597701197108228096']</td>
+      <td>en</td>
+      <td>2022-11-29T21:17:03.000Z</td>
+      <td>RT @OkeyMor57: @jay_scherrer @muskQu0tes @elon...</td>
+      <td>1597701197108228096</td>
+      <td>1518769827560665089</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>3</td>
+      <td>['1597700541911822339']</td>
+      <td>en</td>
+      <td>2022-11-29T21:14:27.000Z</td>
+      <td>@jay_scherrer @muskQu0tes @elonmusk Elon Musk ...</td>
+      <td>1597700541911822339</td>
+      <td>15720875</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>4</td>
+      <td>['1597689648696143872']</td>
+      <td>en</td>
+      <td>2022-11-29T20:31:10.000Z</td>
+      <td>@DanKnightMMA Dear Dan - you seem like an enga...</td>
+      <td>1597689648696143872</td>
+      <td>39512124</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+<section id="find-the-dataset-has-the-na-value-or-not" class="level5">
+<h5 class="anchored" data-anchor-id="find-the-dataset-has-the-na-value-or-not">Find the dataset has the NA value or not</h5>
+<p>NA value can be messy data points that interrupt our results. Fortunately, As we can see below, there is no NA values in this dataset.</p>
+<div class="cell" data-execution_count="4">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>pytt.isnull().<span class="bu">sum</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<pre><code>&lt;bound method NDFrame._add_numeric_operations.&lt;locals&gt;.sum of       Unnamed: 0  edit_history_tweet_ids   lang  created_at   text     id  \
+0          False                   False  False       False  False  False   
+1          False                   False  False       False  False  False   
+2          False                   False  False       False  False  False   
+3          False                   False  False       False  False  False   
+4          False                   False  False       False  False  False   
+...          ...                     ...    ...         ...    ...    ...   
+1295       False                   False  False       False  False  False   
+1296       False                   False  False       False  False  False   
+1297       False                   False  False       False  False  False   
+1298       False                   False  False       False  False  False   
+1299       False                   False  False       False  False  False   
+
+      author_id  
+0         False  
+1         False  
+2         False  
+3         False  
+4         False  
+...         ...  
+1295      False  
+1296      False  
+1297      False  
+1298      False  
+1299      False  
+
+[1300 rows x 7 columns]&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="spacy-pipeline" class="level5">
+<h5 class="anchored" data-anchor-id="spacy-pipeline">spacy pipeline</h5>
+<p>Use spacy pipeline as I learned in ANLY580 to do text normalization and text preprocessing</p>
+<p>When you process data with natural language processing, spacy first tokenizes the text to generate a Doc object. The document is then processed in several different steps - this is also known as the processing pipeline. The figure below describes how spacy implements effective word processing</p>
+<div class="cell" data-execution_count="5">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython <span class="im">import</span> display</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>display.Image(<span class="st">"/Users/yangyilin/Desktop/anly-501-project-YilinYang2000-1/501-project-website/images/spacy.png"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="5">
+<p><img src="data-cleaning1_files/figure-html/cell-7-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p>Since there are a lot of useless puntuations, urls, commas, numbers, highercase, etc will affect our results of frequencies, I decided to remove them all by using pipeline in spacy.</p>
+<div class="cell" data-execution_count="6">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> spacy</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> spacy.language <span class="im">import</span> Language</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>pipeline <span class="op">=</span> spacy.load(<span class="st">'en_core_web_sm'</span>)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co"># http://emailregex.com/</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>email_re <span class="op">=</span> <span class="vs">r"""(?:[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.)</span><span class="sc">{3}</span><span class="vs">(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])"""</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="co"># replace = [ (pattern-to-replace, replacement),  ...]</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>replace <span class="op">=</span> [</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>    (<span class="vs">r"&lt;a[^&gt;]*&gt;(.*?)&lt;/a&gt;"</span>, <span class="vs">r"\1"</span>),  <span class="co"># Matches most URLs</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>    (email_re, <span class="st">"email"</span>),            <span class="co"># Matches emails</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>    (<span class="vs">r"(?&lt;=\d),(?=\d)"</span>, <span class="st">""</span>),        <span class="co"># Remove commas in numbers</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>    (<span class="vs">r"\d+"</span>, <span class="st">"number"</span>),              <span class="co"># Map digits to special token &lt;numbr&gt;</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>    (<span class="vs">r"[\t\n\r\*\.\@\,\-\/]"</span>, <span class="st">" "</span>), <span class="co"># Punctuation and other junk</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>    (<span class="vs">r"\s+"</span>, <span class="st">" "</span>)                   <span class="co"># Stips extra whitespace</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>twitter_sentences <span class="op">=</span> []</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, d <span class="kw">in</span> <span class="bu">enumerate</span>(pytt[<span class="st">'text'</span>]):</span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> repl <span class="kw">in</span> replace:</span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>        d <span class="op">=</span> re.sub(repl[<span class="dv">0</span>], repl[<span class="dv">1</span>], d)</span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>    twitter_sentences.append(d)</span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a><span class="at">@Language.component</span>(<span class="st">"pyttPreprocessor"</span>)</span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> ng20_preprocess(doc):</span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>    tokens <span class="op">=</span> [token <span class="cf">for</span> token <span class="kw">in</span> doc </span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>              <span class="cf">if</span> <span class="kw">not</span> <span class="bu">any</span>((token.is_stop, token.is_punct))]</span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a>    tokens <span class="op">=</span> [token.lemma_.lower().strip() <span class="cf">for</span> token <span class="kw">in</span> tokens]</span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a>    tokens <span class="op">=</span> [token <span class="cf">for</span> token <span class="kw">in</span> tokens <span class="cf">if</span> token]</span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="st">" "</span>.join(tokens)</span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a>pipeline.add_pipe(<span class="st">"pyttPreprocessor"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="6">
+<pre><code>&lt;function __main__.ng20_preprocess(doc)&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="pass-data-through-spacy-pipeline" class="level5">
+<h5 class="anchored" data-anchor-id="pass-data-through-spacy-pipeline">Pass data through spacy pipeline</h5>
+<div class="cell" data-execution_count="7">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>docs <span class="op">=</span> []</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> sent <span class="kw">in</span> twitter_sentences:</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    docs.append(pipeline(sent))</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>tweetresult <span class="op">=</span> pd.DataFrame(docs)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>tweetresult.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="7">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>0</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>memorable connection respect consumer privacy ...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>memorable connection respect consumer privacy ...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>rt okeymornumber jay_scherrer muskqunumberte e...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>jay_scherrer muskqunumberte elonmusk elon musk...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>danknightmma dear dan like engage canadian rea...</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+<section id="export-this-dataset-to-csv" class="level5">
+<h5 class="anchored" data-anchor-id="export-this-dataset-to-csv">Export this dataset to csv</h5>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>tweetresult.to_csv(<span class="st">"/Users/yangyilin/Desktop/anly-501-project-YilinYang2000-1/data/00-raw-data/tweetresult.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</section>
+<section id="generate-bow-and-count-the-word-frequencies" class="level5">
+<h5 class="anchored" data-anchor-id="generate-bow-and-count-the-word-frequencies">Generate BOW and count the word frequencies</h5>
+<p>I want to learn about through these keywords, what kind of problems platform users discuss more in their daily lives, so I used the bag of words I generated to count the frequencies of each word appears by using CountVectorizer and set a dataframe which contains texts and counts. Then I sort the table with descending order to see the result more clearly.</p>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>countvectorizer <span class="op">=</span> CountVectorizer()</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>ttbow <span class="op">=</span> countvectorizer.fit(docs)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>features <span class="op">=</span> ttbow.vocabulary_.keys()</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>counts <span class="op">=</span> ttbow.vocabulary_.values()</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>ttbow<span class="op">=</span>pd.DataFrame({<span class="st">'words'</span>:features,<span class="st">'counts'</span>:counts})</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>ttbow <span class="op">=</span> ttbow.sort_values(by<span class="op">=</span>[<span class="st">'counts'</span>],ascending<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<p>According to this dataframe,</p>
+<p>words: name of the count words</p>
+<p>counts: frequencies that each word appears</p>
+<div class="cell" data-execution_count="10">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>ttbow</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="10">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>words</th>
+      <th>counts</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>52</th>
+      <td>zfnumberifvzdbnumber</td>
+      <td>616</td>
+    </tr>
+    <tr>
+      <th>519</th>
+      <td>zero</td>
+      <td>615</td>
+    </tr>
+    <tr>
+      <th>546</th>
+      <td>year</td>
+      <td>614</td>
+    </tr>
+    <tr>
+      <th>344</th>
+      <td>xpipnumberunumbergm</td>
+      <td>613</td>
+    </tr>
+    <tr>
+      <th>366</th>
+      <td>wsbchairman</td>
+      <td>612</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>84</th>
+      <td>action</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>57</th>
+      <td>act</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>536</th>
+      <td>achieve</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>392</th>
+      <td>access</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>401</th>
+      <td>abuse</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+<p>617 rows × 2 columns</p>
+</div>
+</div>
+</div>
+</section>
+<section id="export-dataframe-to-csv-file-for-further-use" class="level5">
+<h5 class="anchored" data-anchor-id="export-dataframe-to-csv-file-for-further-use">Export dataframe to csv file for further use</h5>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>ttbow.to_csv(<span class="st">"/Users/yangyilin/Desktop/anly-501-project-YilinYang2000-1/data/00-raw-data/wordfreqpython.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</section>
+<section id="sentiment-analysis" class="level5">
+<h5 class="anchored" data-anchor-id="sentiment-analysis">Sentiment analysis</h5>
+<p>Sentiment Analysis, also known as opinion mining, is one of the natural language processing methods that can be used to identify the emotional tone behind the body of text. It is a useful tool for identifying and categorizing opinions about products, services, or ideas.</p>
+<p>Sentiment analysis for this part of data cleaning is very important. The sentimentintensityanalyzer can automatically helps me to calculate the score of a text is positive, neutral, negative or compound. I used for loop to calculate text by text and then I get a whole dictionary. Then I trasnferred dictionary to dataframe and split sentiment scores into three columns for the future visualization. Finally, I combine text and sentiment scores together to see the result clearly.</p>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> nltk.sentiment <span class="im">import</span> SentimentIntensityAnalyzer</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> getSentiments(df):</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    sid <span class="op">=</span> SentimentIntensityAnalyzer()</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    tweet_str <span class="op">=</span> <span class="st">""</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    tweetscore <span class="op">=</span> []</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> tweet <span class="kw">in</span> df[<span class="st">'text'</span>]:</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>        tweet_str <span class="op">=</span> tweet_str <span class="op">+</span> <span class="st">" "</span> <span class="op">+</span> tweet</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>        score <span class="op">=</span> sid.polarity_scores(tweet_str)</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>        tweetscore.append(score)</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> tweetscore</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</section>
+<section id="create-a-dataframe-for-sentiment-analysis-as-tweets-score" class="level5">
+<h5 class="anchored" data-anchor-id="create-a-dataframe-for-sentiment-analysis-as-tweets-score">Create a dataframe for sentiment analysis as tweets score</h5>
+<p>According to this dataframe,</p>
+<p>text: each tweet which I collected</p>
+<p>neg: negative sentiment score</p>
+<p>neutral: neural sentiment score</p>
+<p>pos: positive sentiment score</p>
+<p>compound: the overall scores</p>
+<div class="cell" data-execution_count="13">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>sentiment <span class="op">=</span> getSentiments(pytt)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>texts <span class="op">=</span> pd.DataFrame(pytt.text)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>sentimentscore <span class="op">=</span> pd.DataFrame.from_dict(sentiment)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>sentimentscore.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="13">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>neg</th>
+      <th>neu</th>
+      <th>pos</th>
+      <th>compound</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.000</td>
+      <td>0.846</td>
+      <td>0.154</td>
+      <td>0.4588</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.000</td>
+      <td>0.846</td>
+      <td>0.154</td>
+      <td>0.7184</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.081</td>
+      <td>0.796</td>
+      <td>0.123</td>
+      <td>0.0846</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.102</td>
+      <td>0.766</td>
+      <td>0.132</td>
+      <td>-0.0881</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.081</td>
+      <td>0.769</td>
+      <td>0.151</td>
+      <td>0.6461</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>tweetscore <span class="op">=</span> pd.concat([texts,sentimentscore],axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>tweetscore.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</section>
+<section id="export-dataframe-to-csv-file-for-further-use-1" class="level5">
+<h5 class="anchored" data-anchor-id="export-dataframe-to-csv-file-for-further-use-1">Export dataframe to csv file for further use</h5>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>tweetscore.to_csv(<span class="st">"/Users/yangyilin/Desktop/anly-501-project-YilinYang2000-1/data/00-raw-data/pytweetscore.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<p>More than this, I would like to define each tweet is negative, neural, positive with compound score in order to the further explorations of users’ attitude. At this time, I plan to first, make a definition code to define one sentence is positive, negative or neutural. Then I will use a for loop to bring each sentence a classification and store it in a dataframe.</p>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> predict_sentiment(sentence):</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">'''Function to predict sentiment of a sentence'''</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  sid <span class="op">=</span> SentimentIntensityAnalyzer()</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  sentiment_dict <span class="op">=</span> sid.polarity_scores(sentence)</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># decide sentiment as positive, negative and neutral </span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> sentiment_dict[<span class="st">'compound'</span>] <span class="op">&gt;=</span> <span class="fl">0.05</span> : </span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>      <span class="cf">return</span> (<span class="st">"Positive"</span>, <span class="bu">round</span>(sentiment_dict[<span class="st">'pos'</span>]<span class="op">*</span><span class="dv">100</span>, <span class="dv">2</span>))</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>  <span class="cf">elif</span> sentiment_dict[<span class="st">'compound'</span>] <span class="op">&lt;=</span> <span class="op">-</span> <span class="fl">0.05</span> : </span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>      <span class="cf">return</span> (<span class="st">"Negative"</span>, <span class="bu">round</span>(sentiment_dict[<span class="st">'neg'</span>]<span class="op">*</span><span class="dv">100</span>, <span class="dv">2</span>))</span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span> : </span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>      <span class="cf">return</span> (<span class="st">"Neutral"</span>, <span class="bu">round</span>(sentiment_dict[<span class="st">'neu'</span>]<span class="op">*</span><span class="dv">100</span>, <span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> [] </span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> pytt.text:</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    result.append(predict_sentiment(i))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<p>Convert dictionary to dataframe and combine this result with text dataframe. At that time, rename the column name in order to make the dataframe easier to understand.</p>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>sentimentresult <span class="op">=</span> pd.DataFrame.from_dict(result)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>tweetresult <span class="op">=</span> pd.concat([texts,sentimentresult],axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>tweetresult.rename(columns<span class="op">=</span>{<span class="dv">0</span>:<span class="st">'result'</span>},inplace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>tweetresult.rename(columns<span class="op">=</span>{<span class="dv">1</span>:<span class="st">'scores'</span>},inplace<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>tweetresult.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</section>
+<section id="export-the-dataframe-to-csv-file" class="level5">
+<h5 class="anchored" data-anchor-id="export-the-dataframe-to-csv-file">Export the dataframe to csv file</h5>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>tweetresult.to_csv(<span class="st">"/Users/yangyilin/Desktop/anly-501-project-YilinYang2000-1/data/00-raw-data/pytweetresult.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</section>
+</section>
+<section id="part-2-modified-data" class="level2">
+<h2 class="anchored" data-anchor-id="part-2-modified-data">Part 2 Modified data</h2>
+<p>Instagram is one of the most popular and famous platforms for users to network, post their daily lives. There are a lot of famous internet influencers here. Instagram is also one of the important parts for wemedia to develop. Users can create channels to post their daily lives, show their abilities, post some fun videos in order to attract more fans. Ad sellers also analyze their business value to contact instagram influencers to promote their products in order to gain more benefits.</p>
+<p>In this dataset, it clearly shows followers’number, average likes each post, country etc. I would like to use this dataset to deeper analyze the trend of internet influencers followers. Country distribution of these influencers. More than this, I would like to use other datasets to locate the fields which these inernet influencers focus to further analyze factors of these internet influencers. What makes them success.</p>
+<p>channel info: Username in instagram</p>
+<p>influence score: It is calculated based on their popularity.</p>
+<p>posts: total posts they have</p>
+<p>followers: total followers they have</p>
+<p>avg_likes: average likes of their total posts</p>
+<p>60_days_eng_rate: 60 days of engagement rate</p>
+<p>new_post_avg_like: a calculation of the average likes they gained from new posts.</p>
+<p>total_likes: total likes of their posts in instagram.</p>
+<p>country: users’ origin. What countries they from?</p>
+<section id="import-required-packages" class="level5">
+<h5 class="anchored" data-anchor-id="import-required-packages">Import required packages</h5>
+<div class="cell" data-execution_count="1">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>library(tidyverse)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>library(dplyr)</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>library(reshape2)</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>library(tidyr)</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>library(stringr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
+✔ ggplot2 3.3.6      ✔ purrr   0.3.4 
+✔ tibble  3.1.8      ✔ dplyr   1.0.10
+✔ tidyr   1.2.0      ✔ stringr 1.4.1 
+✔ readr   2.1.2      ✔ forcats 0.5.2 
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+
+Attaching package: ‘reshape2’
+
+
+The following object is masked from ‘package:tidyr’:
+
+    smiths
+
+</code></pre>
+</div>
+</div>
+</section>
+<section id="load-the-required-dataset-1" class="level5">
+<h5 class="anchored" data-anchor-id="load-the-required-dataset-1">Load the required dataset</h5>
+<div class="cell" data-execution_count="2">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>instagram_infl <span class="op">=</span> read.csv(<span class="st">"/Users/yangyilin/Desktop/anly-501-project-YilinYang2000-1/data/00-raw-data/top_insta_influencers_data.csv"</span>)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>head(instagram_infl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+
+<table class="dataframe table table-sm table-striped">
+<caption>A data.frame: 6 × 10</caption>
+<thead>
+    <tr><th></th><th scope="col">rank</th><th scope="col">channel_info</th><th scope="col">influence_score</th><th scope="col">posts</th><th scope="col">followers</th><th scope="col">avg_likes</th><th scope="col">X60_day_eng_rate</th><th scope="col">new_post_avg_like</th><th scope="col">total_likes</th><th scope="col">country</th></tr>
+    <tr><th></th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;chr&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;chr&gt;</th><th scope="col">&lt;chr&gt;</th><th scope="col">&lt;chr&gt;</th><th scope="col">&lt;chr&gt;</th><th scope="col">&lt;chr&gt;</th><th scope="col">&lt;chr&gt;</th><th scope="col">&lt;chr&gt;</th></tr>
+</thead>
+<tbody>
+    <tr><th scope="row">1</th><td>1</td><td>cristiano    </td><td>92</td><td>3.3k </td><td>475.8m</td><td>8.7m</td><td>1.39%</td><td>6.5m  </td><td>29.0b</td><td>Spain        </td></tr>
+    <tr><th scope="row">2</th><td>2</td><td>kyliejenner  </td><td>91</td><td>6.9k </td><td>366.2m</td><td>8.3m</td><td>1.62%</td><td>5.9m  </td><td>57.4b</td><td>United States</td></tr>
+    <tr><th scope="row">3</th><td>3</td><td>leomessi     </td><td>90</td><td>0.89k</td><td>357.3m</td><td>6.8m</td><td>1.24%</td><td>4.4m  </td><td>6.0b </td><td>             </td></tr>
+    <tr><th scope="row">4</th><td>4</td><td>selenagomez  </td><td>93</td><td>1.8k </td><td>342.7m</td><td>6.2m</td><td>0.97%</td><td>3.3m  </td><td>11.5b</td><td>United States</td></tr>
+    <tr><th scope="row">5</th><td>5</td><td>therock      </td><td>91</td><td>6.8k </td><td>334.1m</td><td>1.9m</td><td>0.20%</td><td>665.3k</td><td>12.5b</td><td>United States</td></tr>
+    <tr><th scope="row">6</th><td>6</td><td>kimkardashian</td><td>91</td><td>5.6k </td><td>329.2m</td><td>3.5m</td><td>0.88%</td><td>2.9m  </td><td>19.9b</td><td>United States</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="get-rid-of-some-na-values" class="level5">
+<h5 class="anchored" data-anchor-id="get-rid-of-some-na-values">Get rid of some NA values</h5>
+<p>At first, I notified there are some NA values in the column country, Because I need to use these columns, so I don’t want to drop these values. I decided to change NA values to undefined to explain that these influencers have not defined country.</p>
+<div class="cell" data-execution_count="3">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>instagram_infl$country[instagram_infl$country<span class="op">==</span><span class="st">""</span>] <span class="op">&lt;-</span> <span class="st">"Undefined"</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>head(instagram_infl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+
+<table class="dataframe table table-sm table-striped">
+<caption>A data.frame: 6 × 10</caption>
+<thead>
+    <tr><th></th><th scope="col">rank</th><th scope="col">channel_info</th><th scope="col">influence_score</th><th scope="col">posts</th><th scope="col">followers</th><th scope="col">avg_likes</th><th scope="col">X60_day_eng_rate</th><th scope="col">new_post_avg_like</th><th scope="col">total_likes</th><th scope="col">country</th></tr>
+    <tr><th></th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;chr&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;chr&gt;</th><th scope="col">&lt;chr&gt;</th><th scope="col">&lt;chr&gt;</th><th scope="col">&lt;chr&gt;</th><th scope="col">&lt;chr&gt;</th><th scope="col">&lt;chr&gt;</th><th scope="col">&lt;chr&gt;</th></tr>
+</thead>
+<tbody>
+    <tr><th scope="row">1</th><td>1</td><td>cristiano    </td><td>92</td><td>3.3k </td><td>475.8m</td><td>8.7m</td><td>1.39%</td><td>6.5m  </td><td>29.0b</td><td>Spain        </td></tr>
+    <tr><th scope="row">2</th><td>2</td><td>kyliejenner  </td><td>91</td><td>6.9k </td><td>366.2m</td><td>8.3m</td><td>1.62%</td><td>5.9m  </td><td>57.4b</td><td>United States</td></tr>
+    <tr><th scope="row">3</th><td>3</td><td>leomessi     </td><td>90</td><td>0.89k</td><td>357.3m</td><td>6.8m</td><td>1.24%</td><td>4.4m  </td><td>6.0b </td><td>Undefined    </td></tr>
+    <tr><th scope="row">4</th><td>4</td><td>selenagomez  </td><td>93</td><td>1.8k </td><td>342.7m</td><td>6.2m</td><td>0.97%</td><td>3.3m  </td><td>11.5b</td><td>United States</td></tr>
+    <tr><th scope="row">5</th><td>5</td><td>therock      </td><td>91</td><td>6.8k </td><td>334.1m</td><td>1.9m</td><td>0.20%</td><td>665.3k</td><td>12.5b</td><td>United States</td></tr>
+    <tr><th scope="row">6</th><td>6</td><td>kimkardashian</td><td>91</td><td>5.6k </td><td>329.2m</td><td>3.5m</td><td>0.88%</td><td>2.9m  </td><td>19.9b</td><td>United States</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>As we noticed, the avg_likes column contains different unit, I want to expand it as the numeric instead of character in order to do the further visualization and comparison.</p>
+<div class="cell" data-execution_count="4">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>instagram_infl$avg_likes1 <span class="op">&lt;-</span> str_extract(instagram_infl$avg_likes, <span class="st">"</span><span class="ch">\\</span><span class="st">d+</span><span class="ch">\\</span><span class="st">.?</span><span class="ch">\\</span><span class="st">d*"</span>) <span class="co">#extract number without units</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>instagram_infl$avg_likes1unit <span class="op">&lt;-</span> str_sub(instagram_infl$avg_likes,<span class="op">-</span><span class="dv">1</span>) <span class="co">#extract units since units are last words</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>instagram_infl$avg_likes1 <span class="op">&lt;-</span> <span class="im">as</span>.numeric(instagram_infl$avg_likes1) <span class="co">#change the new column datatype as num</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>instagram_infl$avg_likes1 <span class="op">&lt;-</span> ifelse(instagram_infl$avg_likes1unit <span class="op">==</span> <span class="st">'m'</span>, instagram_infl$avg_likes1<span class="op">*</span><span class="dv">1000000</span>, instagram_infl$avg_likes1<span class="op">*</span><span class="dv">1000</span>)</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="co">#Since the unit is different, I used the ifelse function to do the further calculation</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>instagram_infl <span class="op">&lt;-</span> select(instagram_infl,<span class="op">-</span>c(avg_likes,avg_likes1unit))<span class="co">#Drop useless columns</span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>names(instagram_infl)[names(instagram_infl)<span class="op">==</span><span class="st">'avg_likes1'</span>] <span class="op">&lt;-</span> <span class="st">'avg_likes'</span><span class="co">#rename columns</span></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>head(instagram_infl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+
+<table class="dataframe table table-sm table-striped">
+<caption>A data.frame: 6 × 10</caption>
+<thead>
+    <tr><th></th><th scope="col">rank</th><th scope="col">channel_info</th><th scope="col">influence_score</th><th scope="col">posts</th><th scope="col">followers</th><th scope="col">X60_day_eng_rate</th><th scope="col">new_post_avg_like</th><th scope="col">total_likes</th><th scope="col">country</th><th scope="col">avg_likes</th></tr>
+    <tr><th></th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;chr&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;chr&gt;</th><th scope="col">&lt;chr&gt;</th><th scope="col">&lt;chr&gt;</th><th scope="col">&lt;chr&gt;</th><th scope="col">&lt;chr&gt;</th><th scope="col">&lt;chr&gt;</th><th scope="col">&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+    <tr><th scope="row">1</th><td>1</td><td>cristiano    </td><td>92</td><td>3.3k </td><td>475.8m</td><td>1.39%</td><td>6.5m  </td><td>29.0b</td><td>Spain        </td><td>8700000</td></tr>
+    <tr><th scope="row">2</th><td>2</td><td>kyliejenner  </td><td>91</td><td>6.9k </td><td>366.2m</td><td>1.62%</td><td>5.9m  </td><td>57.4b</td><td>United States</td><td>8300000</td></tr>
+    <tr><th scope="row">3</th><td>3</td><td>leomessi     </td><td>90</td><td>0.89k</td><td>357.3m</td><td>1.24%</td><td>4.4m  </td><td>6.0b </td><td>Undefined    </td><td>6800000</td></tr>
+    <tr><th scope="row">4</th><td>4</td><td>selenagomez  </td><td>93</td><td>1.8k </td><td>342.7m</td><td>0.97%</td><td>3.3m  </td><td>11.5b</td><td>United States</td><td>6200000</td></tr>
+    <tr><th scope="row">5</th><td>5</td><td>therock      </td><td>91</td><td>6.8k </td><td>334.1m</td><td>0.20%</td><td>665.3k</td><td>12.5b</td><td>United States</td><td>1900000</td></tr>
+    <tr><th scope="row">6</th><td>6</td><td>kimkardashian</td><td>91</td><td>5.6k </td><td>329.2m</td><td>0.88%</td><td>2.9m  </td><td>19.9b</td><td>United States</td><td>3500000</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="change-column-names" class="level5">
+<h5 class="anchored" data-anchor-id="change-column-names">Change column names</h5>
+<p>At that time, I used summary and want to know the median, mean, etc values of each numeric number, then I noticed that other columns like posts also cannot convert to numeric since the cells in the column have units. As a result, I decided to get rid of units in each columns and change the column type into numeric</p>
+<div class="cell" data-execution_count="5">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(summary(instagram_infl))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>      rank        channel_info       influence_score    posts          
+ Min.   :  1.00   Length:200         Min.   :22.00   Length:200        
+ 1st Qu.: 50.75   Class :character   1st Qu.:80.00   Class :character  
+ Median :100.50   Mode  :character   Median :84.00   Mode  :character  
+ Mean   :100.50                      Mean   :81.82                     
+ 3rd Qu.:150.25                      3rd Qu.:86.00                     
+ Max.   :200.00                      Max.   :93.00                     
+  followers         X60_day_eng_rate   new_post_avg_like  total_likes       
+ Length:200         Length:200         Length:200         Length:200        
+ Class :character   Class :character   Class :character   Class :character  
+ Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+                                                                            
+                                                                            
+                                                                            
+   country            avg_likes       
+ Length:200         Min.   :   65100  
+ Class :character   1st Qu.:  504400  
+ Mode  :character   Median : 1100000  
+                    Mean   : 1787104  
+                    3rd Qu.: 2100000  
+                    Max.   :15400000  </code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="6">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>instagram_infl$posts <span class="op">=</span> substr(instagram_infl$posts,<span class="dv">1</span>,nchar(instagram_infl$posts)<span class="op">-</span><span class="dv">1</span>)</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>instagram_infl$posts <span class="op">=</span> <span class="im">as</span>.numeric(instagram_infl$posts)</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>names(instagram_infl)[names(instagram_infl)<span class="op">==</span><span class="st">'posts'</span>] <span class="op">&lt;-</span> <span class="st">'posts(k)'</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>instagram_infl$followers <span class="op">=</span> substr(instagram_infl$followers,<span class="dv">1</span>,nchar(instagram_infl$followers)<span class="op">-</span><span class="dv">1</span>)</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>instagram_infl$followers <span class="op">=</span> <span class="im">as</span>.numeric(instagram_infl$followers)</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>names(instagram_infl)[names(instagram_infl)<span class="op">==</span><span class="st">'followers'</span>] <span class="op">&lt;-</span> <span class="st">'followers(m)'</span></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>instagram_infl$X60_day_eng_rate <span class="op">=</span> substr(instagram_infl$X60_day_eng_rate,<span class="dv">1</span>,nchar(instagram_infl$X60_day_eng_rate)<span class="op">-</span><span class="dv">1</span>)</span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>instagram_infl$X60_day_eng_rate <span class="op">=</span> <span class="im">as</span>.numeric(instagram_infl$X60_day_eng_rate)</span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>names(instagram_infl)[names(instagram_infl)<span class="op">==</span><span class="st">'X60_day_eng_rate'</span>] <span class="op">&lt;-</span> <span class="st">'X60_day_eng_rate(%)'</span></span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>instagram_infl$new_post_avg_like <span class="op">=</span> substr(instagram_infl$new_post_avg_like,<span class="dv">1</span>,nchar(instagram_infl$new_post_avg_like)<span class="op">-</span><span class="dv">1</span>)</span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>instagram_infl$new_post_avg_like <span class="op">=</span> <span class="im">as</span>.numeric(instagram_infl$new_post_avg_like)</span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>names(instagram_infl)[names(instagram_infl)<span class="op">==</span><span class="st">'new_post_avg_like'</span>] <span class="op">&lt;-</span> <span class="st">'new_post_avg_like(m)'</span></span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>instagram_infl$total_likes <span class="op">=</span> substr(instagram_infl$total_likes,<span class="dv">1</span>,nchar(instagram_infl$total_likes)<span class="op">-</span><span class="dv">1</span>)</span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>instagram_infl$total_likes <span class="op">=</span> <span class="im">as</span>.numeric(instagram_infl$total_likes)</span>
+<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a>names(instagram_infl)[names(instagram_infl)<span class="op">==</span><span class="st">'total_likes'</span>] <span class="op">&lt;-</span> <span class="st">'total_likes(b)'</span></span>
+<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a>head(instagram_infl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+
+<table class="dataframe table table-sm table-striped">
+<caption>A data.frame: 6 × 10</caption>
+<thead>
+    <tr><th></th><th scope="col">rank</th><th scope="col">channel_info</th><th scope="col">influence_score</th><th scope="col">posts(k)</th><th scope="col">followers(m)</th><th scope="col">X60_day_eng_rate(%)</th><th scope="col">new_post_avg_like(m)</th><th scope="col">total_likes(b)</th><th scope="col">country</th><th scope="col">avg_likes</th></tr>
+    <tr><th></th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;chr&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;chr&gt;</th><th scope="col">&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+    <tr><th scope="row">1</th><td>1</td><td>cristiano    </td><td>92</td><td>3.30</td><td>475.8</td><td>1.39</td><td>  6.5</td><td>29.0</td><td>Spain        </td><td>8700000</td></tr>
+    <tr><th scope="row">2</th><td>2</td><td>kyliejenner  </td><td>91</td><td>6.90</td><td>366.2</td><td>1.62</td><td>  5.9</td><td>57.4</td><td>United States</td><td>8300000</td></tr>
+    <tr><th scope="row">3</th><td>3</td><td>leomessi     </td><td>90</td><td>0.89</td><td>357.3</td><td>1.24</td><td>  4.4</td><td> 6.0</td><td>Undefined    </td><td>6800000</td></tr>
+    <tr><th scope="row">4</th><td>4</td><td>selenagomez  </td><td>93</td><td>1.80</td><td>342.7</td><td>0.97</td><td>  3.3</td><td>11.5</td><td>United States</td><td>6200000</td></tr>
+    <tr><th scope="row">5</th><td>5</td><td>therock      </td><td>91</td><td>6.80</td><td>334.1</td><td>0.20</td><td>665.3</td><td>12.5</td><td>United States</td><td>1900000</td></tr>
+    <tr><th scope="row">6</th><td>6</td><td>kimkardashian</td><td>91</td><td>5.60</td><td>329.2</td><td>0.88</td><td>  2.9</td><td>19.9</td><td>United States</td><td>3500000</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-execution_count="7">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>summary(instagram_infl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<pre><code>      rank        channel_info       influence_score    posts(k)      
+ Min.   :  1.00   Length:200         Min.   :22.00   Min.   : 0.0100  
+ 1st Qu.: 50.75   Class :character   1st Qu.:80.00   1st Qu.: 0.9475  
+ Median :100.50   Mode  :character   Median :84.00   Median : 2.1000  
+ Mean   :100.50                      Mean   :81.82   Mean   : 3.4998  
+ 3rd Qu.:150.25                      3rd Qu.:86.00   3rd Qu.: 5.0250  
+ Max.   :200.00                      Max.   :93.00   Max.   :17.5000  
+                                                                      
+  followers(m)    X60_day_eng_rate(%) new_post_avg_like(m) total_likes(b)  
+ Min.   : 32.80   Min.   : 0.010      Min.   :  1.0        Min.   :  1.00  
+ 1st Qu.: 40.00   1st Qu.: 0.410      1st Qu.:  4.4        1st Qu.:  2.00  
+ Median : 50.05   Median : 0.880      Median :149.3        Median :  4.00  
+ Mean   : 77.41   Mean   : 1.902      Mean   :247.0        Mean   :142.13  
+ 3rd Qu.: 68.90   3rd Qu.: 2.035      3rd Qu.:412.3        3rd Qu.: 20.75  
+ Max.   :475.80   Max.   :26.410      Max.   :994.4        Max.   :987.40  
+                  NA's   :1           NA's   :8                            
+   country            avg_likes       
+ Length:200         Min.   :   65100  
+ Class :character   1st Qu.:  504400  
+ Mode  :character   Median : 1100000  
+                    Mean   : 1787104  
+                    3rd Qu.: 2100000  
+                    Max.   :15400000  
+                                      </code></pre>
+</div>
+</div>
+</section>
+<section id="take-a-glimpse-of-final-cleaned-dataset" class="level5">
+<h5 class="anchored" data-anchor-id="take-a-glimpse-of-final-cleaned-dataset">Take a glimpse of final cleaned dataset</h5>
+<p>Now the dataset is much clean now and it is easy for further calculation. Now we can export dataframe as csv files now.</p>
+<div class="cell" data-execution_count="8">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>head(instagram_infl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+
+<table class="dataframe table table-sm table-striped">
+<caption>A data.frame: 6 × 10</caption>
+<thead>
+    <tr><th></th><th scope="col">rank</th><th scope="col">channel_info</th><th scope="col">influence_score</th><th scope="col">posts(k)</th><th scope="col">followers(m)</th><th scope="col">X60_day_eng_rate(%)</th><th scope="col">new_post_avg_like(m)</th><th scope="col">total_likes(b)</th><th scope="col">country</th><th scope="col">avg_likes</th></tr>
+    <tr><th></th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;chr&gt;</th><th scope="col">&lt;int&gt;</th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;chr&gt;</th><th scope="col">&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+    <tr><th scope="row">1</th><td>1</td><td>cristiano    </td><td>92</td><td>3.30</td><td>475.8</td><td>1.39</td><td>  6.5</td><td>29.0</td><td>Spain        </td><td>8700000</td></tr>
+    <tr><th scope="row">2</th><td>2</td><td>kyliejenner  </td><td>91</td><td>6.90</td><td>366.2</td><td>1.62</td><td>  5.9</td><td>57.4</td><td>United States</td><td>8300000</td></tr>
+    <tr><th scope="row">3</th><td>3</td><td>leomessi     </td><td>90</td><td>0.89</td><td>357.3</td><td>1.24</td><td>  4.4</td><td> 6.0</td><td>Undefined    </td><td>6800000</td></tr>
+    <tr><th scope="row">4</th><td>4</td><td>selenagomez  </td><td>93</td><td>1.80</td><td>342.7</td><td>0.97</td><td>  3.3</td><td>11.5</td><td>United States</td><td>6200000</td></tr>
+    <tr><th scope="row">5</th><td>5</td><td>therock      </td><td>91</td><td>6.80</td><td>334.1</td><td>0.20</td><td>665.3</td><td>12.5</td><td>United States</td><td>1900000</td></tr>
+    <tr><th scope="row">6</th><td>6</td><td>kimkardashian</td><td>91</td><td>5.60</td><td>329.2</td><td>0.88</td><td>  2.9</td><td>19.9</td><td>United States</td><td>3500000</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="export-the-dataset-to-csv" class="level5">
+<h5 class="anchored" data-anchor-id="export-the-dataset-to-csv">Export the dataset to csv</h5>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>write.csv(instagram_infl,<span class="st">"/Users/yangyilin/Desktop/anly-501-project-YilinYang2000-1/data/00-raw-data/instagram_infl.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</section>
+</section>
+<section id="part-3-twitter-api-in-r" class="level2">
+<h2 class="anchored" data-anchor-id="part-3-twitter-api-in-r">Part 3 Twitter API in R</h2>
+<p>For R API, I used twitter API to scratch keywords like “instagram, tiktok, youtube, facebook” to scratch users’ attitudes about these platforms.</p>
+<section id="import-required-packages-1" class="level5">
+<h5 class="anchored" data-anchor-id="import-required-packages-1">Import required packages</h5>
+<div class="cell" data-execution_count="37">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>library(selectr)</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>library(rvest)</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>library(xml2)</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>library(wordcloud2) <span class="co"># for generating really cool looking wordclouds</span></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>library(tm) <span class="co"># for text minning</span></span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>library(dplyr) <span class="co"># loads of fun stuff including piping</span></span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>library(ROAuth)</span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>library(jsonlite)</span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>library(httpuv)</span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>library(<span class="st">"SnowballC"</span>)</span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a>library(<span class="st">"wordcloud"</span>)</span>
+<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a>library(<span class="st">"RColorBrewer"</span>)</span>
+<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a>suppressWarnings(expr)<span class="co">#ignore warning</span></span>
+<span id="cb36-14"><a href="#cb36-14" aria-hidden="true" tabindex="-1"></a>options(warn<span class="op">=-</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<pre class="language-r"><code>function (expr) 
+{
+<span style="white-space:pre-wrap">    enexpr(expr)</span>
+}</code></pre>
+</div>
+</div>
+</section>
+<section id="load-the-required-dataset-2" class="level5">
+<h5 class="anchored" data-anchor-id="load-the-required-dataset-2">Load the required dataset</h5>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>TweetsDF <span class="op">&lt;-</span> read.csv(<span class="st">"/Users/yangyilin/Desktop/anly-501-project-YilinYang2000-1/data/00-raw-data/tweetinr.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</section>
+<section id="do-text-transformation-for-the-dataframe" class="level5">
+<h5 class="anchored" data-anchor-id="do-text-transformation-for-the-dataframe">Do text transformation for the dataframe</h5>
+<p>Take a glimpse of the dataframe, there is a lot of punctuation that is totally not useful for me to count the future frequency. As a result, I used corpus() to normalizing and tokenizing the dataset, then I use tm_map to remove punctuations like “/”,“@”,etc. More than this, because there are a lot of urls, numbers, white space, and highercase in the text. I decided to remove them all because they will afffect my results. So I cleaned the data as below:</p>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>FName <span class="op">=</span> <span class="st">"~/Desktop/wemediaexample.txt"</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>MyFile <span class="op">&lt;-</span> <span class="bu">file</span>(FName)</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>cat(unlist(TweetsDF), <span class="st">" "</span>, <span class="bu">file</span><span class="op">=</span>MyFile, sep<span class="op">=</span><span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>close(MyFile)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell" data-execution_count="56">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>twittertext <span class="op">=</span> Corpus(VectorSource(TweetsDF$text))</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>toSpace <span class="op">=</span> content_transformer(</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>              function (x, pattern)</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>              gsub(pattern, <span class="st">" "</span>, x))</span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>twittertext1 <span class="op">=</span> tm_map(twittertext, toSpace, <span class="st">"/"</span>)</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>twittertext1 <span class="op">=</span> tm_map(twittertext, toSpace, <span class="st">"@"</span>)</span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>twittertext1 <span class="op">=</span> tm_map(twittertext, toSpace, <span class="st">"#"</span>)</span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>twittertext1 <span class="op">=</span> tm_map(twittertext1, content_transformer(tolower))</span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>twittertext1 <span class="op">=</span> tm_map(twittertext1, removeNumbers)</span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>twittertext1 <span class="op">=</span> tm_map(twittertext1, stripWhitespace)</span>
+<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a>removeURL <span class="op">&lt;-</span> function(x) gsub(<span class="st">"http[[:alnum:]]*"</span>, <span class="st">""</span>, x)</span>
+<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a>twittertext1 <span class="op">=</span> tm_map(twittertext, removeURL)</span>
+<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a>head(twittertext1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<pre><code>&lt;&lt;SimpleCorpus&gt;&gt;
+Metadata:  corpus specific: 1, document level (indexed): 0
+Content:  documents: 6</code></pre>
+</div>
+</div>
+</section>
+<section id="calculate-the-frequencies-of-words" class="level5">
+<h5 class="anchored" data-anchor-id="calculate-the-frequencies-of-words">Calculate the frequencies of words</h5>
+<p>Since I need the results to compare the popularity among each platforms, the frequencies of words will help me to understand which platforms are discussed more among twitter. As a result, I used termdocumentmatrix() to calculate the frequecies each word appears. Then I sort the table in the descending order to see the frequencies more straightforward.</p>
+<p>According to this dataframe,</p>
+<p>word: name of the count words</p>
+<p>freq: frequencies that each word appears</p>
+<div class="cell" data-execution_count="57">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>twittertm <span class="op">=</span> TermDocumentMatrix(twittertext1)</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> <span class="im">as</span>.matrix(twittertm)</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>v <span class="op">=</span> sort(rowSums(m), </span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>         decreasing <span class="op">=</span> TRUE)</span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>d <span class="op">=</span> data.frame(word <span class="op">=</span> names(v),</span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>               freq <span class="op">=</span> v)</span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>head(d, <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+
+<table class="dataframe table table-sm table-striped">
+<caption>A data.frame: 10 × 2</caption>
+<thead>
+    <tr><th></th><th scope="col">word</th><th scope="col">freq</th></tr>
+    <tr><th></th><th scope="col">&lt;chr&gt;</th><th scope="col">&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+    <tr><th scope="row">tik</th><td>tik               </td><td>166</td></tr>
+    <tr><th scope="row">tok</th><td>tok               </td><td>162</td></tr>
+    <tr><th scope="row">and</th><td>and               </td><td>140</td></tr>
+    <tr><th scope="row">brand</th><td>brand             </td><td> 90</td></tr>
+    <tr><th scope="row">she</th><td>she               </td><td> 90</td></tr>
+    <tr><th scope="row">wearing</th><td>wearing           </td><td> 90</td></tr>
+    <tr><th scope="row">posted</th><td>posted            </td><td> 88</td></tr>
+    <tr><th scope="row">viral</th><td>viral             </td><td> 88</td></tr>
+    <tr><th scope="row">://t.co/xiuittpwgv</th><td>://t.co/xiuittpwgv</td><td> 87</td></tr>
+    <tr><th scope="row">@skyliej_:</th><td>@skyliej_:        </td><td> 87</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="export-the-dataframe-to-csv" class="level5">
+<h5 class="anchored" data-anchor-id="export-the-dataframe-to-csv">Export the dataframe to csv</h5>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>write.csv(d,<span class="st">"/Users/yangyilin/Desktop/anly-501-project-YilinYang2000-1/data/00-raw-data/twittertm.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</section>
+<section id="reference" class="level5">
+<h5 class="anchored" data-anchor-id="reference">Reference</h5>
+<p>Contributor, T. T. (2021, October 15). What is sentiment analysis (opinion mining)? definition from Searchbusinessanalytics. SearchBusinessAnalytics. Retrieved November 29, 2022, from https://www.techtarget.com/searchbusinessanalytics/definition/opinion-mining-sentiment-mining</p>
+<p>Language Processing Pipelines · spacy usage documentation. Language Processing Pipelines. (n.d.). Retrieved November 29, 2022, from https://spacy.io/usage/processing-pipelines</p>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
