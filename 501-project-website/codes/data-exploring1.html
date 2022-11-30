@@ -136,7 +136,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> warnings</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>warnings.filterwarnings(<span class="st">'ignore'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>warnings.filterwarnings(<span class="st">'ignore'</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> wordcloud <span class="im">import</span> WordCloud, STOPWORDS</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </section>
 </section>
@@ -151,13 +154,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>According to this dataframe,</p>
 <p>words: name of the count words</p>
 <p>counts: frequencies that each word appears</p>
-<div class="cell" data-execution_count="4">
+<div class="cell" data-execution_count="2">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>tweetfreq <span class="op">=</span> pd.read_csv(<span class="st">"../data/01-modified-data/wordfreqpython.csv"</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>tweetfreq.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="4">
+<div class="cell-output cell-output-display" data-execution_count="2">
 
 <div>
 
@@ -206,6 +209,560 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </div>
+<div class="cell" data-execution_count="3">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> tweetfreq.sort_values(by<span class="op">=</span>[<span class="st">'counts'</span>],ascending<span class="op">=</span><span class="va">False</span>)<span class="co">#sort the dataset</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> data.head(<span class="dv">15</span>)<span class="co">#subset the dataset</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>sns.<span class="bu">set</span>(rc <span class="op">=</span> {<span class="st">'figure.figsize'</span>:(<span class="dv">80</span>,<span class="dv">40</span>)})<span class="co">#set plot size</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>sns.<span class="bu">set</span>(font_scale<span class="op">=</span><span class="fl">1.5</span>)<span class="co">#set font size</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>sns.barplot(x<span class="op">=</span>data.words,y<span class="op">=</span>data.counts)<span class="co">#use bar plot to plot the 10 most frequency words</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="3">
+<pre><code>&lt;AxesSubplot:xlabel='words', ylabel='counts'&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="data-exploring1_files/figure-html/cell-4-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+<p>As we can see in the plot, there are a lot of words with no meaning, so we need to remove a lot of unnecessary words in order to support our result. At that time, I decide to use wordcloud in order to show the results clearly.</p>
+<div class="cell" data-execution_count="4">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"../data/00-raw-data/twitterpython.csv"</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>comment_words <span class="op">=</span> <span class="st">''</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>w <span class="op">=</span> WordCloud()</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>stop_words <span class="op">=</span> <span class="bu">list</span>(w.stopwords)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>custom_stop_words <span class="op">=</span> [<span class="st">'https'</span>, <span class="st">'rt'</span>]<span class="co">#remove stop words</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>stopwords <span class="op">=</span> <span class="bu">set</span>(stop_words <span class="op">+</span> custom_stop_words)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co"># iterate through the csv file</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> val <span class="kw">in</span> df.text:</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>     </span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># typecaste each val to string</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    val <span class="op">=</span> <span class="bu">str</span>(val)</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># split the value</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    tokens <span class="op">=</span> val.split()</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>     </span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Converts each token into lowercase</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(tokens)):</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>        tokens[i] <span class="op">=</span> tokens[i].lower()</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>     </span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>    comment_words <span class="op">+=</span> <span class="st">" "</span>.join(tokens)<span class="op">+</span><span class="st">" "</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>wordcloud <span class="op">=</span> WordCloud(width <span class="op">=</span> <span class="dv">800</span>, height <span class="op">=</span> <span class="dv">800</span>,</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>                background_color <span class="op">=</span><span class="st">'white'</span>,</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>                stopwords <span class="op">=</span> stopwords,</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>                min_font_size <span class="op">=</span> <span class="dv">10</span>).generate(comment_words)</span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a><span class="co"># plot the WordCloud image                      </span></span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize <span class="op">=</span> (<span class="dv">8</span>, <span class="dv">8</span>), facecolor <span class="op">=</span> <span class="va">None</span>)</span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>plt.imshow(wordcloud)</span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>plt.axis(<span class="st">"off"</span>)</span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>plt.tight_layout(pad <span class="op">=</span> <span class="dv">0</span>)</span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<p><img src="data-exploring1_files/figure-html/cell-5-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p>Based on the wordcloud, We can clearly see the main attitude for consumer privacy is focused on privacy protection. “Affected”, “privacy protection” “internet policy”, “privacy pitfalls”, “protect consumers” appeared frequently based on twitter reviews from users.</p>
+<p>Nowadays, with the popularity of big data, privacy have an incresingly dangerous situation to be leaked. Consumers is now focusing on how to protect privacy themselves and leave a lot of comments about that.</p>
+<section id="sentiment-analysis-in-python" class="level5">
+<h5 class="anchored" data-anchor-id="sentiment-analysis-in-python">Sentiment Analysis in Python</h5>
+<p>Through the data cleaning tab, I used sentiment analysis to clean the text datasets and classified each sentence. At this time, I plan to plot the results by using matplotlib and seaborn.</p>
+<p>I plan to calculate the frequencies of each attitude(pos neg neu)</p>
+</section>
+<section id="load-the-required-datasets" class="level5">
+<h5 class="anchored" data-anchor-id="load-the-required-datasets">Load the required datasets</h5>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>tweetscore <span class="op">=</span> pd.read_csv(<span class="st">"../data/01-modified-data/pytweetscore.csv"</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>tweetresult <span class="op">=</span> pd.read_csv(<span class="st">"../data/01-modified-data/pytweetresult.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell" data-execution_count="6">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>tweetscore.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="6">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Unnamed: 0</th>
+      <th>text</th>
+      <th>neg</th>
+      <th>neu</th>
+      <th>pos</th>
+      <th>compound</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0</td>
+      <td>A more memorable connection is one that respec...</td>
+      <td>0.000</td>
+      <td>0.846</td>
+      <td>0.154</td>
+      <td>0.4588</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>A more memorable connection is one that respec...</td>
+      <td>0.000</td>
+      <td>0.846</td>
+      <td>0.154</td>
+      <td>0.7184</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2</td>
+      <td>RT @OkeyMor57: @jay_scherrer @muskQu0tes @elon...</td>
+      <td>0.081</td>
+      <td>0.796</td>
+      <td>0.123</td>
+      <td>0.0846</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>3</td>
+      <td>@jay_scherrer @muskQu0tes @elonmusk Elon Musk ...</td>
+      <td>0.102</td>
+      <td>0.766</td>
+      <td>0.132</td>
+      <td>-0.0881</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>4</td>
+      <td>@DanKnightMMA Dear Dan - you seem like an enga...</td>
+      <td>0.081</td>
+      <td>0.769</td>
+      <td>0.151</td>
+      <td>0.6461</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="7">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>tweetresult.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="7">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Unnamed: 0</th>
+      <th>text</th>
+      <th>result</th>
+      <th>scores</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0</td>
+      <td>A more memorable connection is one that respec...</td>
+      <td>Positive</td>
+      <td>15.4</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>A more memorable connection is one that respec...</td>
+      <td>Positive</td>
+      <td>15.4</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2</td>
+      <td>RT @OkeyMor57: @jay_scherrer @muskQu0tes @elon...</td>
+      <td>Negative</td>
+      <td>24.2</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>3</td>
+      <td>@jay_scherrer @muskQu0tes @elonmusk Elon Musk ...</td>
+      <td>Negative</td>
+      <td>14.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>4</td>
+      <td>@DanKnightMMA Dear Dan - you seem like an enga...</td>
+      <td>Positive</td>
+      <td>26.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="8">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>sns.<span class="bu">set</span>(rc<span class="op">=</span>{<span class="st">'figure.figsize'</span>:(<span class="dv">5</span>,<span class="dv">4</span>)})</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>hist1 <span class="op">=</span> sns.countplot(tweetresult.result,color <span class="op">=</span> <span class="st">"pink"</span>)<span class="co">#create a histram of attitudes count</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> p <span class="kw">in</span> hist1.patches:</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>   hist1.annotate(<span class="st">'</span><span class="sc">{:.1f}</span><span class="st">'</span>.<span class="bu">format</span>(p.get_height()), (p.get_x()<span class="op">+</span><span class="fl">0.25</span>, p.get_height()<span class="op">+</span><span class="fl">0.01</span>))<span class="co">#give each bin a number to visulise clearly</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>hist1.set_title(<span class="st">"Tweet attitudes"</span>,fontdict<span class="op">=</span> { <span class="st">'fontsize'</span>: <span class="dv">20</span>,<span class="st">'fontweight'</span>:<span class="st">'bold'</span>})<span class="co">#set title</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>hist1.set_xlabel(<span class="st">"attitude"</span>,fontdict<span class="op">=</span> { <span class="st">'fontsize'</span>: <span class="dv">10</span>})<span class="co">#set x label</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>hist1.set_ylabel(<span class="st">"attitude count"</span>,fontdict<span class="op">=</span> { <span class="st">'fontsize'</span>: <span class="dv">10</span>})<span class="co">#set y label</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<p><img src="data-exploring1_files/figure-html/cell-9-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p>Now I want to use pie chart to clear show the distribution of each attitude.</p>
+<div class="cell" data-execution_count="9">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>pie1 <span class="op">=</span> tweetresult.result.value_counts().plot(kind <span class="op">=</span> <span class="st">"pie"</span>,autopct<span class="op">=</span><span class="st">'%1.0f</span><span class="sc">%%</span><span class="st">'</span>) <span class="co">#create pie plot</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>pie1.set_title(<span class="st">"Tweet attitudes"</span>,fontdict<span class="op">=</span> { <span class="st">'fontsize'</span>: <span class="dv">20</span>,<span class="st">'fontweight'</span>:<span class="st">'bold'</span>}) <span class="co">#set title</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="9">
+<pre><code>Text(0.5, 1.0, 'Tweet attitudes')</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="data-exploring1_files/figure-html/cell-10-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+<p>Through this plot, we can clearly see the count of different attitudes through the plot. As we can see, most users have positive attitude on customer privacy, there are 598 comments can be tagged as postive, But there are still a lot of users have neutural and negative attitudes of customer privacy. there are 416 comments tagged as negative, 286 comments tagged as neutral. 46% positive comments from all of the comments. 32% negative comments from all of the comments, 22% neutral comments from all of the comments.</p>
+</section>
+<section id="conclusion" class="level5">
+<h5 class="anchored" data-anchor-id="conclusion">Conclusion</h5>
+<p>Based on the plots generated from frequencies of twitter datasets. We can see most consumers remain positive attitudes through the consumer privacy in the big data society. Most consumers focus on how to protect their consumer privacies and take more notice on government policies of protection og privacy. However, there still 32% consumers remain negative attiudes about consumer privacy. Through the wordcloud, there are still some nagative words and phrases like “privacy pitfall”, “stop”, “affect”, “unwarranted”. Government should takes action to process consumers’ review.</p>
+<p>More than this, social media companies should not only focus on benefits earned from big data society, they need to take action to protect consumers’ privacy. Nowadays, there are a lot of cases about “credit card fraud”, “internet fraud”. People can easily generate the privacy from others like phone number, address, or even credit card number. We need to ensure within the rapid progress of development of big data society, consumer privacies need to be carefully protected in order to prevent huge loss.</p>
+</section>
+</section>
+<section id="twitter-api-in-r" class="level2">
+<h2 class="anchored" data-anchor-id="twitter-api-in-r">Twitter API in R</h2>
+<p>For twitter dataset I gathered from R, I also plan to make visualizations of frequencies of words to calculate he social platform popularities. More than this, It can also provide feedbacks about the consumers revies of each social platforms.</p>
+<p>At this time, I still want to use wordcloud to compare platforms mentioned in twitter in order to make my results more straightforward and easier to understand.</p>
+<section id="load-required-packages" class="level5">
+<h5 class="anchored" data-anchor-id="load-required-packages">Load required packages</h5>
+<div class="cell" data-execution_count="1">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>library(selectr)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>library(rvest)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>library(xml2)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>library(wordcloud2) <span class="co"># for generating really cool looking wordclouds</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>library(tm) <span class="co"># for text minning</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>library(dplyr) <span class="co"># loads of fun stuff including piping</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>library(ROAuth)</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>library(jsonlite)</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>library(httpuv)</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>library(<span class="st">"tm"</span>)</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>library(<span class="st">"SnowballC"</span>)</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>library(<span class="st">"wordcloud"</span>)</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>library(wordcloud)</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>library(<span class="st">"RColorBrewer"</span>)</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>suppressWarnings(expr)<span class="co">#ignore warning</span></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>options(warn<span class="op">=-</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: NLP
+
+
+Attaching package: ‘dplyr’
+
+
+The following objects are masked from ‘package:stats’:
+
+    filter, lag
+
+
+The following objects are masked from ‘package:base’:
+
+    intersect, setdiff, setequal, union
+
+
+Loading required package: RColorBrewer
+</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre class="language-r"><code>function (expr) 
+{
+<span style="white-space:pre-wrap">    enexpr(expr)</span>
+}</code></pre>
+</div>
+</div>
+</section>
+<section id="load-the-required-dataset" class="level5">
+<h5 class="anchored" data-anchor-id="load-the-required-dataset">Load the required dataset</h5>
+<div class="cell" data-execution_count="2">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>d <span class="op">&lt;-</span> read.csv(<span class="st">"../data/00-raw-data/twittertm.csv"</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>head(d)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+
+<table class="dataframe table table-sm table-striped">
+<caption>A data.frame: 6 × 3</caption>
+<thead>
+    <tr><th></th><th scope="col">X</th><th scope="col">word</th><th scope="col">freq</th></tr>
+    <tr><th></th><th scope="col">&lt;chr&gt;</th><th scope="col">&lt;chr&gt;</th><th scope="col">&lt;int&gt;</th></tr>
+</thead>
+<tbody>
+    <tr><th scope="row">1</th><td>tik    </td><td>tik    </td><td>166</td></tr>
+    <tr><th scope="row">2</th><td>tok    </td><td>tok    </td><td>162</td></tr>
+    <tr><th scope="row">3</th><td>and    </td><td>and    </td><td>140</td></tr>
+    <tr><th scope="row">4</th><td>brand  </td><td>brand  </td><td> 90</td></tr>
+    <tr><th scope="row">5</th><td>she    </td><td>she    </td><td> 90</td></tr>
+    <tr><th scope="row">6</th><td>wearing</td><td>wearing</td><td> 90</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>From the head of dataframe, the tik-tok are considered as the most frequent words. Next, we can generate a wordcloud about the whole bag of words. These dataset can help us indicate which kind of social media platform is more popular and being discussed more.</p>
+<div class="cell" data-execution_count="3">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Gather a wordcloud</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>wordcloud(words <span class="op">=</span> d$word, </span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>          freq <span class="op">=</span> d$freq,</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>          <span class="bu">min</span>.freq <span class="op">=</span> <span class="dv">1</span>, </span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>          <span class="bu">max</span>.words <span class="op">=</span> <span class="dv">200</span>,</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>          random.order <span class="op">=</span> FALSE, </span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>          rot.per <span class="op">=</span> <span class="fl">0.35</span>, </span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>          colors <span class="op">=</span> brewer.pal(<span class="dv">8</span>, <span class="st">"Dark2"</span>),</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>          widgetsize <span class="op">=</span>c(<span class="st">"1000"</span>,<span class="st">"1000"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<p><img src="data-exploring1_files/figure-html/cell-13-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p>As We can see in the plot, the frequency of “tik-tok” is far higher than other words. Nowadays, tik-tok is one of the most popular platforms for internet influencers. More than this, “instagram” and “facebook” also show frequently.</p>
+</section>
+</section>
+<section id="part-3-instgram-influencer-dataset" class="level2">
+<h2 class="anchored" data-anchor-id="part-3-instgram-influencer-dataset">Part 3 Instgram Influencer dataset</h2>
+<section id="data-introduction" class="level5">
+<h5 class="anchored" data-anchor-id="data-introduction">Data Introduction</h5>
+<p>Instagram is very popular nowadays among the world. People in different countries like to use this media platform to share their lives, post some exciting moments and connect with their families and friends. There are some instagram influencers can use the platform to gather likes from their fans, use their popularity to promote some advertisements in order to gain benefits from instagram. This dataset talks about how to measure the influence score among influencers. Here are the column introduction for this dataset.</p>
+<pre><code>channel info: Username in instagram
+
+influence score: It is calculated based on their popularity.
+
+posts: total posts they have
+
+followers: total followers they have
+
+avg_likes: average likes of their total posts
+
+60_days_eng_rate: 60 days of engagement rate
+
+new_post_avg_like: a calculation of the average likes they gained from new posts. 
+
+total_likes: total likes of their posts in instagram.
+
+country: users' origin. What countries they from?</code></pre>
+<p>From this dataset, I plan to explore the following:</p>
+<ol type="1">
+<li>Utilize a pie chart to discuss the country distribution of famous instagram influencers.</li>
+<li>Since different factors have different relationship to influence score, I plan to use scatterplot to visualize relationship between each factor to influence scores.</li>
+<li>From the step2, I want to further discuss the most important factor and further visualize this factor.</li>
+</ol>
+<div class="cell" data-execution_count="3">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>insta <span class="op">=</span> pd.read_csv(<span class="st">'../data/01-modified-data/instagram_infl.csv'</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>insta.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="3">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Unnamed: 0</th>
+      <th>rank</th>
+      <th>channel_info</th>
+      <th>influence_score</th>
+      <th>posts(k)</th>
+      <th>followers(m)</th>
+      <th>X60_day_eng_rate(%)</th>
+      <th>new_post_avg_like(m)</th>
+      <th>total_likes(b)</th>
+      <th>country</th>
+      <th>avg_likes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>1</td>
+      <td>cristiano</td>
+      <td>92</td>
+      <td>3.30</td>
+      <td>475.8</td>
+      <td>1.39</td>
+      <td>6.5</td>
+      <td>29.0</td>
+      <td>Spain</td>
+      <td>8700000.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>2</td>
+      <td>kyliejenner</td>
+      <td>91</td>
+      <td>6.90</td>
+      <td>366.2</td>
+      <td>1.62</td>
+      <td>5.9</td>
+      <td>57.4</td>
+      <td>United States</td>
+      <td>8300000.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>3</td>
+      <td>leomessi</td>
+      <td>90</td>
+      <td>0.89</td>
+      <td>357.3</td>
+      <td>1.24</td>
+      <td>4.4</td>
+      <td>6.0</td>
+      <td>Undefined</td>
+      <td>6800000.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>4</td>
+      <td>selenagomez</td>
+      <td>93</td>
+      <td>1.80</td>
+      <td>342.7</td>
+      <td>0.97</td>
+      <td>3.3</td>
+      <td>11.5</td>
+      <td>United States</td>
+      <td>6200000.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>5</td>
+      <td>therock</td>
+      <td>91</td>
+      <td>6.80</td>
+      <td>334.1</td>
+      <td>0.20</td>
+      <td>665.3</td>
+      <td>12.5</td>
+      <td>United States</td>
+      <td>1900000.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Firstly, I want to plot the distribution of instagram influencers’ countries in order to further discuss what countries influencers are more popular among the world.</p>
+<div class="cell" data-execution_count="4">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>pie <span class="op">=</span> insta.country.value_counts().plot(kind<span class="op">=</span><span class="st">'pie'</span>,autopct<span class="op">=</span><span class="st">'%1.0f</span><span class="sc">%%</span><span class="st">'</span>)<span class="co">#Use pieplot the distribution of countries</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>pie.set_title(<span class="st">"Country distribution among internet influencers"</span>,fontdict<span class="op">=</span> { <span class="st">'fontsize'</span>: <span class="dv">30</span>,<span class="st">'fontweight'</span>:<span class="st">'bold'</span>}) <span class="co">#set title for this plot</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>sns.<span class="bu">set</span>(rc<span class="op">=</span>{<span class="st">'figure.figsize'</span>:(<span class="dv">22</span>,<span class="dv">22</span>)})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<p><img src="data-exploring1_files/figure-html/cell-15-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p>As the plot shows, the United States has the most instagram influencer among the world. There are a lot of instagram influencers without defined country region. As a result, this conclusion may be not accurate enough to conclude that the United States has the most instagra influencer among the world.</p>
+<p>Then I want to find the relationship between the influence score and different factors. In my project, I totally curious about what factors make an internet influencer success. At that time, I want to compare influence score with average likes, total posts and followers.</p>
+<div class="cell" data-execution_count="5">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> insta.sort_values(by <span class="op">=</span> [<span class="st">'influence_score'</span>], ascending<span class="op">=</span> <span class="va">False</span>)<span class="co">#Sort data with infleunce score</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> data.head(<span class="dv">20</span>)<span class="co">#subset data with top 20 infleuncers with high influence score</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>sns.<span class="bu">set</span>(rc<span class="op">=</span>{<span class="st">'figure.figsize'</span>:(<span class="dv">22</span>,<span class="dv">16</span>)})</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>sns.<span class="bu">set</span>(font_scale<span class="op">=</span><span class="dv">1</span>)<span class="co">#set font size</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>f, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">3</span>)<span class="co"># plot the factors' plots toegther in order to gain better comparison</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>lineplot1 <span class="op">=</span> sns.lineplot(y <span class="op">=</span> data.avg_likes,x <span class="op">=</span> data.influence_score,ax<span class="op">=</span>axes[<span class="dv">0</span>])<span class="co">#plot lineplot</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>lineplot1.set_title(<span class="st">"influence_score VS average likes"</span>,fontdict<span class="op">=</span> { <span class="st">'fontsize'</span>: <span class="dv">15</span>,<span class="st">'fontweight'</span>:<span class="st">'bold'</span>})<span class="co">#set title foor the plot</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>lineplot1.set_xlabel(<span class="st">"influence score"</span>,fontdict<span class="op">=</span>{<span class="st">"fontsize"</span>:<span class="dv">15</span>})<span class="co">#set xlabel</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>lineplot1.set_ylabel(<span class="st">"average likes per post"</span>,fontdict<span class="op">=</span>{<span class="st">"fontsize"</span>:<span class="dv">15</span>})<span class="co">#set y label</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>lineplot2 <span class="op">=</span> sns.lineplot(y <span class="op">=</span> data[<span class="st">'followers(m)'</span>],x <span class="op">=</span> data.influence_score,color<span class="op">=</span><span class="st">'red'</span>,ax<span class="op">=</span>axes[<span class="dv">1</span>])</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>lineplot2.set_title(<span class="st">"influence_score VS followers"</span>,fontdict<span class="op">=</span> { <span class="st">'fontsize'</span>: <span class="dv">15</span>,<span class="st">'fontweight'</span>:<span class="st">'bold'</span>})<span class="co">#set title</span></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>lineplot2.set_xlabel(<span class="st">"influence score"</span>,fontdict<span class="op">=</span>{<span class="st">"fontsize"</span>:<span class="dv">15</span>})<span class="co">#set xlabel</span></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>lineplot2.set_ylabel(<span class="st">"follower(million)"</span>,fontdict<span class="op">=</span>{<span class="st">"fontsize"</span>:<span class="dv">15</span>})<span class="co">#set y label</span></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>lineplot3 <span class="op">=</span> sns.lineplot(y <span class="op">=</span> data[<span class="st">'posts(k)'</span>],x <span class="op">=</span> data.influence_score,color<span class="op">=</span><span class="st">'orange'</span>,ax<span class="op">=</span>axes[<span class="dv">2</span>]) <span class="co">#plot lineplot</span></span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>lineplot3.set_title(<span class="st">"influence_score VS posts"</span>,fontdict<span class="op">=</span> { <span class="st">'fontsize'</span>: <span class="dv">15</span>,<span class="st">'fontweight'</span>:<span class="st">'bold'</span>})<span class="co">#set title</span></span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>lineplot3.set_xlabel(<span class="st">"influence score"</span>,fontdict<span class="op">=</span>{<span class="st">"fontsize"</span>:<span class="dv">15</span>})<span class="co">#set xlabel</span></span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>lineplot3.set_ylabel(<span class="st">"posts(1000)"</span>,fontdict<span class="op">=</span>{<span class="st">"fontsize"</span>:<span class="dv">15</span>})<span class="co">#set y label</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="5">
+<pre><code>Text(0, 0.5, 'posts(1000)')</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="data-exploring1_files/figure-html/cell-16-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+<p>Compare with these three plots, we can most relevant factor is average likes for each post. The second is followers. At that time, we can conclude that the most important factor to become a success internet influencer is to attract audiences in order to earn more postivie interactions like likes and with the average likes, We will gain more followers. No matter how much posts, the quality of post is the most important.</p>
+<p>As we can see, interactions play one of the most important factors for internet influencer, I want to predict the popularity of influencers and predict their popularity in the future. Since ad salers need to enlarge their benefits so that they need to take a survey of internet influencers’ capacities and influence score. At this time, I decided to use 60days engage rate and new average like post to predict the popularity among these instagram influencers.</p>
+<div class="cell" data-execution_count="7">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> insta.sort_values(by <span class="op">=</span> [<span class="st">'X60_day_eng_rate(%)'</span>], ascending<span class="op">=</span> <span class="va">False</span>)<span class="co">#Sort data with 60 day engagement rate</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> data.head(<span class="dv">15</span>)<span class="co">#subset data with top 15 infleuncers with high influence score</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>f, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>)<span class="co"># plot the factors' plots toegther in order to gain better comparison</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>barplot1 <span class="op">=</span> sns.barplot(y<span class="op">=</span>data[<span class="st">"channel_info"</span>], x <span class="op">=</span> data[<span class="st">'X60_day_eng_rate(%)'</span>],ax<span class="op">=</span>axes[<span class="dv">0</span>])<span class="co">#create the barplot with 60 day engagement rate</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>barplot1.set_title(<span class="st">"Top 15 influencers with 60 days enegement rate"</span>,fontdict<span class="op">=</span> { <span class="st">'fontsize'</span>: <span class="dv">20</span>,<span class="st">'fontweight'</span>:<span class="st">'bold'</span>})<span class="co">#set title</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>barplot1.set_xlabel(<span class="st">"60 days engagement rate(%)"</span>,fontdict<span class="op">=</span> { <span class="st">'fontsize'</span>: <span class="dv">20</span>})<span class="co">#set xlabel</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>barplot1.set_ylabel(<span class="st">"channel names"</span>,fontdict<span class="op">=</span> { <span class="st">'fontsize'</span>: <span class="dv">20</span>})<span class="co">#set y label</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>data1 <span class="op">=</span> insta.sort_values(by <span class="op">=</span> [<span class="st">'new_post_avg_like(m)'</span>], ascending<span class="op">=</span> <span class="va">False</span>)<span class="co">#Sort data with new post average likes</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>data1 <span class="op">=</span> data1.head(<span class="dv">15</span>)<span class="co">#subset data with top 15 infleuncers with high new post average likes</span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>barplot2 <span class="op">=</span> sns.barplot(y<span class="op">=</span>data1[<span class="st">"channel_info"</span>], x <span class="op">=</span> data1[<span class="st">'new_post_avg_like(m)'</span>],ax<span class="op">=</span>axes[<span class="dv">1</span>])<span class="co">#create the barplot with new post average likes</span></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>barplot2.set_title(<span class="st">"Top 15 influencers with new post average likes"</span>,fontdict<span class="op">=</span> { <span class="st">'fontsize'</span>: <span class="dv">20</span>,<span class="st">'fontweight'</span>:<span class="st">'bold'</span>})<span class="co">#set title</span></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>barplot2.set_xlabel(<span class="st">"new post average likes(million)"</span>,fontdict<span class="op">=</span> { <span class="st">'fontsize'</span>: <span class="dv">20</span>})<span class="co">#set x label</span></span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>barplot2.set_ylabel(<span class="st">"channel names"</span>,fontdict<span class="op">=</span> { <span class="st">'fontsize'</span>: <span class="dv">20</span>})<span class="co">#set y label</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<pre><code>Text(0, 0.5, 'channel names')</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="data-exploring1_files/figure-html/cell-17-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+<p>As we can see in the two plots, there are few similar channel names between these two plots. But ad salers can use these two plot to compare influencers in order to gain their benefits.</p>
+</section>
+<section id="conclusion-1" class="level5">
+<h5 class="anchored" data-anchor-id="conclusion-1">Conclusion</h5>
+<p>The EDA of this dataset can provide us which factor is the most important part for advetising companies. Interaction plays the most important role to define influencer score. Nowadays, Engagement rate is the most direct way to calculate the popularity of the certain instagram influencers.</p>
+</section>
 </section>
 </section>
 
