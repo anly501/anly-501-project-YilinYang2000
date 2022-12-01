@@ -1,0 +1,1456 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-0.9.649">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Data Gathering</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="Data_gathering1_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Data_gathering1_files/libs/quarto-html/quarto.js"></script>
+<script src="Data_gathering1_files/libs/quarto-html/popper.min.js"></script>
+<script src="Data_gathering1_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Data_gathering1_files/libs/quarto-html/anchor.min.js"></script>
+<link href="Data_gathering1_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Data_gathering1_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="Data_gathering1_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Data_gathering1_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Data_gathering1_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Data Gathering</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header>
+
+<p>Data collection is the process of building systems to collect and measure information about target variables. It is a useful tool that enables people to answer relevant questions and evaluate results. It is the foundation of all data science projects. In my project, data collection is very important. It can help me collect some self-media-related data, such as related surveys on Internet celebrities, customer feedback, comparison of various social platforms, and so on.</p>
+<p>In the process of data collection, I used the Twitter API to grab data, and also used some ready-made data sets, and I also made detailed annotations in the reference.</p>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>Based on 10 questions I want to research through the introduction tab:</p>
+<pre><code>What does WE media bring to us?
+
+What advantages does WE media have?
+
+What disadvantages does WE media have?
+
+Should ad sales focus move further online? 
+
+What is the employment prospect of WE media? 
+
+What factors does online influencer has to be success? 
+
+How to use WE media to earn money?
+
+What does data anlytics play in WE media? How important? 
+
+Companies V.S. Individual 
+
+Should people choose WE media to develop their careers due to the popularity trend?</code></pre>
+<p>I plan to collect several types of datasets which are:</p>
+<ol type="1">
+<li>Use twitter API to collect consumers’ reviews about consumer privacy and some ethical questions</li>
+<li>Use twitter API to compare with popularities of different social media platforms</li>
+<li>Collect internet influencers in a certain social platform in order to calculate the factors they have in order to calculate what the most important factor an internet influencer need to have in order to become success</li>
+<li>Generate consumers’ responses about advertisements in order to do a research on which kind of factor will cause consumers to click on ad, what factors need instagram influencers have in order to promote consumers to buy products from their promotion.</li>
+</ol>
+</section>
+<section id="modified-data" class="level2">
+<h2 class="anchored" data-anchor-id="modified-data">Modified data</h2>
+<section id="instagram-influencer-dataset" class="level3">
+<h3 class="anchored" data-anchor-id="instagram-influencer-dataset">Instagram Influencer dataset</h3>
+<p>Instagram is one of the most popular and famous platforms for users to network, post their daily lives. There are a lot of famous internet influencers here. Instagram is also one of the important parts for wemedia to develop. Users can create channels to post their daily lives, show their abilities, post some fun videos in order to attract more fans. Ad sellers also analyze their business value to contact instagram influencers to promote their products in order to gain more benefits.</p>
+<p>In this dataset, it clearly shows followers’number, average likes each post, country etc. I would like to use this dataset to deeper analyze the trend of internet influencers followers. Country distribution of these influencers. More than this, I would like to use other datasets to locate the fields which these inernet influencers focus to further analyze factors of these internet influencers. What makes them success.</p>
+<p>channel info: Username in instagram</p>
+<p>influence score: It is calculated based on their popularity.</p>
+<p>posts: total posts they have</p>
+<p>followers: total followers they have</p>
+<p>avg_likes: average likes of their total posts</p>
+<p>60_days_eng_rate: 60 days of engagement rate</p>
+<p>new_post_avg_like: a calculation of the average likes they gained from new posts.</p>
+<p>total_likes: total likes of their posts in instagram.</p>
+<p>country: users’ origin. What countries they from?</p>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="2">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a> import pandas as pd</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a> instagram_infl <span class="ot">=</span> <span class="fu">pd.read_csv</span>(<span class="st">"../data/00-raw-data/top_insta_influencers_data.csv"</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a> <span class="fu">instagram_infl.head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="2">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>rank</th>
+      <th>channel_info</th>
+      <th>influence_score</th>
+      <th>posts</th>
+      <th>followers</th>
+      <th>avg_likes</th>
+      <th>60_day_eng_rate</th>
+      <th>new_post_avg_like</th>
+      <th>total_likes</th>
+      <th>country</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>cristiano</td>
+      <td>92</td>
+      <td>3.3k</td>
+      <td>475.8m</td>
+      <td>8.7m</td>
+      <td>1.39%</td>
+      <td>6.5m</td>
+      <td>29.0b</td>
+      <td>Spain</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>kyliejenner</td>
+      <td>91</td>
+      <td>6.9k</td>
+      <td>366.2m</td>
+      <td>8.3m</td>
+      <td>1.62%</td>
+      <td>5.9m</td>
+      <td>57.4b</td>
+      <td>United States</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>leomessi</td>
+      <td>90</td>
+      <td>0.89k</td>
+      <td>357.3m</td>
+      <td>6.8m</td>
+      <td>1.24%</td>
+      <td>4.4m</td>
+      <td>6.0b</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>selenagomez</td>
+      <td>93</td>
+      <td>1.8k</td>
+      <td>342.7m</td>
+      <td>6.2m</td>
+      <td>0.97%</td>
+      <td>3.3m</td>
+      <td>11.5b</td>
+      <td>United States</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>therock</td>
+      <td>91</td>
+      <td>6.8k</td>
+      <td>334.1m</td>
+      <td>1.9m</td>
+      <td>0.20%</td>
+      <td>665.3k</td>
+      <td>12.5b</td>
+      <td>United States</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+<section id="dataset-advertiments-click" class="level3">
+<h3 class="anchored" data-anchor-id="dataset-advertiments-click">Dataset: Advertiments click</h3>
+<p>Advertisements is one of the important sources for internet influencers to earn benefits and money from social media platforms. In this dataset, we will work on an advertising dataset. There are many features to determine whether internet users will click on advertisements.</p>
+<pre><code>This datasets contain these columns:
+
+
+Daily Time Spent on Site: internet users' time consumptions on site in minutes
+
+
+Age: Internet users' ages in years
+
+
+Area Income: Internet users' average incomes in geographical area
+
+
+Daily Internet Usage: Daily average internet time consumptions of internet users in minutes
+
+
+Ad Topic Line: Headline of the advertisement
+
+
+City: City of consumer
+
+
+Male: Whether or not consumer was male
+
+
+Country: Country of consumer
+
+
+Timestamp: Time at which consumer clicked on Ad or closed window
+
+
+Clicked on Ad: 0 or 1 indicated clicking on Ad</code></pre>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="5">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>adv <span class="ot">=</span> <span class="fu">pd.read_csv</span>(<span class="st">"../data/01-modified-data/advertising.csv"</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>adv <span class="ot">=</span> <span class="fu">adv.select_dtypes</span>([<span class="st">'number'</span>])</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">adv.head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="5">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Daily Time Spent on Site</th>
+      <th>Age</th>
+      <th>Area Income</th>
+      <th>Daily Internet Usage</th>
+      <th>Male</th>
+      <th>Clicked on Ad</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>68.95</td>
+      <td>35</td>
+      <td>61833.90</td>
+      <td>256.09</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>80.23</td>
+      <td>31</td>
+      <td>68441.85</td>
+      <td>193.77</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>69.47</td>
+      <td>26</td>
+      <td>59785.94</td>
+      <td>236.50</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>74.15</td>
+      <td>29</td>
+      <td>54806.18</td>
+      <td>245.89</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>68.37</td>
+      <td>35</td>
+      <td>73889.99</td>
+      <td>225.58</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+<section id="twitter-api-in-python" class="level3">
+<h3 class="anchored" data-anchor-id="twitter-api-in-python">Twitter API in python</h3>
+<p>Python: I used twitter API to scratch mutiple keywords:“media” “internet influencers” “consumer privacy” “data” to gather comments from twiter about their opinion about the wemedia. I use these data to analyze the positive and negative opinion. I can detect the internet users’ attitudes to consumers’ privacy. I can also use this datasets to define the relationship between data and media. The keywords may not clear enough for me to analysis but I will adjust it later for future research. I used for loop to search over 600 tweets in order to make comprehensive datasets. I will collect more in the future to scratch over 2000 tweets in order to make sure my results are accurate. I plan to detect the frequency of words to gain a plot. More than this, I plan to use Naive Bytes to give each tweet a positive or negative attitude.</p>
+<p>Step1: Load the file to get the consumer key, consumer secret, access token, access token secret, bearer token</p>
+<p>Step2: Load keys into API</p>
+<p>Step3: Set up connection in order to use twitter API to scratch data</p>
+<p>Step4: Create search twitter function in order to use certain keywords to get useful information</p>
+<p>Step5: Assign the tweet fields in order to build what type of factors we need to use</p>
+<p>Step6: Generate the data through key words: media’,‘internet_influencer’,‘data’,‘consumer privacy’. I search twitter 13 times for each keywords with 100 reviews. More than this, when one time search completed, the code will go sleep in 90 seconds in order to prevent duplicate information</p>
+<p>Step7: Use json_normalize function in order to collect all data as dataframes.</p>
+<p>Step8: Get a whole dataframe from Twitter API</p>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>import json </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># READ FILE</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>f <span class="ot">=</span> <span class="fu">open</span>(<span class="st">"/Users/yangyilin/Desktop/2022-fall-anly/501/lab/lab1.2/api-keys.json"</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>input<span class="ot">=</span><span class="fu">json.load</span>(f); <span class="co">#print(input)</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"># LOAD KEYS INTO API</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>consumer_key<span class="ot">=</span>input[<span class="st">"consumer_key"</span>]    </span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>consumer_secret<span class="ot">=</span>input[<span class="st">"consumer_secret"</span>]    </span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>access_token<span class="ot">=</span>input[<span class="st">"access_token"</span>]    </span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>access_token_secret<span class="ot">=</span>input[<span class="st">"access_token_secret"</span>]    </span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>bearer_token<span class="ot">=</span>input[<span class="st">"bearer_token"</span>] </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>import tweepy</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>import requests</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Set up Connection</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>auth <span class="ot">=</span> <span class="fu">tweepy.OAuthHandler</span>(consumer_key, consumer_secret)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">auth.set_access_token</span>(access_token, access_token_secret)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>api <span class="ot">=</span> <span class="fu">tweepy.API</span>(auth)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Add the search_twitter function here.</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>def <span class="fu">search_twitter</span>(query, max_results,tweet_fields, <span class="at">bearer_token =</span> bearer_token,<span class="at">lang=</span><span class="st">'en'</span>)<span class="sc">:</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    headers <span class="ot">=</span> {<span class="st">"Authorization"</span><span class="sc">:</span> <span class="st">"Bearer {}"</span><span class="fu">.format</span>(bearer_token)}</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    url <span class="ot">=</span> <span class="st">"https://api.twitter.com/2/tweets/search/recent?query={}&amp;max_results={}&amp;{}"</span><span class="fu">.format</span>(query, max_results,tweet_fields,lang)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(<span class="st">"--------------"</span>,url,<span class="st">"--------------"</span>)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    response <span class="ot">=</span> <span class="fu">requests.request</span>(<span class="st">"GET"</span>, url, <span class="at">headers=</span>headers)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> response.status_code <span class="sc">!=</span> <span class="dv">200</span><span class="sc">:</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>        raise <span class="fu">Exception</span>(response.status_code, response.text)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    return <span class="fu">response.json</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>tweet_fields <span class="ot">=</span> <span class="st">"tweet.fields=text,author_id,created_at,lang"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="8">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">=</span> <span class="st">"/Users/yangyilin/Desktop/2022-fall-anly/501/project"</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>import json</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>from logging import raiseExceptions </span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>import tweepy</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>import time</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>from datetime import datetime</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>import time</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>import os</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>search_tweets <span class="ot">=</span> [<span class="st">'media'</span>,<span class="st">'internet_influencer'</span>,<span class="st">'data'</span>,<span class="st">'consumer_privacy'</span>]</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> idx,val <span class="cf">in</span> <span class="fu">enumerate</span>(search_tweets)<span class="sc">:</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    tweets_jsondump <span class="ot">=</span> []</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    json_response1 <span class="ot">=</span> <span class="fu">search_twitter</span>(<span class="at">query =</span> <span class="fu">str</span>(val), <span class="at">max_results =</span> <span class="dv">100</span>, <span class="at">tweet_fields =</span> tweet_fields, <span class="at">bearer_token=</span>bearer_token, <span class="at">lang=</span><span class="st">"en"</span>)</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">time.sleep</span>(<span class="dv">90</span>)</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>    json_response2 <span class="ot">=</span> <span class="fu">search_twitter</span>(<span class="at">query =</span> <span class="fu">str</span>(val), <span class="at">max_results =</span> <span class="dv">100</span>, <span class="at">tweet_fields =</span> tweet_fields, <span class="at">bearer_token=</span>bearer_token, <span class="at">lang=</span><span class="st">"en"</span>)</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">time.sleep</span>(<span class="dv">90</span>)</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>    json_response3 <span class="ot">=</span> <span class="fu">search_twitter</span>(<span class="at">query =</span> <span class="fu">str</span>(val), <span class="at">max_results =</span> <span class="dv">100</span>, <span class="at">tweet_fields =</span> tweet_fields, <span class="at">bearer_token=</span>bearer_token, <span class="at">lang=</span><span class="st">"en"</span>)</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">time.sleep</span>(<span class="dv">90</span>)</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>    json_response4 <span class="ot">=</span> <span class="fu">search_twitter</span>(<span class="at">query =</span> <span class="fu">str</span>(val), <span class="at">max_results =</span> <span class="dv">100</span>, <span class="at">tweet_fields =</span> tweet_fields, <span class="at">bearer_token=</span>bearer_token, <span class="at">lang=</span><span class="st">"en"</span>)</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">time.sleep</span>(<span class="dv">90</span>)</span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>    json_response5 <span class="ot">=</span> <span class="fu">search_twitter</span>(<span class="at">query =</span> <span class="fu">str</span>(val), <span class="at">max_results =</span> <span class="dv">100</span>, <span class="at">tweet_fields =</span> tweet_fields, <span class="at">bearer_token=</span>bearer_token, <span class="at">lang=</span><span class="st">"en"</span>)</span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">time.sleep</span>(<span class="dv">90</span>)</span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>    json_response6 <span class="ot">=</span> <span class="fu">search_twitter</span>(<span class="at">query =</span> <span class="fu">str</span>(val), <span class="at">max_results =</span> <span class="dv">100</span>, <span class="at">tweet_fields =</span> tweet_fields, <span class="at">bearer_token=</span>bearer_token, <span class="at">lang=</span><span class="st">"en"</span>)</span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">time.sleep</span>(<span class="dv">90</span>)</span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>    json_response7 <span class="ot">=</span> <span class="fu">search_twitter</span>(<span class="at">query =</span> <span class="fu">str</span>(val), <span class="at">max_results =</span> <span class="dv">100</span>, <span class="at">tweet_fields =</span> tweet_fields, <span class="at">bearer_token=</span>bearer_token, <span class="at">lang=</span><span class="st">"en"</span>)</span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">time.sleep</span>(<span class="dv">90</span>)</span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>    json_response8 <span class="ot">=</span> <span class="fu">search_twitter</span>(<span class="at">query =</span> <span class="fu">str</span>(val), <span class="at">max_results =</span> <span class="dv">100</span>, <span class="at">tweet_fields =</span> tweet_fields, <span class="at">bearer_token=</span>bearer_token, <span class="at">lang=</span><span class="st">"en"</span>)</span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>    <span class="fu">time.sleep</span>(<span class="dv">90</span>)</span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>    json_response9 <span class="ot">=</span> <span class="fu">search_twitter</span>(<span class="at">query =</span> <span class="fu">str</span>(val), <span class="at">max_results =</span> <span class="dv">100</span>, <span class="at">tweet_fields =</span> tweet_fields, <span class="at">bearer_token=</span>bearer_token, <span class="at">lang=</span><span class="st">"en"</span>)</span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>    <span class="fu">time.sleep</span>(<span class="dv">90</span>)</span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a>    json_response10 <span class="ot">=</span> <span class="fu">search_twitter</span>(<span class="at">query =</span> <span class="fu">str</span>(val), <span class="at">max_results =</span> <span class="dv">100</span>, <span class="at">tweet_fields =</span> tweet_fields, <span class="at">bearer_token=</span>bearer_token, <span class="at">lang=</span><span class="st">"en"</span>)</span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>    <span class="fu">time.sleep</span>(<span class="dv">90</span>)</span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a>    json_response11 <span class="ot">=</span> <span class="fu">search_twitter</span>(<span class="at">query =</span> <span class="fu">str</span>(val), <span class="at">max_results =</span> <span class="dv">100</span>, <span class="at">tweet_fields =</span> tweet_fields, <span class="at">bearer_token=</span>bearer_token, <span class="at">lang=</span><span class="st">"en"</span>)</span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a>    <span class="fu">time.sleep</span>(<span class="dv">90</span>)</span>
+<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a>    json_response12 <span class="ot">=</span> <span class="fu">search_twitter</span>(<span class="at">query =</span> <span class="fu">str</span>(val), <span class="at">max_results =</span> <span class="dv">100</span>, <span class="at">tweet_fields =</span> tweet_fields, <span class="at">bearer_token=</span>bearer_token, <span class="at">lang=</span><span class="st">"en"</span>)</span>
+<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a>    <span class="fu">time.sleep</span>(<span class="dv">90</span>)</span>
+<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a>    json_response13 <span class="ot">=</span> <span class="fu">search_twitter</span>(<span class="at">query =</span> <span class="fu">str</span>(val), <span class="at">max_results =</span> <span class="dv">100</span>, <span class="at">tweet_fields =</span> tweet_fields, <span class="at">bearer_token=</span>bearer_token, <span class="at">lang=</span><span class="st">"en"</span>)</span>
+<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="cf">in</span> json_response1[<span class="st">'data'</span>]<span class="sc">:</span></span>
+<span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a>        <span class="fu">tweets_jsondump.append</span>(i)</span>
+<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="cf">in</span> json_response2[<span class="st">'data'</span>]<span class="sc">:</span></span>
+<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a>        <span class="fu">tweets_jsondump.append</span>(i)</span>
+<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="cf">in</span> json_response3[<span class="st">'data'</span>]<span class="sc">:</span></span>
+<span id="cb9-42"><a href="#cb9-42" aria-hidden="true" tabindex="-1"></a>        <span class="fu">tweets_jsondump.append</span>(i)</span>
+<span id="cb9-43"><a href="#cb9-43" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="cf">in</span> json_response4[<span class="st">'data'</span>]<span class="sc">:</span></span>
+<span id="cb9-44"><a href="#cb9-44" aria-hidden="true" tabindex="-1"></a>        <span class="fu">tweets_jsondump.append</span>(i)</span>
+<span id="cb9-45"><a href="#cb9-45" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="cf">in</span> json_response5[<span class="st">'data'</span>]<span class="sc">:</span></span>
+<span id="cb9-46"><a href="#cb9-46" aria-hidden="true" tabindex="-1"></a>        <span class="fu">tweets_jsondump.append</span>(i)</span>
+<span id="cb9-47"><a href="#cb9-47" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="cf">in</span> json_response6[<span class="st">'data'</span>]<span class="sc">:</span></span>
+<span id="cb9-48"><a href="#cb9-48" aria-hidden="true" tabindex="-1"></a>        <span class="fu">tweets_jsondump.append</span>(i)</span>
+<span id="cb9-49"><a href="#cb9-49" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="cf">in</span> json_response7[<span class="st">'data'</span>]<span class="sc">:</span></span>
+<span id="cb9-50"><a href="#cb9-50" aria-hidden="true" tabindex="-1"></a>        <span class="fu">tweets_jsondump.append</span>(i)</span>
+<span id="cb9-51"><a href="#cb9-51" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="cf">in</span> json_response7[<span class="st">'data'</span>]<span class="sc">:</span></span>
+<span id="cb9-52"><a href="#cb9-52" aria-hidden="true" tabindex="-1"></a>        <span class="fu">tweets_jsondump.append</span>(i)</span>
+<span id="cb9-53"><a href="#cb9-53" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="cf">in</span> json_response9[<span class="st">'data'</span>]<span class="sc">:</span></span>
+<span id="cb9-54"><a href="#cb9-54" aria-hidden="true" tabindex="-1"></a>        <span class="fu">tweets_jsondump.append</span>(i)</span>
+<span id="cb9-55"><a href="#cb9-55" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="cf">in</span> json_response10[<span class="st">'data'</span>]<span class="sc">:</span></span>
+<span id="cb9-56"><a href="#cb9-56" aria-hidden="true" tabindex="-1"></a>        <span class="fu">tweets_jsondump.append</span>(i)</span>
+<span id="cb9-57"><a href="#cb9-57" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="cf">in</span> json_response11[<span class="st">'data'</span>]<span class="sc">:</span></span>
+<span id="cb9-58"><a href="#cb9-58" aria-hidden="true" tabindex="-1"></a>        <span class="fu">tweets_jsondump.append</span>(i)</span>
+<span id="cb9-59"><a href="#cb9-59" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="cf">in</span> json_response12[<span class="st">'data'</span>]<span class="sc">:</span></span>
+<span id="cb9-60"><a href="#cb9-60" aria-hidden="true" tabindex="-1"></a>        <span class="fu">tweets_jsondump.append</span>(i)</span>
+<span id="cb9-61"><a href="#cb9-61" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="cf">in</span> json_response13[<span class="st">'data'</span>]<span class="sc">:</span></span>
+<span id="cb9-62"><a href="#cb9-62" aria-hidden="true" tabindex="-1"></a>        <span class="fu">tweets_jsondump.append</span>(i)</span>
+<span id="cb9-63"><a href="#cb9-63" aria-hidden="true" tabindex="-1"></a>    with <span class="fu">open</span>(data<span class="sc">+</span><span class="fu">str</span>(val)<span class="sc">+</span><span class="st">'.json'</span>,<span class="st">'w'</span>) as json_file<span class="sc">:</span></span>
+<span id="cb9-64"><a href="#cb9-64" aria-hidden="true" tabindex="-1"></a>        <span class="fu">json.dump</span>(tweets_jsondump,json_file)</span>
+<span id="cb9-65"><a href="#cb9-65" aria-hidden="true" tabindex="-1"></a>        <span class="fu">json_file.close</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>-------------- https://api.twitter.com/2/tweets/search/recent?query=media&amp;max_results=100&amp;tweet.fields=text,author_id,created_at,lang --------------
+-------------- https://api.twitter.com/2/tweets/search/recent?query=media&amp;max_results=100&amp;tweet.fields=text,author_id,created_at,lang --------------
+-------------- https://api.twitter.com/2/tweets/search/recent?query=media&amp;max_results=100&amp;tweet.fields=text,author_id,created_at,lang --------------
+-------------- https://api.twitter.com/2/tweets/search/recent?query=media&amp;max_results=100&amp;tweet.fields=text,author_id,created_at,lang --------------
+-------------- https://api.twitter.com/2/tweets/search/recent?query=media&amp;max_results=100&amp;tweet.fields=text,author_id,created_at,lang --------------
+-------------- https://api.twitter.com/2/tweets/search/recent?query=media&amp;max_results=100&amp;tweet.fields=text,author_id,created_at,lang --------------
+-------------- https://api.twitter.com/2/tweets/search/recent?query=media&amp;max_results=100&amp;tweet.fields=text,author_id,created_at,lang --------------
+-------------- https://api.twitter.com/2/tweets/search/recent?query=media&amp;max_results=100&amp;tweet.fields=text,author_id,created_at,lang --------------
+-------------- https://api.twitter.com/2/tweets/search/recent?query=media&amp;max_results=100&amp;tweet.fields=text,author_id,created_at,lang --------------
+-------------- https://api.twitter.com/2/tweets/search/recent?query=media&amp;max_results=100&amp;tweet.fields=text,author_id,created_at,lang --------------
+-------------- https://api.twitter.com/2/tweets/search/recent?query=media&amp;max_results=100&amp;tweet.fields=text,author_id,created_at,lang --------------
+-------------- https://api.twitter.com/2/tweets/search/recent?query=media&amp;max_results=100&amp;tweet.fields=text,author_id,created_at,lang --------------
+-------------- https://api.twitter.com/2/tweets/search/recent?query=media&amp;max_results=100&amp;tweet.fields=text,author_id,created_at,lang --------------
+-------------- https://api.twitter.com/2/tweets/search/recent?query=internet_influencer&amp;max_results=100&amp;tweet.fields=text,author_id,created_at,lang --------------
+-------------- https://api.twitter.com/2/tweets/search/recent?query=internet_influencer&amp;max_results=100&amp;tweet.fields=text,author_id,created_at,lang --------------
+-------------- https://api.twitter.com/2/tweets/search/recent?query=internet_influencer&amp;max_results=100&amp;tweet.fields=text,author_id,created_at,lang --------------
+-------------- https://api.twitter.com/2/tweets/search/recent?query=internet_influencer&amp;max_results=100&amp;tweet.fields=text,author_id,created_at,lang --------------
+-------------- https://api.twitter.com/2/tweets/search/recent?query=internet_influencer&amp;max_results=100&amp;tweet.fields=text,author_id,created_at,lang --------------
+-------------- https://api.twitter.com/2/tweets/search/recent?query=internet_influencer&amp;max_results=100&amp;tweet.fields=text,author_id,created_at,lang --------------
+-------------- https://api.twitter.com/2/tweets/search/recent?query=internet_influencer&amp;max_results=100&amp;tweet.fields=text,author_id,created_at,lang --------------
+-------------- https://api.twitter.com/2/tweets/search/recent?query=internet_influencer&amp;max_results=100&amp;tweet.fields=text,author_id,created_at,lang --------------
+-------------- https://api.twitter.com/2/tweets/search/recent?query=internet_influencer&amp;max_results=100&amp;tweet.fields=text,author_id,created_at,lang --------------
+-------------- https://api.twitter.com/2/tweets/search/recent?query=internet_influencer&amp;max_results=100&amp;tweet.fields=text,author_id,created_at,lang --------------
+-------------- https://api.twitter.com/2/tweets/search/recent?query=internet_influencer&amp;max_results=100&amp;tweet.fields=text,author_id,created_at,lang --------------
+-------------- https://api.twitter.com/2/tweets/search/recent?query=internet_influencer&amp;max_results=100&amp;tweet.fields=text,author_id,created_at,lang --------------
+-------------- https://api.twitter.com/2/tweets/search/recent?query=internet_influencer&amp;max_results=100&amp;tweet.fields=text,author_id,created_at,lang --------------
+-------------- https://api.twitter.com/2/tweets/search/recent?query=data&amp;max_results=100&amp;tweet.fields=text,author_id,created_at,lang --------------
+-------------- https://api.twitter.com/2/tweets/search/recent?query=data&amp;max_results=100&amp;tweet.fields=text,author_id,created_at,lang --------------
+-------------- https://api.twitter.com/2/tweets/search/recent?query=data&amp;max_results=100&amp;tweet.fields=text,author_id,created_at,lang --------------
+-------------- https://api.twitter.com/2/tweets/search/recent?query=data&amp;max_results=100&amp;tweet.fields=text,author_id,created_at,lang --------------
+-------------- https://api.twitter.com/2/tweets/search/recent?query=data&amp;max_results=100&amp;tweet.fields=text,author_id,created_at,lang --------------
+-------------- https://api.twitter.com/2/tweets/search/recent?query=data&amp;max_results=100&amp;tweet.fields=text,author_id,created_at,lang --------------
+-------------- https://api.twitter.com/2/tweets/search/recent?query=data&amp;max_results=100&amp;tweet.fields=text,author_id,created_at,lang --------------
+-------------- https://api.twitter.com/2/tweets/search/recent?query=data&amp;max_results=100&amp;tweet.fields=text,author_id,created_at,lang --------------
+-------------- https://api.twitter.com/2/tweets/search/recent?query=data&amp;max_results=100&amp;tweet.fields=text,author_id,created_at,lang --------------
+-------------- https://api.twitter.com/2/tweets/search/recent?query=data&amp;max_results=100&amp;tweet.fields=text,author_id,created_at,lang --------------
+-------------- https://api.twitter.com/2/tweets/search/recent?query=data&amp;max_results=100&amp;tweet.fields=text,author_id,created_at,lang --------------
+-------------- https://api.twitter.com/2/tweets/search/recent?query=data&amp;max_results=100&amp;tweet.fields=text,author_id,created_at,lang --------------
+-------------- https://api.twitter.com/2/tweets/search/recent?query=data&amp;max_results=100&amp;tweet.fields=text,author_id,created_at,lang --------------
+-------------- https://api.twitter.com/2/tweets/search/recent?query=consumer privacy&amp;max_results=100&amp;tweet.fields=text,author_id,created_at,lang --------------
+-------------- https://api.twitter.com/2/tweets/search/recent?query=consumer privacy&amp;max_results=100&amp;tweet.fields=text,author_id,created_at,lang --------------
+-------------- https://api.twitter.com/2/tweets/search/recent?query=consumer privacy&amp;max_results=100&amp;tweet.fields=text,author_id,created_at,lang --------------
+-------------- https://api.twitter.com/2/tweets/search/recent?query=consumer privacy&amp;max_results=100&amp;tweet.fields=text,author_id,created_at,lang --------------
+-------------- https://api.twitter.com/2/tweets/search/recent?query=consumer privacy&amp;max_results=100&amp;tweet.fields=text,author_id,created_at,lang --------------
+-------------- https://api.twitter.com/2/tweets/search/recent?query=consumer privacy&amp;max_results=100&amp;tweet.fields=text,author_id,created_at,lang --------------
+-------------- https://api.twitter.com/2/tweets/search/recent?query=consumer privacy&amp;max_results=100&amp;tweet.fields=text,author_id,created_at,lang --------------
+-------------- https://api.twitter.com/2/tweets/search/recent?query=consumer privacy&amp;max_results=100&amp;tweet.fields=text,author_id,created_at,lang --------------
+-------------- https://api.twitter.com/2/tweets/search/recent?query=consumer privacy&amp;max_results=100&amp;tweet.fields=text,author_id,created_at,lang --------------
+-------------- https://api.twitter.com/2/tweets/search/recent?query=consumer privacy&amp;max_results=100&amp;tweet.fields=text,author_id,created_at,lang --------------
+-------------- https://api.twitter.com/2/tweets/search/recent?query=consumer privacy&amp;max_results=100&amp;tweet.fields=text,author_id,created_at,lang --------------
+-------------- https://api.twitter.com/2/tweets/search/recent?query=consumer privacy&amp;max_results=100&amp;tweet.fields=text,author_id,created_at,lang --------------
+-------------- https://api.twitter.com/2/tweets/search/recent?query=consumer privacy&amp;max_results=100&amp;tweet.fields=text,author_id,created_at,lang --------------</code></pre>
+</div>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>from pandas import json_normalize </span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>import pandas as pd</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>twitterdf1 <span class="ot">=</span> <span class="fu">json_normalize</span>(json_response1,<span class="st">"data"</span>)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>twitterdf2 <span class="ot">=</span> <span class="fu">json_normalize</span>(json_response2,<span class="st">"data"</span>)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>twitterdf3 <span class="ot">=</span> <span class="fu">json_normalize</span>(json_response3,<span class="st">"data"</span>)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>twitterdf4 <span class="ot">=</span> <span class="fu">json_normalize</span>(json_response4,<span class="st">"data"</span>)</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>twitterdf5 <span class="ot">=</span> <span class="fu">json_normalize</span>(json_response5,<span class="st">"data"</span>)</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>twitterdf6 <span class="ot">=</span> <span class="fu">json_normalize</span>(json_response6,<span class="st">"data"</span>)</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>twitterdf7 <span class="ot">=</span> <span class="fu">json_normalize</span>(json_response7,<span class="st">"data"</span>)</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>twitterdf8 <span class="ot">=</span> <span class="fu">json_normalize</span>(json_response8,<span class="st">"data"</span>)</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>twitterdf9 <span class="ot">=</span> <span class="fu">json_normalize</span>(json_response9,<span class="st">"data"</span>)</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>twitterdf10 <span class="ot">=</span> <span class="fu">json_normalize</span>(json_response10,<span class="st">"data"</span>)</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>twitterdf11 <span class="ot">=</span> <span class="fu">json_normalize</span>(json_response11,<span class="st">"data"</span>)</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>twitterdf12 <span class="ot">=</span> <span class="fu">json_normalize</span>(json_response12,<span class="st">"data"</span>)</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>twitterdf13 <span class="ot">=</span> <span class="fu">json_normalize</span>(json_response13,<span class="st">"data"</span>)</span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>twitterdf <span class="ot">=</span> [twitterdf1,twitterdf2,twitterdf3,twitterdf4,twitterdf5,twitterdf6,twitterdf7,twitterdf8,twitterdf9,twitterdf10,twitterdf11,twitterdf12,twitterdf13]</span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>twitterdf <span class="ot">=</span> <span class="fu">pd.concat</span>(twitterdf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="10">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">twitterdf.head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="10">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>text</th>
+      <th>lang</th>
+      <th>id</th>
+      <th>edit_history_tweet_ids</th>
+      <th>created_at</th>
+      <th>author_id</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Virginia’s Consumer Data Protection Act Is Not...</td>
+      <td>en</td>
+      <td>1598150525270122496</td>
+      <td>[1598150525270122496]</td>
+      <td>2022-12-01T03:02:32.000Z</td>
+      <td>16657603</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>consumer tech YouTuber x political satirist sh...</td>
+      <td>en</td>
+      <td>1598144312851959808</td>
+      <td>[1598144312851959808]</td>
+      <td>2022-12-01T02:37:50.000Z</td>
+      <td>785970644668194816</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>We oppose consolidation in the industry that u...</td>
+      <td>en</td>
+      <td>1598138577623613440</td>
+      <td>[1598138577623613440]</td>
+      <td>2022-12-01T02:15:03.000Z</td>
+      <td>1590746349389185025</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>@maker31790747 Until digital money government-...</td>
+      <td>en</td>
+      <td>1598136283985215488</td>
+      <td>[1598136283985215488]</td>
+      <td>2022-12-01T02:05:56.000Z</td>
+      <td>1272443941435199488</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Both consumer advocates and business groups ar...</td>
+      <td>en</td>
+      <td>1598133095600988162</td>
+      <td>[1598133095600988162]</td>
+      <td>2022-12-01T01:53:16.000Z</td>
+      <td>34613951</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">twitterdf.to_csv</span>(<span class="st">"/Users/yangyilin/Desktop/anly-501-project-YilinYang2000-1/data/00-raw-data/twitterpython.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</section>
+<section id="twitter-api-in-r" class="level3">
+<h3 class="anchored" data-anchor-id="twitter-api-in-r">Twitter API in R</h3>
+<p>For R API, I used twitter to scratch keywords like “instagram, tiktok, youtube, facebook” to scratch users’ attitudes about these platforms. I want to search different types of social media platforms in order to do popularity comparison between them. What users discussed more have more tendency to get more popularity. I will build a simple wordcloud at the first glimpse.</p>
+<p>Step1: Load the required packages</p>
+<p>Step2: Use consumer key in order to build a connection between twitter API and R</p>
+<p>Step3: Use twitteR package in order to search on twitter and scratch useful information</p>
+<p>Step4: Store data into dataframes and combine them together</p>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="1">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(selectr)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rvest)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(xml2)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rtweet) <span class="co"># for scraping tweets</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(wordcloud2) <span class="co"># for generating really cool looking wordclouds</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tm) <span class="co"># for text minning</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr) <span class="co"># loads of fun stuff including piping</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ROAuth)</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jsonlite)</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(httpuv)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: NLP
+
+
+Attaching package: ‘dplyr’
+
+
+The following objects are masked from ‘package:stats’:
+
+    filter, lag
+
+
+The following objects are masked from ‘package:base’:
+
+    intersect, setdiff, setequal, union
+
+
+
+Attaching package: ‘jsonlite’
+
+
+The following object is masked from ‘package:rtweet’:
+
+    flatten
+
+</code></pre>
+</div>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>consumer_key <span class="ot">=</span> <span class="st">"9TVmMW3pyds9CwlMhgXBK5Bu5"</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>consumer_secret <span class="ot">=</span> <span class="st">"lTXYO7I5nKTGOp7zJG7jtf7dCmYoQLtbgB4a0w6BZN6ct4mNxT"</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>access_token <span class="ot">=</span> <span class="st">"1553871190036516864-ahw9mcZ1pq36DzwsD7CFgvU0iMnOy4"</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>access_token_secret <span class="ot">=</span> <span class="st">"8DhWYScYuF6KofqS9Gt7ajYs7B4DZKkZSBhoMPgyfnTFp"</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>bearer_token <span class="ot">=</span> <span class="st">"AAAAAAAAAAAAAAAAAAAAAOfFfQEAAAAARkEQiS1bfu9c96%2FD%2FvzbetKGYZk%3DKNBdl2kUeIysZ9wV6n6O4X3zp5enoR6Onp6LqEKQVldRKaDcum"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="3">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(twitteR)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>requestURL<span class="ot">=</span><span class="st">'https://api.twitter.com/oauth/request_token'</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>accessURL<span class="ot">=</span><span class="st">'https://api.twitter.com/oauth/access_token'</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>authURL<span class="ot">=</span><span class="st">'https://api.twitter.com/oauth/authorize'</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>s_key  <span class="ot">=</span> <span class="st">'instagram OR tik tok OR facebook OR youtube'</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>n_tweets <span class="ot">=</span> <span class="dv">250</span> </span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>twitteR<span class="sc">:::</span><span class="fu">setup_twitter_oauth</span>(consumer_key, consumer_secret,access_token,access_token_secret)</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>Search1<span class="ot">&lt;-</span>twitteR<span class="sc">::</span><span class="fu">searchTwitter</span>(s_key,<span class="at">n=</span>n_tweets, <span class="at">since=</span><span class="st">"2022-04-01"</span>,<span class="at">lang=</span><span class="st">"en"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: ‘twitteR’
+
+
+The following objects are masked from ‘package:dplyr’:
+
+    id, location
+
+
+The following object is masked from ‘package:rtweet’:
+
+    lookup_statuses
+
+</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Using direct authentication"</code></pre>
+</div>
+</div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="5">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>TweetsDF<span class="ot">&lt;-</span> <span class="fu">twListToDF</span>(Search1)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(TweetsDF)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+
+<table class="dataframe table table-sm table-striped">
+<caption>A data.frame: 6 × 16</caption>
+<thead>
+    <tr><th></th><th scope="col">text</th><th scope="col">favorited</th><th scope="col">favoriteCount</th><th scope="col">replyToSN</th><th scope="col">created</th><th scope="col">truncated</th><th scope="col">replyToSID</th><th scope="col">id</th><th scope="col">replyToUID</th><th scope="col">statusSource</th><th scope="col">screenName</th><th scope="col">retweetCount</th><th scope="col">isRetweet</th><th scope="col">retweeted</th><th scope="col">longitude</th><th scope="col">latitude</th></tr>
+    <tr><th></th><th scope="col">&lt;chr&gt;</th><th scope="col">&lt;lgl&gt;</th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;chr&gt;</th><th scope="col">&lt;dttm&gt;</th><th scope="col">&lt;lgl&gt;</th><th scope="col">&lt;chr&gt;</th><th scope="col">&lt;chr&gt;</th><th scope="col">&lt;chr&gt;</th><th scope="col">&lt;chr&gt;</th><th scope="col">&lt;chr&gt;</th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;lgl&gt;</th><th scope="col">&lt;lgl&gt;</th><th scope="col">&lt;lgl&gt;</th><th scope="col">&lt;lgl&gt;</th></tr>
+</thead>
+<tbody>
+    <tr><th scope="row">1</th><td>RT @ATEEZofficial: [🎬] Whole new Paradigm✨ #홍중 #성화
+⠀ ⠀
+🔗 https://t.co/vhRJDmpIRv
+🔗 https://t.co/sXpRoqdkO8
+🔗 https://t.co/SO8CQixBvu
+⠀ ⠀
+#A…</td><td>FALSE</td><td>0</td><td><span style="white-space:pre-wrap">NA       </span></td><td>2022-12-01 06:03:27</td><td>FALSE</td><td><span style="white-space:pre-wrap">NA                 </span></td><td>1598196056629866497</td><td><span style="white-space:pre-wrap">NA        </span></td><td>&lt;a href="http://twitter.com/download/android" rel="nofollow"&gt;Twitter for Android&lt;/a&gt;</td><td><span style="white-space:pre-wrap">jyunholoved    </span></td><td>1922</td><td> TRUE</td><td>FALSE</td><td>NA</td><td>NA</td></tr>
+    <tr><th scope="row">2</th><td><span style="white-space:pre-wrap">RT @ygent_official: NVP PROJECT – YG PLUS VIRTUAL ARTIST BRIEFING
+
+NVP PROJECT BRIEFING VIDEO OUT NOW
+➡️ NOW ON YOUTUBE
+
+🔗SAE NA https://t.…          </span></td><td>FALSE</td><td>0</td><td><span style="white-space:pre-wrap">NA       </span></td><td>2022-12-01 06:03:27</td><td>FALSE</td><td><span style="white-space:pre-wrap">NA                 </span></td><td>1598196054985703424</td><td><span style="white-space:pre-wrap">NA        </span></td><td>&lt;a href="http://twitter.com/download/android" rel="nofollow"&gt;Twitter for Android&lt;/a&gt;</td><td><span style="white-space:pre-wrap">ssahiikun      </span></td><td> 421</td><td> TRUE</td><td>FALSE</td><td>NA</td><td>NA</td></tr>
+    <tr><th scope="row">3</th><td><span style="white-space:pre-wrap">@nonoworks I seen the clips and I have seen done funny tik tok edits they are funny                                                                        </span></td><td>FALSE</td><td>0</td><td>nonoworks</td><td>2022-12-01 06:03:27</td><td>FALSE</td><td>1597953553191956480</td><td>1598196054205554688</td><td>2929089169</td><td><span style="white-space:pre-wrap">&lt;a href="http://twitter.com/download/iphone" rel="nofollow"&gt;Twitter for iPhone&lt;/a&gt;  </span></td><td>zeldadungeon234</td><td><span style="white-space:pre-wrap">   0</span></td><td>FALSE</td><td>FALSE</td><td>NA</td><td>NA</td></tr>
+    <tr><th scope="row">4</th><td><span style="white-space:pre-wrap">RT @LaliceUpdates: .@facebook: “you are magic ✨”
+
+🔗 https://t.co/MoGBxAoOjN
+
+#NETIZENSREPORT #LISA for Asian Celebrity of the Year #ACOTY20…         </span></td><td>FALSE</td><td>0</td><td><span style="white-space:pre-wrap">NA       </span></td><td>2022-12-01 06:03:25</td><td>FALSE</td><td><span style="white-space:pre-wrap">NA                 </span></td><td>1598196048371265536</td><td><span style="white-space:pre-wrap">NA        </span></td><td><span style="white-space:pre-wrap">&lt;a href="http://twitter.com/download/iphone" rel="nofollow"&gt;Twitter for iPhone&lt;/a&gt;  </span></td><td><span style="white-space:pre-wrap">hiimblinklisa  </span></td><td> 438</td><td> TRUE</td><td>FALSE</td><td>NA</td><td>NA</td></tr>
+    <tr><th scope="row">5</th><td><span style="white-space:pre-wrap">Good morning fam💕
+Please kindly Join us for Next Level Prayers
+YouTube: https://t.co/Q5qhU7bcCE
+Instagram:… https://t.co/2LV0ceT263                    </span></td><td>FALSE</td><td>0</td><td><span style="white-space:pre-wrap">NA       </span></td><td>2022-12-01 06:03:24</td><td> TRUE</td><td><span style="white-space:pre-wrap">NA                 </span></td><td>1598196043472334849</td><td><span style="white-space:pre-wrap">NA        </span></td><td>&lt;a href="http://twitter.com/download/android" rel="nofollow"&gt;Twitter for Android&lt;/a&gt;</td><td>DefreshKitchen1</td><td><span style="white-space:pre-wrap">   0</span></td><td>FALSE</td><td>FALSE</td><td>NA</td><td>NA</td></tr>
+    <tr><th scope="row">6</th><td>RT @ATEEZofficial: [🎬] Whole new Paradigm✨ #홍중 #성화
+⠀ ⠀
+🔗 https://t.co/vhRJDmpIRv
+🔗 https://t.co/sXpRoqdkO8
+🔗 https://t.co/SO8CQixBvu
+⠀ ⠀
+#A…</td><td>FALSE</td><td>0</td><td><span style="white-space:pre-wrap">NA       </span></td><td>2022-12-01 06:03:23</td><td>FALSE</td><td><span style="white-space:pre-wrap">NA                 </span></td><td>1598196039160209408</td><td><span style="white-space:pre-wrap">NA        </span></td><td>&lt;a href="http://twitter.com/download/android" rel="nofollow"&gt;Twitter for Android&lt;/a&gt;</td><td><span style="white-space:pre-wrap">dazzwoosan     </span></td><td>1922</td><td> TRUE</td><td>FALSE</td><td>NA</td><td>NA</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(TweetsDF,<span class="st">"../data/00-raw-data/tweetinr.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="6">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"tm"</span>)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"SnowballC"</span>)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"wordcloud"</span>)</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"RColorBrewer"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: RColorBrewer
+</code></pre>
+</div>
+</div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="7">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>twittertext <span class="ot">=</span> <span class="fu">Corpus</span>(<span class="fu">VectorSource</span>(TweetsDF<span class="sc">$</span>text))</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>toSpace <span class="ot">=</span> <span class="fu">content_transformer</span>(</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>              <span class="cf">function</span> (x, pattern)</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>              <span class="fu">gsub</span>(pattern, <span class="st">" "</span>, x))</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>twittertext1 <span class="ot">=</span> <span class="fu">tm_map</span>(twittertext, toSpace, <span class="st">"/"</span>)</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>twittertext1 <span class="ot">=</span> <span class="fu">tm_map</span>(twittertext, toSpace, <span class="st">"@"</span>)</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>twittertext1 <span class="ot">=</span> <span class="fu">tm_map</span>(twittertext, toSpace, <span class="st">"#"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning message in tm_map.SimpleCorpus(twittertext, toSpace, "/"):
+“transformation drops documents”
+Warning message in tm_map.SimpleCorpus(twittertext, toSpace, "@"):
+“transformation drops documents”
+Warning message in tm_map.SimpleCorpus(twittertext, toSpace, "#"):
+“transformation drops documents”</code></pre>
+</div>
+</div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="8">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>twittertext1 <span class="ot">=</span> <span class="fu">tm_map</span>(twittertext1, <span class="fu">content_transformer</span>(tolower))</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>twittertext1 <span class="ot">=</span> <span class="fu">tm_map</span>(twittertext1, removeNumbers)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>twittertext1 <span class="ot">=</span> <span class="fu">tm_map</span>(twittertext1, stripWhitespace)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning message in tm_map.SimpleCorpus(twittertext1, content_transformer(tolower)):
+“transformation drops documents”
+Warning message in tm_map.SimpleCorpus(twittertext1, removeNumbers):
+“transformation drops documents”
+Warning message in tm_map.SimpleCorpus(twittertext1, stripWhitespace):
+“transformation drops documents”</code></pre>
+</div>
+</div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="9">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>twittertm <span class="ot">=</span> <span class="fu">TermDocumentMatrix</span>(twittertext1)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>m <span class="ot">=</span> <span class="fu">as.matrix</span>(twittertm)</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>v <span class="ot">=</span> <span class="fu">sort</span>(<span class="fu">rowSums</span>(m), </span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">decreasing =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>d <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">word =</span> <span class="fu">names</span>(v),</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">freq =</span> v)</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(d, <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+
+<table class="dataframe table table-sm table-striped">
+<caption>A data.frame: 10 × 2</caption>
+<thead>
+    <tr><th></th><th scope="col">word</th><th scope="col">freq</th></tr>
+    <tr><th></th><th scope="col">&lt;chr&gt;</th><th scope="col">&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+    <tr><th scope="row">⠀</th><td>⠀              </td><td>412</td></tr>
+    <tr><th scope="row">🔗</th><td>🔗             </td><td>333</td></tr>
+    <tr><th scope="row">new</th><td>new            </td><td>105</td></tr>
+    <tr><th scope="row">whole</th><td>whole          </td><td>105</td></tr>
+    <tr><th scope="row">paradigm✨</th><td>paradigm✨     </td><td>104</td></tr>
+    <tr><th scope="row">성화</th><td>성화           </td><td>104</td></tr>
+    <tr><th scope="row">홍중</th><td>홍중           </td><td>104</td></tr>
+    <tr><th scope="row">@ateezofficial:</th><td>@ateezofficial:</td><td>103</td></tr>
+    <tr><th scope="row">[🎬]</th><td>[🎬]           </td><td>103</td></tr>
+    <tr><th scope="row">a…</th><td>a…             </td><td>102</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="10">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wordcloud</span>(<span class="at">words =</span> d<span class="sc">$</span>word, </span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">freq =</span> d<span class="sc">$</span>freq,</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">min.freq =</span> <span class="dv">1</span>, </span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">max.words =</span> <span class="dv">200</span>,</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">random.order =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">rot.per =</span> <span class="fl">0.35</span>, </span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">colors =</span> <span class="fu">brewer.pal</span>(<span class="dv">8</span>, <span class="st">"Dark2"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on '⠀' in 'mbcsToSbcs': dot substituted for &lt;e2&gt;”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on '⠀' in 'mbcsToSbcs': dot substituted for &lt;a0&gt;”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on '⠀' in 'mbcsToSbcs': dot substituted for &lt;80&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on '⠀' in 'mbcsToSbcs': dot substituted for &lt;e2&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on '⠀' in 'mbcsToSbcs': dot substituted for &lt;a0&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on '⠀' in 'mbcsToSbcs': dot substituted for &lt;80&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“font metrics unknown for Unicode character U+2800”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on '🔗' in 'mbcsToSbcs': dot substituted for &lt;f0&gt;”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on '🔗' in 'mbcsToSbcs': dot substituted for &lt;9f&gt;”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on '🔗' in 'mbcsToSbcs': dot substituted for &lt;94&gt;”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on '🔗' in 'mbcsToSbcs': dot substituted for &lt;97&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on '🔗' in 'mbcsToSbcs': dot substituted for &lt;f0&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on '🔗' in 'mbcsToSbcs': dot substituted for &lt;9f&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on '🔗' in 'mbcsToSbcs': dot substituted for &lt;94&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on '🔗' in 'mbcsToSbcs': dot substituted for &lt;97&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“font metrics unknown for Unicode character U+1f517”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on 'paradigm✨' in 'mbcsToSbcs': dot substituted for &lt;e2&gt;”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on 'paradigm✨' in 'mbcsToSbcs': dot substituted for &lt;9c&gt;”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on 'paradigm✨' in 'mbcsToSbcs': dot substituted for &lt;a8&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on 'paradigm✨' in 'mbcsToSbcs': dot substituted for &lt;e2&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on 'paradigm✨' in 'mbcsToSbcs': dot substituted for &lt;9c&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on 'paradigm✨' in 'mbcsToSbcs': dot substituted for &lt;a8&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“font metrics unknown for Unicode character U+2728”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on '성화' in 'mbcsToSbcs': dot substituted for &lt;ec&gt;”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on '성화' in 'mbcsToSbcs': dot substituted for &lt;84&gt;”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on '성화' in 'mbcsToSbcs': dot substituted for &lt;b1&gt;”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on '성화' in 'mbcsToSbcs': dot substituted for &lt;ed&gt;”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on '성화' in 'mbcsToSbcs': dot substituted for &lt;99&gt;”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on '성화' in 'mbcsToSbcs': dot substituted for &lt;94&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on '성화' in 'mbcsToSbcs': dot substituted for &lt;ec&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on '성화' in 'mbcsToSbcs': dot substituted for &lt;84&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on '성화' in 'mbcsToSbcs': dot substituted for &lt;b1&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on '성화' in 'mbcsToSbcs': dot substituted for &lt;ed&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on '성화' in 'mbcsToSbcs': dot substituted for &lt;99&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on '성화' in 'mbcsToSbcs': dot substituted for &lt;94&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“font metrics unknown for Unicode character U+c131”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“font metrics unknown for Unicode character U+d654”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on '홍중' in 'mbcsToSbcs': dot substituted for &lt;ed&gt;”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on '홍중' in 'mbcsToSbcs': dot substituted for &lt;99&gt;”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on '홍중' in 'mbcsToSbcs': dot substituted for &lt;8d&gt;”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on '홍중' in 'mbcsToSbcs': dot substituted for &lt;ec&gt;”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on '홍중' in 'mbcsToSbcs': dot substituted for &lt;a4&gt;”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on '홍중' in 'mbcsToSbcs': dot substituted for &lt;91&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on '홍중' in 'mbcsToSbcs': dot substituted for &lt;ed&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on '홍중' in 'mbcsToSbcs': dot substituted for &lt;99&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on '홍중' in 'mbcsToSbcs': dot substituted for &lt;8d&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on '홍중' in 'mbcsToSbcs': dot substituted for &lt;ec&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on '홍중' in 'mbcsToSbcs': dot substituted for &lt;a4&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on '홍중' in 'mbcsToSbcs': dot substituted for &lt;91&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“font metrics unknown for Unicode character U+d64d”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“font metrics unknown for Unicode character U+c911”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on '[🎬]' in 'mbcsToSbcs': dot substituted for &lt;f0&gt;”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on '[🎬]' in 'mbcsToSbcs': dot substituted for &lt;9f&gt;”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on '[🎬]' in 'mbcsToSbcs': dot substituted for &lt;8e&gt;”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on '[🎬]' in 'mbcsToSbcs': dot substituted for &lt;ac&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on '[🎬]' in 'mbcsToSbcs': dot substituted for &lt;f0&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on '[🎬]' in 'mbcsToSbcs': dot substituted for &lt;9f&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on '[🎬]' in 'mbcsToSbcs': dot substituted for &lt;8e&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on '[🎬]' in 'mbcsToSbcs': dot substituted for &lt;ac&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“font metrics unknown for Unicode character U+1f3ac”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on 'a…' in 'mbcsToSbcs': dot substituted for &lt;e2&gt;”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on 'a…' in 'mbcsToSbcs': dot substituted for &lt;80&gt;”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on 'a…' in 'mbcsToSbcs': dot substituted for &lt;a6&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on 'a…' in 'mbcsToSbcs': dot substituted for &lt;e2&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on 'a…' in 'mbcsToSbcs': dot substituted for &lt;80&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on 'a…' in 'mbcsToSbcs': dot substituted for &lt;a6&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“font metrics unknown for Unicode character U+2026”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on 'https://t.…' in 'mbcsToSbcs': dot substituted for &lt;e2&gt;”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on 'https://t.…' in 'mbcsToSbcs': dot substituted for &lt;80&gt;”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on 'https://t.…' in 'mbcsToSbcs': dot substituted for &lt;a6&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on 'https://t.…' in 'mbcsToSbcs': dot substituted for &lt;e2&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on 'https://t.…' in 'mbcsToSbcs': dot substituted for &lt;80&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on 'https://t.…' in 'mbcsToSbcs': dot substituted for &lt;a6&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“font metrics unknown for Unicode character U+2026”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on '–' in 'mbcsToSbcs': dot substituted for &lt;e2&gt;”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on '–' in 'mbcsToSbcs': dot substituted for &lt;80&gt;”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on '–' in 'mbcsToSbcs': dot substituted for &lt;93&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on '–' in 'mbcsToSbcs': dot substituted for &lt;e2&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on '–' in 'mbcsToSbcs': dot substituted for &lt;80&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on '–' in 'mbcsToSbcs': dot substituted for &lt;93&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“font metrics unknown for Unicode character U+2013”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on '➡️' in 'mbcsToSbcs': dot substituted for &lt;e2&gt;”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on '➡️' in 'mbcsToSbcs': dot substituted for &lt;9e&gt;”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on '➡️' in 'mbcsToSbcs': dot substituted for &lt;a1&gt;”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on '➡️' in 'mbcsToSbcs': dot substituted for &lt;ef&gt;”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on '➡️' in 'mbcsToSbcs': dot substituted for &lt;b8&gt;”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on '➡️' in 'mbcsToSbcs': dot substituted for &lt;8f&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on '➡️' in 'mbcsToSbcs': dot substituted for &lt;e2&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on '➡️' in 'mbcsToSbcs': dot substituted for &lt;9e&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on '➡️' in 'mbcsToSbcs': dot substituted for &lt;a1&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on '➡️' in 'mbcsToSbcs': dot substituted for &lt;ef&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on '➡️' in 'mbcsToSbcs': dot substituted for &lt;b8&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on '➡️' in 'mbcsToSbcs': dot substituted for &lt;8f&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“font metrics unknown for Unicode character U+27a1”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“font metrics unknown for Unicode character U+fe0f”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on '🔗sae' in 'mbcsToSbcs': dot substituted for &lt;f0&gt;”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on '🔗sae' in 'mbcsToSbcs': dot substituted for &lt;9f&gt;”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on '🔗sae' in 'mbcsToSbcs': dot substituted for &lt;94&gt;”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on '🔗sae' in 'mbcsToSbcs': dot substituted for &lt;97&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on '🔗sae' in 'mbcsToSbcs': dot substituted for &lt;f0&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on '🔗sae' in 'mbcsToSbcs': dot substituted for &lt;9f&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on '🔗sae' in 'mbcsToSbcs': dot substituted for &lt;94&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on '🔗sae' in 'mbcsToSbcs': dot substituted for &lt;97&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“font metrics unknown for Unicode character U+1f517”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on 'acoty…' in 'mbcsToSbcs': dot substituted for &lt;e2&gt;”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on 'acoty…' in 'mbcsToSbcs': dot substituted for &lt;80&gt;”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on 'acoty…' in 'mbcsToSbcs': dot substituted for &lt;a6&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on 'acoty…' in 'mbcsToSbcs': dot substituted for &lt;e2&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on 'acoty…' in 'mbcsToSbcs': dot substituted for &lt;80&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on 'acoty…' in 'mbcsToSbcs': dot substituted for &lt;a6&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“font metrics unknown for Unicode character U+2026”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on '“you' in 'mbcsToSbcs': dot substituted for &lt;e2&gt;”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on '“you' in 'mbcsToSbcs': dot substituted for &lt;80&gt;”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on '“you' in 'mbcsToSbcs': dot substituted for &lt;9c&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on '“you' in 'mbcsToSbcs': dot substituted for &lt;e2&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on '“you' in 'mbcsToSbcs': dot substituted for &lt;80&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on '“you' in 'mbcsToSbcs': dot substituted for &lt;9c&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“font metrics unknown for Unicode character U+201c”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on '✨”' in 'mbcsToSbcs': dot substituted for &lt;e2&gt;”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on '✨”' in 'mbcsToSbcs': dot substituted for &lt;9c&gt;”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on '✨”' in 'mbcsToSbcs': dot substituted for &lt;a8&gt;”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on '✨”' in 'mbcsToSbcs': dot substituted for &lt;e2&gt;”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on '✨”' in 'mbcsToSbcs': dot substituted for &lt;80&gt;”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on '✨”' in 'mbcsToSbcs': dot substituted for &lt;9d&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on '✨”' in 'mbcsToSbcs': dot substituted for &lt;e2&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on '✨”' in 'mbcsToSbcs': dot substituted for &lt;9c&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on '✨”' in 'mbcsToSbcs': dot substituted for &lt;a8&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on '✨”' in 'mbcsToSbcs': dot substituted for &lt;e2&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on '✨”' in 'mbcsToSbcs': dot substituted for &lt;80&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on '✨”' in 'mbcsToSbcs': dot substituted for &lt;9d&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“font metrics unknown for Unicode character U+2728”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“font metrics unknown for Unicode character U+201d”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on '🚨' in 'mbcsToSbcs': dot substituted for &lt;f0&gt;”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on '🚨' in 'mbcsToSbcs': dot substituted for &lt;9f&gt;”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on '🚨' in 'mbcsToSbcs': dot substituted for &lt;9a&gt;”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on '🚨' in 'mbcsToSbcs': dot substituted for &lt;a8&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on '🚨' in 'mbcsToSbcs': dot substituted for &lt;f0&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on '🚨' in 'mbcsToSbcs': dot substituted for &lt;9f&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on '🚨' in 'mbcsToSbcs': dot substituted for &lt;9a&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on '🚨' in 'mbcsToSbcs': dot substituted for &lt;a8&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“font metrics unknown for Unicode character U+1f6a8”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on 'designs,…' in 'mbcsToSbcs': dot substituted for &lt;e2&gt;”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on 'designs,…' in 'mbcsToSbcs': dot substituted for &lt;80&gt;”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on 'designs,…' in 'mbcsToSbcs': dot substituted for &lt;a6&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on 'designs,…' in 'mbcsToSbcs': dot substituted for &lt;e2&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on 'designs,…' in 'mbcsToSbcs': dot substituted for &lt;80&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on 'designs,…' in 'mbcsToSbcs': dot substituted for &lt;a6&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“font metrics unknown for Unicode character U+2026”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on 'fac…' in 'mbcsToSbcs': dot substituted for &lt;e2&gt;”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on 'fac…' in 'mbcsToSbcs': dot substituted for &lt;80&gt;”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on 'fac…' in 'mbcsToSbcs': dot substituted for &lt;a6&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on 'fac…' in 'mbcsToSbcs': dot substituted for &lt;e2&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on 'fac…' in 'mbcsToSbcs': dot substituted for &lt;80&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on 'fac…' in 'mbcsToSbcs': dot substituted for &lt;a6&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“font metrics unknown for Unicode character U+2026”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on 'i’m' in 'mbcsToSbcs': dot substituted for &lt;e2&gt;”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on 'i’m' in 'mbcsToSbcs': dot substituted for &lt;80&gt;”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on 'i’m' in 'mbcsToSbcs': dot substituted for &lt;99&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on 'i’m' in 'mbcsToSbcs': dot substituted for &lt;e2&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on 'i’m' in 'mbcsToSbcs': dot substituted for &lt;80&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on 'i’m' in 'mbcsToSbcs': dot substituted for &lt;99&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“font metrics unknown for Unicode character U+2019”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on 'don’t' in 'mbcsToSbcs': dot substituted for &lt;e2&gt;”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on 'don’t' in 'mbcsToSbcs': dot substituted for &lt;80&gt;”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on 'don’t' in 'mbcsToSbcs': dot substituted for &lt;99&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on 'don’t' in 'mbcsToSbcs': dot substituted for &lt;e2&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on 'don’t' in 'mbcsToSbcs': dot substituted for &lt;80&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on 'don’t' in 'mbcsToSbcs': dot substituted for &lt;99&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“font metrics unknown for Unicode character U+2019”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on '🐯:https://t.co/gidwxce…' in 'mbcsToSbcs': dot substituted for &lt;f0&gt;”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on '🐯:https://t.co/gidwxce…' in 'mbcsToSbcs': dot substituted for &lt;9f&gt;”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on '🐯:https://t.co/gidwxce…' in 'mbcsToSbcs': dot substituted for &lt;90&gt;”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on '🐯:https://t.co/gidwxce…' in 'mbcsToSbcs': dot substituted for &lt;af&gt;”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on '🐯:https://t.co/gidwxce…' in 'mbcsToSbcs': dot substituted for &lt;e2&gt;”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on '🐯:https://t.co/gidwxce…' in 'mbcsToSbcs': dot substituted for &lt;80&gt;”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on '🐯:https://t.co/gidwxce…' in 'mbcsToSbcs': dot substituted for &lt;a6&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on '🐯:https://t.co/gidwxce…' in 'mbcsToSbcs': dot substituted for &lt;f0&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on '🐯:https://t.co/gidwxce…' in 'mbcsToSbcs': dot substituted for &lt;9f&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on '🐯:https://t.co/gidwxce…' in 'mbcsToSbcs': dot substituted for &lt;90&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on '🐯:https://t.co/gidwxce…' in 'mbcsToSbcs': dot substituted for &lt;af&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on '🐯:https://t.co/gidwxce…' in 'mbcsToSbcs': dot substituted for &lt;e2&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on '🐯:https://t.co/gidwxce…' in 'mbcsToSbcs': dot substituted for &lt;80&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on '🐯:https://t.co/gidwxce…' in 'mbcsToSbcs': dot substituted for &lt;a6&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“font metrics unknown for Unicode character U+1f42f”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“font metrics unknown for Unicode character U+2026”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on 'to…' in 'mbcsToSbcs': dot substituted for &lt;e2&gt;”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on 'to…' in 'mbcsToSbcs': dot substituted for &lt;80&gt;”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on 'to…' in 'mbcsToSbcs': dot substituted for &lt;a6&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on 'to…' in 'mbcsToSbcs': dot substituted for &lt;e2&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on 'to…' in 'mbcsToSbcs': dot substituted for &lt;80&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on 'to…' in 'mbcsToSbcs': dot substituted for &lt;a6&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“font metrics unknown for Unicode character U+2026”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on 'https://t.co/z…' in 'mbcsToSbcs': dot substituted for &lt;e2&gt;”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on 'https://t.co/z…' in 'mbcsToSbcs': dot substituted for &lt;80&gt;”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on 'https://t.co/z…' in 'mbcsToSbcs': dot substituted for &lt;a6&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on 'https://t.co/z…' in 'mbcsToSbcs': dot substituted for &lt;e2&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on 'https://t.co/z…' in 'mbcsToSbcs': dot substituted for &lt;80&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on 'https://t.co/z…' in 'mbcsToSbcs': dot substituted for &lt;a6&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“font metrics unknown for Unicode character U+2026”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on '…' in 'mbcsToSbcs': dot substituted for &lt;e2&gt;”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on '…' in 'mbcsToSbcs': dot substituted for &lt;80&gt;”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on '…' in 'mbcsToSbcs': dot substituted for &lt;a6&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on '…' in 'mbcsToSbcs': dot substituted for &lt;e2&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on '…' in 'mbcsToSbcs': dot substituted for &lt;80&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on '…' in 'mbcsToSbcs': dot substituted for &lt;a6&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“font metrics unknown for Unicode character U+2026”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on 'https://t.co/t…' in 'mbcsToSbcs': dot substituted for &lt;e2&gt;”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on 'https://t.co/t…' in 'mbcsToSbcs': dot substituted for &lt;80&gt;”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on 'https://t.co/t…' in 'mbcsToSbcs': dot substituted for &lt;a6&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on 'https://t.co/t…' in 'mbcsToSbcs': dot substituted for &lt;e2&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on 'https://t.co/t…' in 'mbcsToSbcs': dot substituted for &lt;80&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on 'https://t.co/t…' in 'mbcsToSbcs': dot substituted for &lt;a6&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“font metrics unknown for Unicode character U+2026”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on '😍' in 'mbcsToSbcs': dot substituted for &lt;f0&gt;”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on '😍' in 'mbcsToSbcs': dot substituted for &lt;9f&gt;”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on '😍' in 'mbcsToSbcs': dot substituted for &lt;98&gt;”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on '😍' in 'mbcsToSbcs': dot substituted for &lt;8d&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on '😍' in 'mbcsToSbcs': dot substituted for &lt;f0&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on '😍' in 'mbcsToSbcs': dot substituted for &lt;9f&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on '😍' in 'mbcsToSbcs': dot substituted for &lt;98&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on '😍' in 'mbcsToSbcs': dot substituted for &lt;8d&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“font metrics unknown for Unicode character U+1f60d”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on '🥰' in 'mbcsToSbcs': dot substituted for &lt;f0&gt;”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on '🥰' in 'mbcsToSbcs': dot substituted for &lt;9f&gt;”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on '🥰' in 'mbcsToSbcs': dot substituted for &lt;a5&gt;”
+Warning message in strwidth(words[i], cex = size[i], ...):
+“conversion failure on '🥰' in 'mbcsToSbcs': dot substituted for &lt;b0&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on '🥰' in 'mbcsToSbcs': dot substituted for &lt;f0&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on '🥰' in 'mbcsToSbcs': dot substituted for &lt;9f&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on '🥰' in 'mbcsToSbcs': dot substituted for &lt;a5&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“conversion failure on '🥰' in 'mbcsToSbcs': dot substituted for &lt;b0&gt;”
+Warning message in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * :
+“font metrics unknown for Unicode character U+1f970”</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="Data_gathering1_files/figure-html/cell-21-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>Start the project by discovering your environment. The level of detail in the data you collect depends on your business needs. If you need to support a business case or provide financial estimates for other purposes, start by collecting the necessary data to create an annual run rate and migration cost estimate. If you don’t need financial estimates, focus on the application and infrastructure data you need. These data complement the core data required to create cost estimates and will be used during the analysis phase.</p>
+<p>Understanding the dependencies between applications and infrastructure (that is, application-to-application, application-to-infrastructure) is critical to determining the impact of mobile workloads. The amount of data required may also vary depending on factors such as business impact or the extent of the impact if the application is unavailable, as migrations often require planned downtime windows. It is rare that all the data is collected, so use good judgment in deciding when there is enough data to move on to the next stage.</p>
+<p>Through data gethering, I get a lot of useful information about our project. These kinds of information will help us understand the topic our project more and will get more information in the next several processes</p>
+</section>
+<section id="reference" class="level2">
+<h2 class="anchored" data-anchor-id="reference">Reference</h2>
+<p>Jha, S. (2022, August 13). Top instagram influencers data (cleaned). Kaggle. Retrieved November 30, 2022, from https://www.kaggle.com/datasets/surajjha101/top-instagram-influencers-data-cleaned</p>
+<p>Khaiid. (2022, January 15). 🖱️ will the advertisement be clicked ? Kaggle. Retrieved November 30, 2022, from https://www.kaggle.com/code/khaiid/will-the-advertisement-be-clicked</p>
+<p>Wikimedia Foundation. (2022, November 15). Data collection. Wikipedia. Retrieved November 30, 2022, from https://en.wikipedia.org/wiki/Data_collection</p>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
