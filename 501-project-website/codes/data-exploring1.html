@@ -689,14 +689,14 @@ country: users' origin. What countries they from?</code></pre>
 </div>
 </div>
 <p>Firstly, I want to plot the distribution of instagram influencers’ countries in order to further discuss what countries influencers are more popular among the world.</p>
-<div class="cell" data-execution_count="16">
+<div class="cell" data-execution_count="17">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>sns.<span class="bu">set</span>(rc<span class="op">=</span>{<span class="st">'figure.figsize'</span>:(<span class="dv">50</span>,<span class="dv">50</span>)})</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>pie <span class="op">=</span> insta.country.value_counts().plot(kind<span class="op">=</span><span class="st">'pie'</span>,autopct<span class="op">=</span><span class="st">'%1.0f</span><span class="sc">%%</span><span class="st">'</span>,textprops<span class="op">=</span>{<span class="st">'fontsize'</span>: <span class="dv">50</span>})<span class="co">#Use pieplot the distribution of countries</span></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>pie.set_title(<span class="st">"Country distribution among internet influencers"</span>,fontdict<span class="op">=</span> { <span class="st">'fontsize'</span>: <span class="dv">50</span>,<span class="st">'fontweight'</span>:<span class="st">'bold'</span>}) <span class="co">#set title for this plot</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>pie.set_title(<span class="st">"Country distribution among internet influencers"</span>,fontdict<span class="op">=</span> { <span class="st">'fontsize'</span>: <span class="dv">100</span>,<span class="st">'fontweight'</span>:<span class="st">'bold'</span>}) <span class="co">#set title for this plot</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="16">
+<div class="cell-output cell-output-display" data-execution_count="17">
 <pre><code>Text(0.5, 1.0, 'Country distribution among internet influencers')</code></pre>
 </div>
 <div class="cell-output cell-output-display">
