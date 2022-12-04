@@ -98,15 +98,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </head>
 
-<body class="fullcontent">
+<body>
 
 <div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
-
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">Contents</h2>
+   
+  <ul>
+  <li><a href="#what-is-naive-bayes" id="toc-what-is-naive-bayes" class="nav-link active" data-scroll-target="#what-is-naive-bayes">What is Naive Bayes?</a></li>
+  <li><a href="#naïve-bayes-nb-in-python-with-labeled-text-data" id="toc-naïve-bayes-nb-in-python-with-labeled-text-data" class="nav-link" data-scroll-target="#naïve-bayes-nb-in-python-with-labeled-text-data">Naïve Bayes (NB) in Python with Labeled Text Data</a></li>
+  <li><a href="#naive-bayes-in-r" id="toc-naive-bayes-in-r" class="nav-link" data-scroll-target="#naive-bayes-in-r">Naive Bayes in R</a></li>
+  </ul>
+</nav>
+</div>
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Naive Bayes</h1>
+<div class="quarto-title-block"><div><h1 class="title">Naive Bayes</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li></ul></div></div>
 </div>
 
 
@@ -429,54 +439,6 @@ Categories (3, object): ['low' &lt; 'medium' &lt; 'high']</code></pre>
 <span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>library(ggplot2)</span>
 <span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>library(psych)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-stderr">
-<pre><code>Loading required package: ggplot2
-
-Loading required package: lattice
-
-
-Attaching package: ‘plotly’
-
-
-The following object is masked from ‘package:ggplot2’:
-
-    last_plot
-
-
-The following object is masked from ‘package:stats’:
-
-    filter
-
-
-The following object is masked from ‘package:graphics’:
-
-    layout
-
-
-
-Attaching package: ‘dplyr’
-
-
-The following objects are masked from ‘package:stats’:
-
-    filter, lag
-
-
-The following objects are masked from ‘package:base’:
-
-    intersect, setdiff, setequal, union
-
-
-
-Attaching package: ‘psych’
-
-
-The following objects are masked from ‘package:ggplot2’:
-
-    %+%, alpha
-
-</code></pre>
-</div>
 </div>
 </section>
 <section id="load-the-required-dataset" class="level5">
@@ -484,8 +446,8 @@ The following objects are masked from ‘package:ggplot2’:
 <div class="cell" data-execution_count="3">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> read.csv(<span class="st">"../data/01-modified-data/instagram_infl.csv"</span>)</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>head(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> read.csv(<span class="st">"../data/01-modified-data/instagram_infl.csv"</span>)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>head(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 
@@ -522,7 +484,7 @@ The following objects are masked from ‘package:ggplot2’:
 <div class="cell" data-execution_count="4">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>xtabs(<span class="op">~</span>data$influence_score, data <span class="op">=</span> data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>xtabs(<span class="op">~</span>data$influence_score, data <span class="op">=</span> data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 <pre><code>data$influence_score
@@ -536,15 +498,15 @@ The following objects are masked from ‘package:ggplot2’:
 <div class="cell" data-execution_count="7">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>data <span class="op">&lt;-</span> data <span class="op">%&gt;%</span> mutate(new_bin <span class="op">=</span> cut(influence_score, breaks<span class="op">=</span>c(<span class="dv">0</span>,<span class="dv">77</span>,<span class="dv">84</span>,<span class="dv">100</span>)))<span class="co">#cut influence scores into different bins</span></span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>data$new_bin <span class="op">&lt;-</span> <span class="im">as</span>.character(data$new_bin)</span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>data$new_bin[data$new_bin<span class="op">==</span><span class="st">"(0,77]"</span>]<span class="op">&lt;-</span><span class="st">"low"</span></span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>data$new_bin[data$new_bin<span class="op">==</span><span class="st">"(77,84]"</span>]<span class="op">&lt;-</span><span class="st">"medium"</span></span>
-<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>data$new_bin[data$new_bin<span class="op">==</span><span class="st">"(84,100]"</span>]<span class="op">&lt;-</span><span class="st">"high"</span></span>
-<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Catergorized scores between 0-60 as low scores, 60-85 as medium scores,85-100 as high scores</span></span>
-<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>data$new_bin <span class="op">&lt;-</span> <span class="im">as</span>.factor(data$new_bin) <span class="co"># Factorize the column new_bin for futher classification</span></span>
-<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>head(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>data <span class="op">&lt;-</span> data <span class="op">%&gt;%</span> mutate(new_bin <span class="op">=</span> cut(influence_score, breaks<span class="op">=</span>c(<span class="dv">0</span>,<span class="dv">77</span>,<span class="dv">84</span>,<span class="dv">100</span>)))<span class="co">#cut influence scores into different bins</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>data$new_bin <span class="op">&lt;-</span> <span class="im">as</span>.character(data$new_bin)</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>data$new_bin[data$new_bin<span class="op">==</span><span class="st">"(0,77]"</span>]<span class="op">&lt;-</span><span class="st">"low"</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>data$new_bin[data$new_bin<span class="op">==</span><span class="st">"(77,84]"</span>]<span class="op">&lt;-</span><span class="st">"medium"</span></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>data$new_bin[data$new_bin<span class="op">==</span><span class="st">"(84,100]"</span>]<span class="op">&lt;-</span><span class="st">"high"</span></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Catergorized scores between 0-60 as low scores, 60-85 as medium scores,85-100 as high scores</span></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>data$new_bin <span class="op">&lt;-</span> <span class="im">as</span>.factor(data$new_bin) <span class="co"># Factorize the column new_bin for futher classification</span></span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>head(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 
@@ -570,16 +532,16 @@ The following objects are masked from ‘package:ggplot2’:
 <h5 class="anchored" data-anchor-id="split-dataset-into-train-and-test">Split dataset into train and test</h5>
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>split <span class="op">&lt;-</span> sample.split(data, SplitRatio <span class="op">=</span> <span class="fl">0.8</span>)</span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>train <span class="op">&lt;-</span> subset(data, split <span class="op">==</span> <span class="st">"TRUE"</span>)</span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>test <span class="op">&lt;-</span> subset(data, split <span class="op">==</span> <span class="st">"FALSE"</span>)</span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>train <span class="op">&lt;-</span> subset(train,select <span class="op">=</span> <span class="op">-</span>c(X,channel_info,country,rank,influence_score)) <span class="co">#Drop columns which are not required</span></span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>test <span class="op">&lt;-</span> subset(test,select <span class="op">=</span> <span class="op">-</span>c(X,channel_info,country,rank,influence_score))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>split <span class="op">&lt;-</span> sample.split(data, SplitRatio <span class="op">=</span> <span class="fl">0.8</span>)</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>train <span class="op">&lt;-</span> subset(data, split <span class="op">==</span> <span class="st">"TRUE"</span>)</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>test <span class="op">&lt;-</span> subset(data, split <span class="op">==</span> <span class="st">"FALSE"</span>)</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>train <span class="op">&lt;-</span> subset(train,select <span class="op">=</span> <span class="op">-</span>c(X,channel_info,country,rank,influence_score)) <span class="co">#Drop columns which are not required</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>test <span class="op">&lt;-</span> subset(test,select <span class="op">=</span> <span class="op">-</span>c(X,channel_info,country,rank,influence_score))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell" data-execution_count="9">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>head(train)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>head(train)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 
@@ -603,7 +565,7 @@ The following objects are masked from ‘package:ggplot2’:
 <div class="cell" data-execution_count="10">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>head(test)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>head(test)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 
@@ -627,7 +589,7 @@ The following objects are masked from ‘package:ggplot2’:
 <div class="cell" data-execution_count="11">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>pairs.panels(train[<span class="op">-</span><span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>pairs.panels(train[<span class="op">-</span><span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 <p><img src="Naive-Bayes1_files/figure-html/cell-25-output-1.png" class="img-fluid"></p>
@@ -639,14 +601,14 @@ The following objects are masked from ‘package:ggplot2’:
 <h5 class="anchored" data-anchor-id="naive-bayes-classification-1">Naive Bayes Classification</h5>
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">&lt;-</span> naiveBayes(new_bin <span class="op">~</span> ., data <span class="op">=</span> train, usekernel <span class="op">=</span> T) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">&lt;-</span> naiveBayes(new_bin <span class="op">~</span> ., data <span class="op">=</span> train, usekernel <span class="op">=</span> T) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell" data-execution_count="13">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">&lt;-</span> predict(model, newdata <span class="op">=</span> test)</span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>conf_mat <span class="op">&lt;-</span> table(test$new_bin,y_pred) </span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>confusionMatrix(conf_mat) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">&lt;-</span> predict(model, newdata <span class="op">=</span> test)</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>conf_mat <span class="op">&lt;-</span> table(test$new_bin,y_pred) </span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>confusionMatrix(conf_mat) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 <pre><code>Confusion Matrix and Statistics
@@ -687,9 +649,9 @@ Balanced Accuracy         0.6771    0.62016        0.6002</code></pre>
 <div class="cell" data-execution_count="16">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>my_colors <span class="op">&lt;-</span> colorRampPalette(c(<span class="st">"pink"</span>, <span class="st">"blue"</span>))</span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>heatmap(conf_mat,col <span class="op">=</span> my_colors(<span class="dv">3</span>))</span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>legend(x<span class="op">=</span><span class="st">"right"</span>,legend <span class="op">=</span> c(<span class="st">"min"</span>, <span class="st">"med"</span>, <span class="st">"max"</span>),fill <span class="op">=</span> my_colors(<span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>my_colors <span class="op">&lt;-</span> colorRampPalette(c(<span class="st">"pink"</span>, <span class="st">"blue"</span>))</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>heatmap(conf_mat,col <span class="op">=</span> my_colors(<span class="dv">3</span>))</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>legend(x<span class="op">=</span><span class="st">"right"</span>,legend <span class="op">=</span> c(<span class="st">"min"</span>, <span class="st">"med"</span>, <span class="st">"max"</span>),fill <span class="op">=</span> my_colors(<span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 <p><img src="Naive-Bayes1_files/figure-html/cell-28-output-1.png" class="img-fluid"></p>
@@ -706,14 +668,14 @@ Balanced Accuracy         0.6771    0.62016        0.6002</code></pre>
 <div class="cell" data-execution_count="18">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">&lt;-</span> naiveBayes(new_bin <span class="op">~</span> total_likes.b., data <span class="op">=</span> train, usekernel <span class="op">=</span> T) </span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">&lt;-</span> predict(model, newdata <span class="op">=</span> test)</span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>conf_mat <span class="op">&lt;-</span> table(test$new_bin,y_pred) </span>
-<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>confusionMatrix(conf_mat) </span>
-<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>my_colors <span class="op">&lt;-</span> colorRampPalette(c(<span class="st">"pink"</span>, <span class="st">"blue"</span>))</span>
-<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>heatmap(conf_mat,col <span class="op">=</span> my_colors(<span class="dv">3</span>))</span>
-<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>legend(x<span class="op">=</span><span class="st">"right"</span>,legend <span class="op">=</span> c(<span class="st">"min"</span>, <span class="st">"med"</span>, <span class="st">"max"</span>),fill <span class="op">=</span> my_colors(<span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">&lt;-</span> naiveBayes(new_bin <span class="op">~</span> total_likes.b., data <span class="op">=</span> train, usekernel <span class="op">=</span> T) </span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">&lt;-</span> predict(model, newdata <span class="op">=</span> test)</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>conf_mat <span class="op">&lt;-</span> table(test$new_bin,y_pred) </span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>confusionMatrix(conf_mat) </span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>my_colors <span class="op">&lt;-</span> colorRampPalette(c(<span class="st">"pink"</span>, <span class="st">"blue"</span>))</span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>heatmap(conf_mat,col <span class="op">=</span> my_colors(<span class="dv">3</span>))</span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>legend(x<span class="op">=</span><span class="st">"right"</span>,legend <span class="op">=</span> c(<span class="st">"min"</span>, <span class="st">"med"</span>, <span class="st">"max"</span>),fill <span class="op">=</span> my_colors(<span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 <pre><code>Confusion Matrix and Statistics
@@ -794,6 +756,57 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
   function tippyHover(el, contentFn) {
     const config = {
       allowHTML: true,

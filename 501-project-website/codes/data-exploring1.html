@@ -98,15 +98,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </head>
 
-<body class="fullcontent">
+<body>
 
 <div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
-
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">Contents</h2>
+   
+  <ul>
+  <li><a href="#exploratory-data-analysiseda" id="toc-exploratory-data-analysiseda" class="nav-link active" data-scroll-target="#exploratory-data-analysiseda">Exploratory data analysis(EDA)</a></li>
+  <li><a href="#part-1-twitter-api-in-python" id="toc-part-1-twitter-api-in-python" class="nav-link" data-scroll-target="#part-1-twitter-api-in-python">Part 1 Twitter API in Python</a>
+  <ul class="collapse">
+  <li><a href="#twitter-api-in-r" id="toc-twitter-api-in-r" class="nav-link" data-scroll-target="#twitter-api-in-r">Twitter API in R</a></li>
+  <li><a href="#part-3-instgram-influencer-dataset" id="toc-part-3-instgram-influencer-dataset" class="nav-link" data-scroll-target="#part-3-instgram-influencer-dataset">Part 3 Instgram Influencer dataset</a></li>
+  <li><a href="#advertising-dataset" id="toc-advertising-dataset" class="nav-link" data-scroll-target="#advertising-dataset">Advertising dataset</a></li>
+  </ul></li>
+  </ul>
+</nav>
+</div>
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Exploring Data</h1>
+<div class="quarto-title-block"><div><h1 class="title">Exploring Data</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li></ul></div></div>
 </div>
 
 
@@ -480,26 +494,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>suppressWarnings(expr)<span class="co">#ignore warning</span></span>
 <span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>options(warn<span class="op">=-</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-stderr">
-<pre><code>Loading required package: NLP
-
-
-Attaching package: ‘dplyr’
-
-
-The following objects are masked from ‘package:stats’:
-
-    filter, lag
-
-
-The following objects are masked from ‘package:base’:
-
-    intersect, setdiff, setequal, union
-
-
-Loading required package: RColorBrewer
-</code></pre>
-</div>
 <div class="cell-output cell-output-display">
 <pre class="language-r"><code>function (expr) 
 {
@@ -513,8 +507,8 @@ Loading required package: RColorBrewer
 <div class="cell" data-execution_count="2">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>d <span class="op">&lt;-</span> read.csv(<span class="st">"../data/00-raw-data/twittertm.csv"</span>)</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>head(d)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>d <span class="op">&lt;-</span> read.csv(<span class="st">"../data/00-raw-data/twittertm.csv"</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>head(d)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 
@@ -539,16 +533,16 @@ Loading required package: RColorBrewer
 <div class="cell" data-execution_count="3">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Gather a wordcloud</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>wordcloud(words <span class="op">=</span> d$word, </span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>          freq <span class="op">=</span> d$freq,</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>          <span class="bu">min</span>.freq <span class="op">=</span> <span class="dv">1</span>, </span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>          <span class="bu">max</span>.words <span class="op">=</span> <span class="dv">200</span>,</span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>          random.order <span class="op">=</span> FALSE, </span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>          rot.per <span class="op">=</span> <span class="fl">0.35</span>, </span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>          colors <span class="op">=</span> brewer.pal(<span class="dv">8</span>, <span class="st">"Dark2"</span>),</span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>          widgetsize <span class="op">=</span>c(<span class="st">"1000"</span>,<span class="st">"1000"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Gather a wordcloud</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>wordcloud(words <span class="op">=</span> d$word, </span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>          freq <span class="op">=</span> d$freq,</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>          <span class="bu">min</span>.freq <span class="op">=</span> <span class="dv">1</span>, </span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>          <span class="bu">max</span>.words <span class="op">=</span> <span class="dv">200</span>,</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>          random.order <span class="op">=</span> FALSE, </span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>          rot.per <span class="op">=</span> <span class="fl">0.35</span>, </span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>          colors <span class="op">=</span> brewer.pal(<span class="dv">8</span>, <span class="st">"Dark2"</span>),</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>          widgetsize <span class="op">=</span>c(<span class="st">"1000"</span>,<span class="st">"1000"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 <p><img src="data-exploring1_files/figure-html/cell-13-output-1.png" class="img-fluid"></p>
@@ -588,8 +582,8 @@ country: users' origin. What countries they from?</code></pre>
 <div class="cell" data-execution_count="2">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>insta <span class="op">=</span> pd.read_csv(<span class="st">'../data/01-modified-data/instagram_infl.csv'</span>)</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>insta.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>insta <span class="op">=</span> pd.read_csv(<span class="st">'../data/01-modified-data/instagram_infl.csv'</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>insta.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display" data-execution_count="2">
 
@@ -692,9 +686,9 @@ country: users' origin. What countries they from?</code></pre>
 <div class="cell" data-execution_count="17">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>sns.<span class="bu">set</span>(rc<span class="op">=</span>{<span class="st">'figure.figsize'</span>:(<span class="dv">50</span>,<span class="dv">50</span>)})</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>pie <span class="op">=</span> insta.country.value_counts().plot(kind<span class="op">=</span><span class="st">'pie'</span>,autopct<span class="op">=</span><span class="st">'%1.0f</span><span class="sc">%%</span><span class="st">'</span>,textprops<span class="op">=</span>{<span class="st">'fontsize'</span>: <span class="dv">50</span>})<span class="co">#Use pieplot the distribution of countries</span></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>pie.set_title(<span class="st">"Country distribution among internet influencers"</span>,fontdict<span class="op">=</span> { <span class="st">'fontsize'</span>: <span class="dv">100</span>,<span class="st">'fontweight'</span>:<span class="st">'bold'</span>}) <span class="co">#set title for this plot</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>sns.<span class="bu">set</span>(rc<span class="op">=</span>{<span class="st">'figure.figsize'</span>:(<span class="dv">50</span>,<span class="dv">50</span>)})</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>pie <span class="op">=</span> insta.country.value_counts().plot(kind<span class="op">=</span><span class="st">'pie'</span>,autopct<span class="op">=</span><span class="st">'%1.0f</span><span class="sc">%%</span><span class="st">'</span>,textprops<span class="op">=</span>{<span class="st">'fontsize'</span>: <span class="dv">50</span>})<span class="co">#Use pieplot the distribution of countries</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>pie.set_title(<span class="st">"Country distribution among internet influencers"</span>,fontdict<span class="op">=</span> { <span class="st">'fontsize'</span>: <span class="dv">100</span>,<span class="st">'fontweight'</span>:<span class="st">'bold'</span>}) <span class="co">#set title for this plot</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display" data-execution_count="17">
 <pre><code>Text(0.5, 1.0, 'Country distribution among internet influencers')</code></pre>
@@ -708,23 +702,23 @@ country: users' origin. What countries they from?</code></pre>
 <div class="cell" data-execution_count="5">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> insta.sort_values(by <span class="op">=</span> [<span class="st">'influence_score'</span>], ascending<span class="op">=</span> <span class="va">False</span>)<span class="co">#Sort data with infleunce score</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> data.head(<span class="dv">20</span>)<span class="co">#subset data with top 20 infleuncers with high influence score</span></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>sns.<span class="bu">set</span>(rc<span class="op">=</span>{<span class="st">'figure.figsize'</span>:(<span class="dv">22</span>,<span class="dv">16</span>)})</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>sns.<span class="bu">set</span>(font_scale<span class="op">=</span><span class="dv">1</span>)<span class="co">#set font size</span></span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>f, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">3</span>)<span class="co"># plot the factors' plots toegther in order to gain better comparison</span></span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>lineplot1 <span class="op">=</span> sns.lineplot(y <span class="op">=</span> data.avg_likes,x <span class="op">=</span> data.influence_score,ax<span class="op">=</span>axes[<span class="dv">0</span>])<span class="co">#plot lineplot</span></span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>lineplot1.set_title(<span class="st">"influence_score VS average likes"</span>,fontdict<span class="op">=</span> { <span class="st">'fontsize'</span>: <span class="dv">15</span>,<span class="st">'fontweight'</span>:<span class="st">'bold'</span>})<span class="co">#set title foor the plot</span></span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>lineplot1.set_xlabel(<span class="st">"influence score"</span>,fontdict<span class="op">=</span>{<span class="st">"fontsize"</span>:<span class="dv">15</span>})<span class="co">#set xlabel</span></span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>lineplot1.set_ylabel(<span class="st">"average likes per post"</span>,fontdict<span class="op">=</span>{<span class="st">"fontsize"</span>:<span class="dv">15</span>})<span class="co">#set y label</span></span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>lineplot2 <span class="op">=</span> sns.lineplot(y <span class="op">=</span> data[<span class="st">'followers(m)'</span>],x <span class="op">=</span> data.influence_score,color<span class="op">=</span><span class="st">'red'</span>,ax<span class="op">=</span>axes[<span class="dv">1</span>])</span>
-<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>lineplot2.set_title(<span class="st">"influence_score VS followers"</span>,fontdict<span class="op">=</span> { <span class="st">'fontsize'</span>: <span class="dv">15</span>,<span class="st">'fontweight'</span>:<span class="st">'bold'</span>})<span class="co">#set title</span></span>
-<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>lineplot2.set_xlabel(<span class="st">"influence score"</span>,fontdict<span class="op">=</span>{<span class="st">"fontsize"</span>:<span class="dv">15</span>})<span class="co">#set xlabel</span></span>
-<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>lineplot2.set_ylabel(<span class="st">"follower(million)"</span>,fontdict<span class="op">=</span>{<span class="st">"fontsize"</span>:<span class="dv">15</span>})<span class="co">#set y label</span></span>
-<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>lineplot3 <span class="op">=</span> sns.lineplot(y <span class="op">=</span> data[<span class="st">'posts(k)'</span>],x <span class="op">=</span> data.influence_score,color<span class="op">=</span><span class="st">'orange'</span>,ax<span class="op">=</span>axes[<span class="dv">2</span>]) <span class="co">#plot lineplot</span></span>
-<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>lineplot3.set_title(<span class="st">"influence_score VS posts"</span>,fontdict<span class="op">=</span> { <span class="st">'fontsize'</span>: <span class="dv">15</span>,<span class="st">'fontweight'</span>:<span class="st">'bold'</span>})<span class="co">#set title</span></span>
-<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>lineplot3.set_xlabel(<span class="st">"influence score"</span>,fontdict<span class="op">=</span>{<span class="st">"fontsize"</span>:<span class="dv">15</span>})<span class="co">#set xlabel</span></span>
-<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>lineplot3.set_ylabel(<span class="st">"posts(1000)"</span>,fontdict<span class="op">=</span>{<span class="st">"fontsize"</span>:<span class="dv">15</span>})<span class="co">#set y label</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> insta.sort_values(by <span class="op">=</span> [<span class="st">'influence_score'</span>], ascending<span class="op">=</span> <span class="va">False</span>)<span class="co">#Sort data with infleunce score</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> data.head(<span class="dv">20</span>)<span class="co">#subset data with top 20 infleuncers with high influence score</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>sns.<span class="bu">set</span>(rc<span class="op">=</span>{<span class="st">'figure.figsize'</span>:(<span class="dv">22</span>,<span class="dv">16</span>)})</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>sns.<span class="bu">set</span>(font_scale<span class="op">=</span><span class="dv">1</span>)<span class="co">#set font size</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>f, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">3</span>)<span class="co"># plot the factors' plots toegther in order to gain better comparison</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>lineplot1 <span class="op">=</span> sns.lineplot(y <span class="op">=</span> data.avg_likes,x <span class="op">=</span> data.influence_score,ax<span class="op">=</span>axes[<span class="dv">0</span>])<span class="co">#plot lineplot</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>lineplot1.set_title(<span class="st">"influence_score VS average likes"</span>,fontdict<span class="op">=</span> { <span class="st">'fontsize'</span>: <span class="dv">15</span>,<span class="st">'fontweight'</span>:<span class="st">'bold'</span>})<span class="co">#set title foor the plot</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>lineplot1.set_xlabel(<span class="st">"influence score"</span>,fontdict<span class="op">=</span>{<span class="st">"fontsize"</span>:<span class="dv">15</span>})<span class="co">#set xlabel</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>lineplot1.set_ylabel(<span class="st">"average likes per post"</span>,fontdict<span class="op">=</span>{<span class="st">"fontsize"</span>:<span class="dv">15</span>})<span class="co">#set y label</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>lineplot2 <span class="op">=</span> sns.lineplot(y <span class="op">=</span> data[<span class="st">'followers(m)'</span>],x <span class="op">=</span> data.influence_score,color<span class="op">=</span><span class="st">'red'</span>,ax<span class="op">=</span>axes[<span class="dv">1</span>])</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>lineplot2.set_title(<span class="st">"influence_score VS followers"</span>,fontdict<span class="op">=</span> { <span class="st">'fontsize'</span>: <span class="dv">15</span>,<span class="st">'fontweight'</span>:<span class="st">'bold'</span>})<span class="co">#set title</span></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>lineplot2.set_xlabel(<span class="st">"influence score"</span>,fontdict<span class="op">=</span>{<span class="st">"fontsize"</span>:<span class="dv">15</span>})<span class="co">#set xlabel</span></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>lineplot2.set_ylabel(<span class="st">"follower(million)"</span>,fontdict<span class="op">=</span>{<span class="st">"fontsize"</span>:<span class="dv">15</span>})<span class="co">#set y label</span></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>lineplot3 <span class="op">=</span> sns.lineplot(y <span class="op">=</span> data[<span class="st">'posts(k)'</span>],x <span class="op">=</span> data.influence_score,color<span class="op">=</span><span class="st">'orange'</span>,ax<span class="op">=</span>axes[<span class="dv">2</span>]) <span class="co">#plot lineplot</span></span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>lineplot3.set_title(<span class="st">"influence_score VS posts"</span>,fontdict<span class="op">=</span> { <span class="st">'fontsize'</span>: <span class="dv">15</span>,<span class="st">'fontweight'</span>:<span class="st">'bold'</span>})<span class="co">#set title</span></span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>lineplot3.set_xlabel(<span class="st">"influence score"</span>,fontdict<span class="op">=</span>{<span class="st">"fontsize"</span>:<span class="dv">15</span>})<span class="co">#set xlabel</span></span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>lineplot3.set_ylabel(<span class="st">"posts(1000)"</span>,fontdict<span class="op">=</span>{<span class="st">"fontsize"</span>:<span class="dv">15</span>})<span class="co">#set y label</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display" data-execution_count="5">
 <pre><code>Text(0, 0.5, 'posts(1000)')</code></pre>
@@ -738,20 +732,20 @@ country: users' origin. What countries they from?</code></pre>
 <div class="cell" data-execution_count="7">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> insta.sort_values(by <span class="op">=</span> [<span class="st">'X60_day_eng_rate(%)'</span>], ascending<span class="op">=</span> <span class="va">False</span>)<span class="co">#Sort data with 60 day engagement rate</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> data.head(<span class="dv">15</span>)<span class="co">#subset data with top 15 infleuncers with high influence score</span></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>f, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>)<span class="co"># plot the factors' plots toegther in order to gain better comparison</span></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>barplot1 <span class="op">=</span> sns.barplot(y<span class="op">=</span>data[<span class="st">"channel_info"</span>], x <span class="op">=</span> data[<span class="st">'X60_day_eng_rate(%)'</span>],ax<span class="op">=</span>axes[<span class="dv">0</span>])<span class="co">#create the barplot with 60 day engagement rate</span></span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>barplot1.set_title(<span class="st">"Top 15 influencers with 60 days enegement rate"</span>,fontdict<span class="op">=</span> { <span class="st">'fontsize'</span>: <span class="dv">20</span>,<span class="st">'fontweight'</span>:<span class="st">'bold'</span>})<span class="co">#set title</span></span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>barplot1.set_xlabel(<span class="st">"60 days engagement rate(%)"</span>,fontdict<span class="op">=</span> { <span class="st">'fontsize'</span>: <span class="dv">20</span>})<span class="co">#set xlabel</span></span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>barplot1.set_ylabel(<span class="st">"channel names"</span>,fontdict<span class="op">=</span> { <span class="st">'fontsize'</span>: <span class="dv">20</span>})<span class="co">#set y label</span></span>
-<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>data1 <span class="op">=</span> insta.sort_values(by <span class="op">=</span> [<span class="st">'new_post_avg_like(m)'</span>], ascending<span class="op">=</span> <span class="va">False</span>)<span class="co">#Sort data with new post average likes</span></span>
-<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>data1 <span class="op">=</span> data1.head(<span class="dv">15</span>)<span class="co">#subset data with top 15 infleuncers with high new post average likes</span></span>
-<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>barplot2 <span class="op">=</span> sns.barplot(y<span class="op">=</span>data1[<span class="st">"channel_info"</span>], x <span class="op">=</span> data1[<span class="st">'new_post_avg_like(m)'</span>],ax<span class="op">=</span>axes[<span class="dv">1</span>])<span class="co">#create the barplot with new post average likes</span></span>
-<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>barplot2.set_title(<span class="st">"Top 15 influencers with new post average likes"</span>,fontdict<span class="op">=</span> { <span class="st">'fontsize'</span>: <span class="dv">20</span>,<span class="st">'fontweight'</span>:<span class="st">'bold'</span>})<span class="co">#set title</span></span>
-<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>barplot2.set_xlabel(<span class="st">"new post average likes(million)"</span>,fontdict<span class="op">=</span> { <span class="st">'fontsize'</span>: <span class="dv">20</span>})<span class="co">#set x label</span></span>
-<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>barplot2.set_ylabel(<span class="st">"channel names"</span>,fontdict<span class="op">=</span> { <span class="st">'fontsize'</span>: <span class="dv">20</span>})<span class="co">#set y label</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> insta.sort_values(by <span class="op">=</span> [<span class="st">'X60_day_eng_rate(%)'</span>], ascending<span class="op">=</span> <span class="va">False</span>)<span class="co">#Sort data with 60 day engagement rate</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> data.head(<span class="dv">15</span>)<span class="co">#subset data with top 15 infleuncers with high influence score</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>f, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>)<span class="co"># plot the factors' plots toegther in order to gain better comparison</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>barplot1 <span class="op">=</span> sns.barplot(y<span class="op">=</span>data[<span class="st">"channel_info"</span>], x <span class="op">=</span> data[<span class="st">'X60_day_eng_rate(%)'</span>],ax<span class="op">=</span>axes[<span class="dv">0</span>])<span class="co">#create the barplot with 60 day engagement rate</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>barplot1.set_title(<span class="st">"Top 15 influencers with 60 days enegement rate"</span>,fontdict<span class="op">=</span> { <span class="st">'fontsize'</span>: <span class="dv">20</span>,<span class="st">'fontweight'</span>:<span class="st">'bold'</span>})<span class="co">#set title</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>barplot1.set_xlabel(<span class="st">"60 days engagement rate(%)"</span>,fontdict<span class="op">=</span> { <span class="st">'fontsize'</span>: <span class="dv">20</span>})<span class="co">#set xlabel</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>barplot1.set_ylabel(<span class="st">"channel names"</span>,fontdict<span class="op">=</span> { <span class="st">'fontsize'</span>: <span class="dv">20</span>})<span class="co">#set y label</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>data1 <span class="op">=</span> insta.sort_values(by <span class="op">=</span> [<span class="st">'new_post_avg_like(m)'</span>], ascending<span class="op">=</span> <span class="va">False</span>)<span class="co">#Sort data with new post average likes</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>data1 <span class="op">=</span> data1.head(<span class="dv">15</span>)<span class="co">#subset data with top 15 infleuncers with high new post average likes</span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>barplot2 <span class="op">=</span> sns.barplot(y<span class="op">=</span>data1[<span class="st">"channel_info"</span>], x <span class="op">=</span> data1[<span class="st">'new_post_avg_like(m)'</span>],ax<span class="op">=</span>axes[<span class="dv">1</span>])<span class="co">#create the barplot with new post average likes</span></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>barplot2.set_title(<span class="st">"Top 15 influencers with new post average likes"</span>,fontdict<span class="op">=</span> { <span class="st">'fontsize'</span>: <span class="dv">20</span>,<span class="st">'fontweight'</span>:<span class="st">'bold'</span>})<span class="co">#set title</span></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>barplot2.set_xlabel(<span class="st">"new post average likes(million)"</span>,fontdict<span class="op">=</span> { <span class="st">'fontsize'</span>: <span class="dv">20</span>})<span class="co">#set x label</span></span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>barplot2.set_ylabel(<span class="st">"channel names"</span>,fontdict<span class="op">=</span> { <span class="st">'fontsize'</span>: <span class="dv">20</span>})<span class="co">#set y label</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display" data-execution_count="7">
 <pre><code>Text(0, 0.5, 'channel names')</code></pre>
@@ -810,9 +804,9 @@ Clicked on Ad: 0 or 1 indicated clicking on Ad</code></pre>
 <div class="cell" data-execution_count="9">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>adv <span class="op">=</span> pd.read_csv(<span class="st">"../data/01-modified-data/advertising.csv"</span>)</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>adv <span class="op">=</span> adv.select_dtypes([<span class="st">'number'</span>])</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>adv.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>adv <span class="op">=</span> pd.read_csv(<span class="st">"../data/01-modified-data/advertising.csv"</span>)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>adv <span class="op">=</span> adv.select_dtypes([<span class="st">'number'</span>])</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>adv.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display" data-execution_count="9">
 
@@ -886,7 +880,7 @@ Clicked on Ad: 0 or 1 indicated clicking on Ad</code></pre>
 <div class="cell" data-execution_count="10">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>adv.describe().transpose()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>adv.describe().transpose()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display" data-execution_count="10">
 
@@ -981,7 +975,7 @@ Clicked on Ad: 0 or 1 indicated clicking on Ad</code></pre>
 <div class="cell" data-execution_count="11">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>adv.info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>adv.info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;class 'pandas.core.frame.DataFrame'&gt;
@@ -1002,7 +996,7 @@ memory usage: 47.0 KB</code></pre>
 <div class="cell" data-execution_count="12">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>adv.isna().<span class="bu">sum</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>adv.isna().<span class="bu">sum</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display" data-execution_count="12">
 <pre><code>Daily Time Spent on Site    0
@@ -1017,7 +1011,7 @@ dtype: int64</code></pre>
 <div class="cell" data-execution_count="13">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>sns.pairplot(data<span class="op">=</span>adv,hue<span class="op">=</span><span class="st">'Clicked on Ad'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>sns.pairplot(data<span class="op">=</span>adv,hue<span class="op">=</span><span class="st">'Clicked on Ad'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display" data-execution_count="13">
 <pre><code>&lt;seaborn.axisgrid.PairGrid at 0x7fdb6bf4a830&gt;</code></pre>
@@ -1063,6 +1057,57 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
   function tippyHover(el, contentFn) {
     const config = {
       allowHTML: true,
