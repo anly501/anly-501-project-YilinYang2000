@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-0.9.649">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Decision Tree for record data</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="Decision-Tree1_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Decision-Tree1_files/libs/quarto-html/quarto.js"></script>
+<script src="Decision-Tree1_files/libs/quarto-html/popper.min.js"></script>
+<script src="Decision-Tree1_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Decision-Tree1_files/libs/quarto-html/anchor.min.js"></script>
+<link href="Decision-Tree1_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Decision-Tree1_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="Decision-Tree1_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Decision-Tree1_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Decision-Tree1_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Decision Tree for record data</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header>
+
+<section id="method-introduction" class="level4">
+<h4 class="anchored" data-anchor-id="method-introduction">Method Introduction</h4>
+<ol type="1">
+<li><p>Data Introduction</p>
+<p>Instagram is very popular nowadays among the world. People in different countries like to use this media platform to share their lives, post some exciting moments and connect with their families and friends. There are some instagram influencers can use the platform to gather likes from their fans, use their popularity to promote some advertisements in order to gain benefits from instagram. This dataset talks about how to measure the influence score among influencers. Here are the column introduction for this dataset.</p>
+<p>channel info: Username in instagram</p>
+<p>influence score: It is calculated based on their popularity.</p>
+<p>posts: total posts they have</p>
+<p>followers: total followers they have</p>
+<p>avg_likes: average likes of their total posts</p>
+<p>60_days_eng_rate: 60 days of engagement rate</p>
+<p>new_post_avg_like: a calculation of the average likes they gained from new posts.</p>
+<p>total_likes: total likes of their posts in instagram.</p>
+<p>country: users’ origin. What countries they from?</p></li>
+<li><p>What method am I using for this dataset?</p>
+<p>For this dataset, I am going to use decision tree model which uses a tree-like model of decisions and their possible consequences. It is a useful way to help me to evaluate my options. For this dataset, I want to use decision tree to predict whether the several factors (posts, followers, avg_likes, etc) have the effect on influence score(target). If I have these factors for instagram influencers, can I use decision trees to give a precise predicition for influencer scores among these influencers. I will use decision tree to split a population of data into smaller segments.</p></li>
+<li><p>Steps for method to process</p>
+<p>Import datasets</p>
+<pre><code> Drop unnecessary columns from the dataset
+
+ Drop NA value rows from the dataset</code></pre>
+<p>Basic data exploration</p>
+<pre><code> I will use y = "influence_score" (output_score) and all other remaining as X (input_feature) matrix. </code></pre>
+<p>Split Dataset</p>
+<pre><code> I will split dataset into 80% training data and 20% test data to get better prediction for tree model</code></pre>
+<p>Training the model and Testing the results</p>
+<pre><code> Use x_train,y_train to build a model of decision tree
+
+ Evaluate the performance of the decision tree model by using the test data. 
+
+     Generate a confusion matrix plot for decision tree model to evaluate the performance</code></pre>
+<p>Build a visulization of the tree</p>
+<pre><code> Decision tree uses a binary tree graph to assign each data sample a target value. I will use tree in sklearn in order to visulize the tree.</code></pre>
+<p>Hyper-parameter tuning</p>
+<pre><code> The "max_depth" hyper-parameter lets us control the number of layers in our tree.
+
+ Trying to find the lowest training and test error. </code></pre>
+<p>Re-train the decision tree with optimal model</p>
+<pre><code> Visulize confusion matrix plots and tree plots</code></pre>
+<p>Random Forst Model test and Prediction</p></li>
+</ol>
+</section>
+<section id="step-1-import-dataset" class="level4">
+<h4 class="anchored" data-anchor-id="step-1-import-dataset">Step 1: Import dataset</h4>
+<div class="cell" data-execution_count="1">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Read dataset in pd.read_csv and display first several rows.</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"../data/01-modified-data/instagram_infl.csv"</span>)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.drop([<span class="st">'channel_info'</span>,<span class="st">'country'</span>,<span class="st">'rank'</span>,<span class="st">'Unnamed: 0'</span>],axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.dropna()</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="1">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>influence_score</th>
+      <th>posts(k)</th>
+      <th>followers(m)</th>
+      <th>X60_day_eng_rate(%)</th>
+      <th>new_post_avg_like(m)</th>
+      <th>total_likes(b)</th>
+      <th>avg_likes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>92</td>
+      <td>3.30</td>
+      <td>475.8</td>
+      <td>1.39</td>
+      <td>6.5</td>
+      <td>29.0</td>
+      <td>8700000.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>91</td>
+      <td>6.90</td>
+      <td>366.2</td>
+      <td>1.62</td>
+      <td>5.9</td>
+      <td>57.4</td>
+      <td>8300000.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>90</td>
+      <td>0.89</td>
+      <td>357.3</td>
+      <td>1.24</td>
+      <td>4.4</td>
+      <td>6.0</td>
+      <td>6800000.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>93</td>
+      <td>1.80</td>
+      <td>342.7</td>
+      <td>0.97</td>
+      <td>3.3</td>
+      <td>11.5</td>
+      <td>6200000.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>91</td>
+      <td>6.80</td>
+      <td>334.1</td>
+      <td>0.20</td>
+      <td>665.3</td>
+      <td>12.5</td>
+      <td>1900000.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="2">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print shape and columns of the dataset and describe the dataset</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.shape)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.columns)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.describe)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>(192, 7)
+Index(['influence_score', 'posts(k)', 'followers(m)', 'X60_day_eng_rate(%)',
+       'new_post_avg_like(m)', 'total_likes(b)', 'avg_likes'],
+      dtype='object')
+&lt;bound method NDFrame.describe of      influence_score  posts(k)  followers(m)  X60_day_eng_rate(%)  \
+0                 92      3.30         475.8                 1.39   
+1                 91      6.90         366.2                 1.62   
+2                 90      0.89         357.3                 1.24   
+3                 93      1.80         342.7                 0.97   
+4                 91      6.80         334.1                 0.20   
+..               ...       ...           ...                  ...   
+195               71      2.30          33.2                 1.40   
+196               81      3.80          33.2                 0.64   
+197               79      0.77          33.2                 0.26   
+198               78      2.30          33.0                 1.42   
+199               80      4.20          32.8                 0.30   
+
+     new_post_avg_like(m)  total_likes(b)  avg_likes  
+0                     6.5            29.0  8700000.0  
+1                     5.9            57.4  8300000.0  
+2                     4.4             6.0  6800000.0  
+3                     3.3            11.5  6200000.0  
+4                   665.3            12.5  1900000.0  
+..                    ...             ...        ...  
+195                 464.7             1.4   623800.0  
+196                 208.0             1.5   390400.0  
+197                  82.6           149.2   193300.0  
+198                 467.7             1.7   719600.0  
+199                  97.4           969.1   232200.0  
+
+[192 rows x 7 columns]&gt;</code></pre>
+</div>
+</div>
+<p>At this time, Because there are too many different scores for influence score, I decided to define influence score as high or low. So I binned the influence score into 0-80 and 80-100.</p>
+<div class="cell" data-execution_count="3">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>bins <span class="op">=</span> [<span class="dv">0</span>,<span class="dv">80</span>,<span class="dv">100</span>]</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'binned'</span>] <span class="op">=</span> pd.cut(df[<span class="st">'influence_score'</span>], bins)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'binned'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="3">
+<pre><code>0      (80, 100]
+1      (80, 100]
+2      (80, 100]
+3      (80, 100]
+4      (80, 100]
+         ...    
+195      (0, 80]
+196    (80, 100]
+197      (0, 80]
+198      (0, 80]
+199      (0, 80]
+Name: binned, Length: 192, dtype: category
+Categories (2, interval[int64, right]): [(0, 80] &lt; (80, 100]]</code></pre>
+</div>
+</div>
+<p>Insert code to encode the column infl_score with value between 0 and 1. 1 represents high influence score. 0 represnets low influence score。 Then drop the useless columns which are influence score and binned</p>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Insert code to encode the column infl_score with value between 0 and 1. 1 represents high influence score. 0 represnets low influence score。 Then drop the useless columns which are influence score and binned</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> LabelEncoder</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>lbl<span class="op">=</span>LabelEncoder()</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'infl_score'</span>] <span class="op">=</span> lbl.fit_transform(df[<span class="st">'binned'</span>])</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.drop([<span class="st">'influence_score'</span>,<span class="st">'binned'</span>],axis<span class="op">=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</section>
+<section id="step-2-basic-data-exploration" class="level4">
+<h4 class="anchored" data-anchor-id="step-2-basic-data-exploration">Step 2: Basic data exploration</h4>
+<div class="cell" data-execution_count="5">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>corr <span class="op">=</span> df.corr()<span class="op">;</span>  <span class="co">#print(corr)                 #COMPUTE CORRELATION OF FEATER MATRIX</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(corr.shape)</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>sns.set_theme(style<span class="op">=</span><span class="st">"white"</span>)</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>f, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">20</span>, <span class="dv">20</span>))  <span class="co"># Set up the matplotlib figure</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>cmap <span class="op">=</span> sns.diverging_palette(<span class="dv">230</span>, <span class="dv">20</span>, as_cmap<span class="op">=</span><span class="va">True</span>)     <span class="co"># Generate a custom diverging colormap</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Draw the heatmap with the mask and correct aspect ratio</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>sns.heatmap(corr,  cmap<span class="op">=</span>cmap, vmin<span class="op">=-</span><span class="dv">1</span>, vmax<span class="op">=</span><span class="dv">1</span>, center<span class="op">=</span><span class="dv">0</span>, square<span class="op">=</span><span class="va">True</span>, linewidths<span class="op">=</span><span class="fl">.5</span>, cbar_kws<span class="op">=</span>{<span class="st">"shrink"</span>: <span class="fl">.5</span>})</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>(7, 7)</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="Decision-Tree1_files/figure-html/cell-6-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+<p>Insert code to explore the load balance and count the times infl_score = 0 and infl_score = 1</p>
+<div class="cell" data-execution_count="6">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Insert code to explore the load balance and count the times infl_score = 0 and infl_score = 1</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Number of points with infl_score=0:"</span>,<span class="bu">sum</span>(df[<span class="st">'infl_score'</span>]<span class="op">==</span><span class="dv">0</span>),<span class="bu">sum</span>(df[<span class="st">'infl_score'</span>]<span class="op">==</span><span class="dv">0</span>)<span class="op">/</span>(<span class="bu">sum</span>(df[<span class="st">'infl_score'</span>]<span class="op">==</span><span class="dv">0</span>)<span class="op">+</span><span class="bu">sum</span>(df[<span class="st">'infl_score'</span>]<span class="op">==</span><span class="dv">1</span>)))</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Number of points with infl_score=1:"</span>,<span class="bu">sum</span>(df[<span class="st">'infl_score'</span>]<span class="op">==</span><span class="dv">1</span>),<span class="bu">sum</span>(df[<span class="st">'infl_score'</span>]<span class="op">==</span><span class="dv">1</span>)<span class="op">/</span>(<span class="bu">sum</span>(df[<span class="st">'infl_score'</span>]<span class="op">==</span><span class="dv">0</span>)<span class="op">+</span><span class="bu">sum</span>(df[<span class="st">'infl_score'</span>]<span class="op">==</span><span class="dv">1</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Number of points with infl_score=0: 52 0.2708333333333333
+Number of points with infl_score=1: 140 0.7291666666666666</code></pre>
+</div>
+</div>
+</section>
+<section id="step-3-isolate-the-target-column-and-split-the-dataset" class="level4">
+<h4 class="anchored" data-anchor-id="step-3-isolate-the-target-column-and-split-the-dataset">Step 3: Isolate the target column and split the dataset</h4>
+<p>At this step, I assigned infl_score as the target column and stored it in variable y</p>
+<p>The variable X contains all other features which is excluded from infl_score</p>
+<p>I transfered X to a numpy array</p>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> df[<span class="st">'infl_score'</span>]</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> df.drop([<span class="st">'infl_score'</span>],axis<span class="op">=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>cols <span class="op">=</span> []</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> col <span class="kw">in</span> X:</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    cols.append(col)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> X.to_numpy()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<p>Insert code to partition datasets into training and testing datasets and print types and shapes of these datasets</p>
+<div class="cell" data-execution_count="10">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>x_train,x_test,y_train,y_test<span class="op">=</span>train_test_split(X,y,test_size<span class="op">=</span><span class="fl">0.2</span>,random_state<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">type</span>(x_train),x_train.shape)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">type</span>(y_train),y_train.shape)</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">type</span>(x_test),x_test.shape)</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">type</span>(y_test),y_test.shape)</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(y.value_counts())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;class 'numpy.ndarray'&gt; (153, 6)
+&lt;class 'pandas.core.series.Series'&gt; (153,)
+&lt;class 'numpy.ndarray'&gt; (39, 6)
+&lt;class 'pandas.core.series.Series'&gt; (39,)
+1    140
+0     52
+Name: infl_score, dtype: int64</code></pre>
+</div>
+</div>
+</section>
+<section id="step-4-training-the-model" class="level4">
+<h4 class="anchored" data-anchor-id="step-4-training-the-model">Step 4: Training the model</h4>
+<p>Insert code to use decision tree model in sklearn and train the model on x_train, y_train</p>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Insert code to use decision tree model in sklearn and train the model on x_train, y_train</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn <span class="im">import</span> tree</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> tree.DecisionTreeClassifier()</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> model.fit(x_train,y_train)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<p>INSERT CODE TO USE THE MODEL TO MAKE PREDICTIONS FOR THE TRAINING AND TEST SET</p>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>yp_train <span class="op">=</span> model.predict(x_train)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>yp_test <span class="op">=</span> model.predict(x_test)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<p>INSERT CODE TO WRITE A FUNCTION def confusion_plot(y_data,y_pred) WHICH GENERATES A CONFUSION MATRIX PLOT AND PRINTS THE INFORMATION ABOVE</p>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co">#INSERT CODE TO WRITE A FUNCTION def confusion_plot(y_data,y_pred) WHICH GENERATES A CONFUSION MATRIX PLOT AND PRINTS THE INFORMATION ABOVE (see link above for example)</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> confusion_matrix</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> ConfusionMatrixDisplay</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> accuracy_score</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> precision_score</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> recall_score</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn <span class="im">import</span> tree</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> classification_report</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> Image</span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestClassifier</span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.inspection <span class="im">import</span> permutation_importance</span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> confusion_plot(y_test,yp_test):</span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"ACCURACY:"</span>,accuracy_score(y_test,yp_test))</span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"NEGATIVE RECALL (Y=0):"</span>,recall_score(y_test, yp_test, pos_label <span class="op">=</span> <span class="dv">0</span>))</span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"NEGATIVE PRECISION (Y=0):"</span>,precision_score(y_test,yp_test, pos_label<span class="op">=</span> <span class="dv">0</span>))</span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"POSITIVE RECALL (Y=1):"</span>,recall_score(y_test,yp_test))</span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"POSITIVE PRECISION(Y=1):"</span>,precision_score(y_test,yp_test))</span>
+<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(confusion_matrix(y_test,yp_test))</span>
+<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a>    ConfusionMatrixDisplay.from_predictions(y_test, yp_test)</span>
+<span id="cb25-20"><a href="#cb25-20" aria-hidden="true" tabindex="-1"></a>    plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<p>RUN THE FOLLOWING CODE TO TEST YOUR FUNCTION</p>
+<div class="cell" data-execution_count="14">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># RUN THE FOLLOWING CODE TO </span><span class="al">TEST</span><span class="co"> YOUR FUNCTION </span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"------TRAINING------"</span>)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>confusion_plot(y_train,yp_train)</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"------TEST------"</span>)</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>confusion_plot(y_test,yp_test)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>------TRAINING------
+ACCURACY: 1.0
+NEGATIVE RECALL (Y=0): 1.0
+NEGATIVE PRECISION (Y=0): 1.0
+POSITIVE RECALL (Y=1): 1.0
+POSITIVE PRECISION(Y=1): 1.0
+[[ 39   0]
+ [  0 114]]</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="Decision-Tree1_files/figure-html/cell-15-output-2.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>------TEST------
+ACCURACY: 0.6666666666666666
+NEGATIVE RECALL (Y=0): 0.38461538461538464
+NEGATIVE PRECISION (Y=0): 0.5
+POSITIVE RECALL (Y=1): 0.8076923076923077
+POSITIVE PRECISION(Y=1): 0.7241379310344828
+[[ 5  8]
+ [ 5 21]]</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="Decision-Tree1_files/figure-html/cell-15-output-4.png" class="img-fluid"></p>
+</div>
+</div>
+<p>Comment: As we can see, as the confusion matrix shows on the plot, The accuracy score is nearly 71.7%, we can conclude that the decision is a fine model to predict this record dataset. Then I want to do some parameter tunning in order to improve the prediction accuracy.</p>
+</section>
+<section id="step-5-build-a-visulization-of-the-tree" class="level4">
+<h4 class="anchored" data-anchor-id="step-5-build-a-visulization-of-the-tree">Step 5: Build a visulization of the tree</h4>
+<div class="cell" data-execution_count="15">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_tree(model,X,Y):</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>    fig <span class="op">=</span> plt.figure(figsize<span class="op">=</span>(<span class="dv">25</span>,<span class="dv">20</span>))</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>    _ <span class="op">=</span> tree.plot_tree(model,filled<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>plot_tree(model,X,y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<p><img src="Decision-Tree1_files/figure-html/cell-16-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+<section id="step-6-hyper-parameter-tunning" class="level4">
+<h4 class="anchored" data-anchor-id="step-6-hyper-parameter-tunning">Step 6: Hyper-parameter tunning</h4>
+<pre><code>The "max_depth" hyper-parameter lets us control the number of layers in our tree.
+Lets iterate over "max_depth" and try to find the set of hyper-parameters with the lowest training AND test error.</code></pre>
+<p>RUN THE FOLLOWING CODE TO LOOP OVER POSSIBLE HYPER-PARAMETERS VALUES</p>
+<div class="cell" data-execution_count="16">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>test_results<span class="op">=</span>[]</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>train_results<span class="op">=</span>[]</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> num_layer <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>,<span class="dv">20</span>):</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>    model <span class="op">=</span> tree.DecisionTreeClassifier(max_depth<span class="op">=</span>num_layer)</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>    model <span class="op">=</span> model.fit(x_train,y_train)</span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>    yp_train<span class="op">=</span>model.predict(x_train)</span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>    yp_test<span class="op">=</span>model.predict(x_test)</span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># print(y_pred.shape)</span></span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>    test_results.append([num_layer,accuracy_score(y_test, yp_test),recall_score(y_test, yp_test,pos_label<span class="op">=</span><span class="dv">0</span>),recall_score(y_test, yp_test,pos_label<span class="op">=</span><span class="dv">1</span>)])</span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>    train_results.append([num_layer,accuracy_score(y_train, yp_train),recall_score(y_train, yp_train,pos_label<span class="op">=</span><span class="dv">0</span>),recall_score(y_train, yp_train,pos_label<span class="op">=</span><span class="dv">1</span>)])</span>
+<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a>test_results <span class="op">=</span> pd.DataFrame(test_results)</span>
+<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a>train_results <span class="op">=</span> pd.DataFrame(train_results)</span>
+<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(test_results.head())</span>
+<span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(train_results.head())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>   0         1         2         3
+0  1  0.743590  0.615385  0.807692
+1  2  0.692308  0.076923  1.000000
+2  3  0.717949  0.153846  1.000000
+3  4  0.743590  0.307692  0.961538
+4  5  0.692308  0.461538  0.807692
+   0         1         2         3
+0  1  0.745098  0.410256  0.859649
+1  2  0.784314  0.179487  0.991228
+2  3  0.790850  0.205128  0.991228
+3  4  0.869281  0.564103  0.973684
+4  5  0.901961  0.666667  0.982456</code></pre>
+</div>
+</div>
+<p>INSERT CODE TO GENERATE THE THREE PLOTS BELOW (SEE EXPECTED OUTPUT FOR EXAMPLE)</p>
+<div class="cell" data-execution_count="17">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># INSERT CODE TO GENERATE THE THREE PLOTS BELOW (SEE EXPECTED OUTPUT FOR EXAMPLE)</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">NOTE</span><span class="co">: THERE IS A TYPO IN THE THIRD PLOT, IT SHOULD BE RECALL IN THE Y-AXIS LABEL NOT ACCURACY</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>plt.plot(train_results[<span class="dv">0</span>],train_results[<span class="dv">1</span>],<span class="st">'-o'</span>)</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>plt.plot(test_results[<span class="dv">0</span>],test_results[<span class="dv">1</span>],<span class="st">'-o'</span>,color <span class="op">=</span> <span class="st">'darkred'</span>)</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Number of layers in decision tree (max_depth)"</span>)</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"ACCURACY(Y=0): Training (blue) and Test (red)"</span>)</span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>plt.plot(train_results[<span class="dv">0</span>],train_results[<span class="dv">2</span>],<span class="st">'-o'</span>)</span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>plt.plot(test_results[<span class="dv">0</span>],test_results[<span class="dv">2</span>],<span class="st">'-o'</span>,color <span class="op">=</span> <span class="st">'darkred'</span>)</span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Number of layers in decision tree (max_depth)"</span>)</span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"RECALL(Y=0): Training (blue) and Test (red)"</span>)</span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a>plt.plot(train_results[<span class="dv">0</span>],train_results[<span class="dv">3</span>],<span class="st">'-o'</span>)</span>
+<span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a>plt.plot(test_results[<span class="dv">0</span>],test_results[<span class="dv">3</span>],<span class="st">'-o'</span>,color <span class="op">=</span> <span class="st">'darkred'</span>)</span>
+<span id="cb33-18"><a href="#cb33-18" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Number of layers in decision tree (max_depth)"</span>)</span>
+<span id="cb33-19"><a href="#cb33-19" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"RECALL(Y=1): Training (blue) and Test (red)"</span>)</span>
+<span id="cb33-20"><a href="#cb33-20" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<p><img src="Decision-Tree1_files/figure-html/cell-18-output-1.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="Decision-Tree1_files/figure-html/cell-18-output-2.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="Decision-Tree1_files/figure-html/cell-18-output-3.png" class="img-fluid"></p>
+</div>
+</div>
+<p>RUN THE CODE BELOW TO TRAIN A SKLEARN DECISION TREE MODEL ON x_train,y_train</p>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co">#### COMPLETE THE CODE BELOW TO TRAIN A SKLEARN DECISION TREE MODEL ON x_train,y_train </span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn <span class="im">import</span> tree</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> tree.DecisionTreeClassifier(max_depth<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> model.fit(x_train,y_train)</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>yp_train<span class="op">=</span>model.predict(x_train)</span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>yp_test<span class="op">=</span>model.predict(x_test)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<p>When I assigned max_depth to 2, the accuracy score for test went higher. Within the hyper-parameter tunning, it becomes a more accurate model to predict record dataset.</p>
+<p>#### Step 7: Re-train the decision tree with optimal model</p>
+<p>RUN THE FOLLOWING CODE TO EVALUATE YOUR MODEL</p>
+<div class="cell" data-execution_count="19">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># RUN THE FOLLOWING CODE TO EVALUATE YOUR MODEL</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"------TRAINING------"</span>)</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>confusion_plot(y_train,yp_train)</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"------TEST------"</span>)</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>confusion_plot(y_test,yp_test)</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>plot_tree(model,X,y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>------TRAINING------
+ACCURACY: 0.7843137254901961
+NEGATIVE RECALL (Y=0): 0.1794871794871795
+NEGATIVE PRECISION (Y=0): 0.875
+POSITIVE RECALL (Y=1): 0.9912280701754386
+POSITIVE PRECISION(Y=1): 0.7793103448275862
+[[  7  32]
+ [  1 113]]</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="Decision-Tree1_files/figure-html/cell-20-output-2.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>------TEST------
+ACCURACY: 0.6923076923076923
+NEGATIVE RECALL (Y=0): 0.07692307692307693
+NEGATIVE PRECISION (Y=0): 1.0
+POSITIVE RECALL (Y=1): 1.0
+POSITIVE PRECISION(Y=1): 0.6842105263157895
+[[ 1 12]
+ [ 0 26]]</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="Decision-Tree1_files/figure-html/cell-20-output-4.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="Decision-Tree1_files/figure-html/cell-20-output-5.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+<section id="decision-tree-model-conclusion" class="level4">
+<h4 class="anchored" data-anchor-id="decision-tree-model-conclusion">Decision Tree model conclusion</h4>
+<pre><code>Decision Tree is a decision analysis method for evaluating project risk and judging its feasibility by forming a decision tree to obtain the probability that the expected value of the net present value is greater than or equal to zero on the basis of knowing the probability of occurrence of various situations. A graphical method for intuitive use of probability analysis. Because this kind of decision-making branch is drawn in a graph that resembles the branches of a tree, it is called a decision tree.For the optimal model, I got the acccuracy score which is approximately 77%. We can conclude that it is a good model to predict the record data. More than this, Within the max_depth is assigned to 2, we can conclude that the most important for feature is X[1] which is the number of followers, then the decision tree went through to calculate the features X[0] and X[4] which are the number of posts and the number of total likes. Within the feature selection, we can conclude that these three features are highly correlated to determine the influence scores. I would like to find more on random forest model in the following. </code></pre>
+</section>
+<section id="random-forest-classification" class="level4">
+<h4 class="anchored" data-anchor-id="random-forest-classification">Random Forest Classification</h4>
+<p>Random forests or random decision forests are ensemble learning methods for classification, regression, and other tasks that operate by building multiple decision trees at training time and outputting the classes as patterns of classes (classification) or average predictions (regression). individual trees. Random decision forests correct the habit of decision trees to overfit their training set. In this step, I plan to build and evaluate a model for random forest, then calculate the feature importance of random forest.</p>
+<p>Instantiate and fit the RandomForestClassifier</p>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Instantiate and fit the RandomForestClassifier</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestClassifier</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>forest <span class="op">=</span> RandomForestClassifier()</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>forest.fit(x_train, y_train)</span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>yp_train <span class="op">=</span> forest.predict(x_train)</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>yp_test <span class="op">=</span> forest.predict(x_test)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell" data-execution_count="21">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>accuracy_score(y_test, yp_test)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="21">
+<pre><code>0.717948717948718</code></pre>
+</div>
+</div>
+<p>TEST MY FUNCTION</p>
+<div class="cell" data-execution_count="22">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># RUN THE FOLLOWING CODE TO </span><span class="al">TEST</span><span class="co"> YOUR FUNCTION </span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"------TRAINING------"</span>)</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>confusion_plot(y_train,yp_train)</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(classification_report(y_test, yp_test))</span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"------TEST------"</span>)</span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>confusion_plot(y_test,yp_test)</span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(classification_report(y_test, yp_test))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>------TRAINING------
+ACCURACY: 1.0
+NEGATIVE RECALL (Y=0): 1.0
+NEGATIVE PRECISION (Y=0): 1.0
+POSITIVE RECALL (Y=1): 1.0
+POSITIVE PRECISION(Y=1): 1.0
+[[ 39   0]
+ [  0 114]]</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="Decision-Tree1_files/figure-html/cell-23-output-2.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>              precision    recall  f1-score   support
+
+           0       0.62      0.38      0.48        13
+           1       0.74      0.88      0.81        26
+
+    accuracy                           0.72        39
+   macro avg       0.68      0.63      0.64        39
+weighted avg       0.70      0.72      0.70        39
+
+------TEST------
+ACCURACY: 0.717948717948718
+NEGATIVE RECALL (Y=0): 0.38461538461538464
+NEGATIVE PRECISION (Y=0): 0.625
+POSITIVE RECALL (Y=1): 0.8846153846153846
+POSITIVE PRECISION(Y=1): 0.7419354838709677
+[[ 5  8]
+ [ 3 23]]</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="Decision-Tree1_files/figure-html/cell-23-output-4.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>              precision    recall  f1-score   support
+
+           0       0.62      0.38      0.48        13
+           1       0.74      0.88      0.81        26
+
+    accuracy                           0.72        39
+   macro avg       0.68      0.63      0.64        39
+weighted avg       0.70      0.72      0.70        39
+</code></pre>
+</div>
+</div>
+<section id="built-in-feature-importance" class="level5">
+<h5 class="anchored" data-anchor-id="built-in-feature-importance">built-in feature importance</h5>
+<pre><code>We can measure how each feature decrease the impurity of the split (the feature with highest decrease is selected for internal node). For each feature we can collect how on average it decreases the impurity. The average over all trees in the forest is the measure of the feature importance. </code></pre>
+<div class="cell" data-execution_count="23">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>plt.barh(cols, forest.feature_importances_)</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Random Forest Feature Importance"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="23">
+<pre><code>Text(0.5, 0, 'Random Forest Feature Importance')</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="Decision-Tree1_files/figure-html/cell-24-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+<section id="permutation-based-feature-importance" class="level5">
+<h5 class="anchored" data-anchor-id="permutation-based-feature-importance">Permutation Based Feature Importance</h5>
+<pre><code>The permutation based importance can be used to overcome drawbacks of default feature importance computed with mean impurity decrease. This method will randomly shuffle each feature and compute the change in the model’s performance. The features which impact the performance the most are the most important one.</code></pre>
+<div class="cell" data-execution_count="24">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>perm_importance <span class="op">=</span> permutation_importance(forest, x_test, y_test)</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>plt.barh(cols, perm_importance.importances_mean)</span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Permutation Importance"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="24">
+<pre><code>Text(0.5, 0, 'Permutation Importance')</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="Decision-Tree1_files/figure-html/cell-25-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+<section id="conclusion" class="level5">
+<h5 class="anchored" data-anchor-id="conclusion">Conclusion</h5>
+<pre><code>As the confusion matrix showed in  random forest model, the accuracy is above 74%, which is a good model for predict instagram influencers' dataset. I used two ways to compute the feature importance:
+
+    1. built-in feature importance
+
+    2. permutation based importance
+
+In my opinion, it is always good to check both methods to overcome the other's drawback. From the plot, we can conclude that followers are the most important features to determine the influence scores. X60_day_eng_rate is the second important feature to determine the influence scores. Posts in built-in feature importance is high but in permutation is low. But from the decision tree and random forest from all over this page, the infleunce scores are highly determined by followers. The numbder of followers is one of the most important factors to determine the influence score. </code></pre>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
